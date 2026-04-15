@@ -1,65 +1,105 @@
-import Image from "next/image";
+import Link from "next/link"
+import { Navbar } from "@/components/layout/navbar"
+import { Sidebar } from "@/components/layout/sidebar"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
-export default function Home() {
+const features = [
+  { icon: "◈", title: "Mint algoUSD", desc: "Borrow against ALGO at 150%+ collateral ratio" },
+  { icon: "⬡", title: "Manage vaults", desc: "Deposit, withdraw, repay anytime from your dashboard" },
+  { icon: "⊙", title: "Oracle-backed pricing", desc: "ALGO price fed on-chain, auditable by anyone" },
+  { icon: "⊘", title: "Transparent liquidations", desc: "Anyone can liquidate undercollateralized vaults" },
+]
+
+const howItWorks = [
+  { step: "1", title: "Deposit ALGO", desc: "Lock ALGO collateral in your vault smart contract" },
+  { step: "2", title: "Mint algoUSD", desc: "Borrow up to 66% of collateral value (150% min ratio)" },
+  { step: "3", title: "Stay safe", desc: "Monitor your ratio. Repay or add collateral to avoid liquidation" },
+]
+
+const protocolStats = [
+  { label: "Total Value Locked", value: "$4.2M" },
+  { label: "algoUSD Minted", value: "$1.8M" },
+  { label: "Active Vaults", value: "318" },
+  { label: "System Collateral Ratio", value: "231%" },
+]
+
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="flex flex-col h-full">
+      <Navbar />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto bg-background">
+          <div className="max-w-2xl mx-auto px-6 py-12 text-center">
+            {/* Hero */}
+            <div className="mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Mainnet live · Oracle active
+              </div>
+              <h1 className="text-3xl font-semibold tracking-tight mb-3">
+                Mint stablecoins against<br />ALGO collateral
+              </h1>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-md mx-auto mb-7">
+                Deposit ALGO, mint algoUSD. A transparent, overcollateralized stablecoin protocol on
+                Algorand — with real-time oracle pricing, on-chain liquidations, and vault-level risk monitoring.
+              </p>
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <Link href="/vaults/create" className={buttonVariants()}>
+                  Connect Wallet &amp; Create Vault
+                </Link>
+                <Link href="/dashboard" className={cn(buttonVariants({ variant: "outline" }))}>
+                  View Protocol Stats
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick stats */}
+            <div className="grid grid-cols-4 gap-3 mb-10">
+              {protocolStats.map(({ label, value }) => (
+                <div key={label} className="bg-card border border-border rounded-lg p-3 text-left">
+                  <div className="text-[10px] text-muted-foreground mb-0.5">{label}</div>
+                  <div className="text-base font-semibold">{value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Features */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+              {features.map(({ icon, title, desc }) => (
+                <div key={title} className="bg-card border border-border rounded-lg p-3.5 text-left">
+                  <div className="text-xl mb-2 opacity-70">{icon}</div>
+                  <div className="text-xs font-medium mb-1">{title}</div>
+                  <div className="text-[11px] text-muted-foreground leading-relaxed">{desc}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* How it works */}
+            <div className="bg-card border border-border rounded-lg p-5 text-left mb-5">
+              <div className="text-xs font-medium text-muted-foreground mb-4">How it works</div>
+              <div className="grid grid-cols-3 gap-5">
+                {howItWorks.map(({ step, title, desc }) => (
+                  <div key={step}>
+                    <div className="w-6 h-6 rounded-full bg-secondary border border-border flex items-center justify-center text-xs font-semibold mb-2">
+                      {step}
+                    </div>
+                    <div className="text-xs font-medium mb-1">{title}</div>
+                    <div className="text-[11px] text-muted-foreground leading-relaxed">{desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Risk banner */}
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-3 text-xs text-amber-400 text-left">
+              <span className="font-medium">Risk disclosure:</span> DeFi involves smart contract risk,
+              oracle risk, and market volatility. Collateral may be liquidated if ratio falls below threshold.
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
-  );
+  )
 }
