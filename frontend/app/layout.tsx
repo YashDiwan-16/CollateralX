@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import { WalletKitProvider } from "@/providers/wallet-provider"
 import "./globals.css"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
-      <body className="h-full bg-background text-foreground">{children}</body>
+      <body className="h-full bg-background text-foreground">
+        <WalletKitProvider>{children}</WalletKitProvider>
+      </body>
     </html>
   )
 }

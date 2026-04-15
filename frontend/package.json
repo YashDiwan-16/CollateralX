@@ -9,10 +9,18 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@agoralabs-sh/avm-web-provider": "^1.7.0",
     "@base-ui/react": "^1.4.0",
+    "@blockshake/defly-connect": "^1.2.1",
+    "@perawallet/connect": "^1.5.2",
+    "@txnlab/use-wallet-react": "^4.6.0",
+    "@walletconnect/modal": "^2.7.0",
+    "@walletconnect/sign-client": "^2.23.9",
+    "algosdk": "^3.5.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.8.0",
+    "lute-connect": "^1.7.0",
     "next": "16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",

@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useWallet } from "@txnlab/use-wallet-react"
+import { ConnectWalletModal } from "@/components/wallet/connect-wallet-modal"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
@@ -46,11 +48,16 @@ export function Navbar() {
       </div>
 
       <div className="flex items-center gap-3">
-        <span className="text-[10px] text-muted-foreground">ALGO: $0.38</span>
-        <button className="text-[11px] px-3 py-1 rounded-md border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/5 transition-colors">
-          ● ALGO…7f4a
-        </button>
+        <AlgoPrice />
+        <ConnectWalletModal />
       </div>
     </header>
+  )
+}
+
+// Separate component so useWallet only affects this small piece
+function AlgoPrice() {
+  return (
+    <span className="text-[10px] text-muted-foreground tabular-nums">ALGO: $0.38</span>
   )
 }
