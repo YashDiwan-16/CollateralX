@@ -4,7 +4,6 @@
 # Keep project source directories
 !algorand/
 !frontend/
-!docs/
 
 # Keep root-level project files
 !CLAUDE.md
@@ -18,4 +17,4 @@
 .cursor/
 .cursorrules
 .mcp.json
-.docs/
+docs/
