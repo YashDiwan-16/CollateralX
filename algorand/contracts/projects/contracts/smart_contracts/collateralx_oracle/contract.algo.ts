@@ -93,7 +93,7 @@ export class CollateralXOracleAdapter extends Contract {
     }
   }
 
-  /** Admin-only manual oracle update placeholder. */
+  /** Admin-only manual oracle update used by the current adapter authority model. */
   public adminUpdatePrice(pricePerAlgoMicroUsd: uint64, updatedAt: uint64, source: bytes): void {
     this.assertReady()
     this.assertAdmin()

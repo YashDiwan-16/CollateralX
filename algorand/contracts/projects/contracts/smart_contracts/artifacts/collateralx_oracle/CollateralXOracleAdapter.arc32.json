@@ -189,7 +189,7 @@
                 "returns": {
                     "type": "void"
                 },
-                "desc": "Admin-only manual oracle update placeholder."
+                "desc": "Admin-only manual oracle update used by the current adapter authority model."
             },
             {
                 "name": "adminSetOracleConfig",

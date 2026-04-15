@@ -13,7 +13,7 @@ export const BPS_DENOMINATOR: uint64 = Uint64(10_000)
 
 function bigToUint64(value: biguint): uint64 {
   assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
-  return op.btoi(Bytes<8>(value, { length: 8 }))
+  return op.btoi(Bytes(value))
 }
 
 export function safeAdd(left: uint64, right: uint64): uint64 {

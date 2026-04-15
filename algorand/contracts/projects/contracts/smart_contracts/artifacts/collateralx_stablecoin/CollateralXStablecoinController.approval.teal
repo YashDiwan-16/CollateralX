@@ -634,12 +634,7 @@ mintForVault:
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
-    // return op.btoi(Bytes<8>(value, { length: 8 }))
-    dup
-    len
-    intc_1 // 8
-    ==
-    assert // Length must be 8
+    // return op.btoi(Bytes(value))
     btoi
     // smart_contracts/collateralx_stablecoin/contract.algo.ts:168
     // assert(newIssuedSupply <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')

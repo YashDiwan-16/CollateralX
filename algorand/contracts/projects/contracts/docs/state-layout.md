@@ -170,6 +170,147 @@ Each box reference provides 1 KiB of box I/O budget, and budget is shared across
 the transaction group. The current fixed vault record is intentionally small so
 one reference per vault box is enough.
 
+Stablecoin issuance also has minimum-balance implications. The stablecoin
+controller app opts into the stablecoin ASA before it can hold the reserve, which
+adds the standard ASA holding MBR to the controller account. The protocol manager
+keeps deposited ALGO in its app account, but that balance is not all withdrawable:
+box MBR, app MBR, and future execution buffers must remain locked before any
+collateral-release feature is enabled.
+
+## Deposit And Mint Call Flows
+
+All user calls are ARC-4 ABI calls generated into typed clients. Group shape is
+part of the security boundary: the protocol rejects unexpected group structures
+so callers cannot smuggle alternate senders, receivers, close-outs, or rekeys.
+
+### Deposit Collateral
+
+`depositCollateral(pay,uint64)void` requires exactly two outer transactions:
+
+| Group Index | Transaction | Required Fields |
+| ---: | --- | --- |
+| `0` | Payment | `sender = vault.owner`, `receiver = protocol app address`, `amount > 0`, no `rekeyTo`, no `closeRemainderTo`. |
+| `1` | App call | `sender = vault.owner`, method `depositCollateral`, vault box reference `v + uint64_be(vaultId)`. |
+
+The payment transaction must be passed as the ARC-4 transaction argument. The
+contract verifies it is at group index `0`, the app call is at group index `1`,
+and both senders match the owner stored in the vault box.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Protocol as Protocol Manager
+  participant VaultBox as Vault Box
+
+  User->>Protocol: group[0] pay ALGO to app account
+  User->>Protocol: group[1] depositCollateral(pay, vaultId)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify owner, receiver, amount, no rekey/close
+  Protocol->>VaultBox: collateralMicroAlgo += payment.amount
+  Protocol->>Protocol: totalCollateralMicroAlgo += payment.amount
+  Protocol-->>User: emit CollateralDepositedEvent
+```
+
+No inner transactions are used for deposit. The app account balance increases by
+the payment amount, and the vault box plus aggregate collateral counter record
+the accounting view used by later mint, withdraw, and liquidation checks.
+
+### Read Maximum Mintable
+
+`readMaxMintable(uint64)uint64` is a read-only ABI call. Callers must provide the
+vault box and foreign app references for the configured oracle adapter and
+stablecoin controller. The protocol reads:
+
+| Source | Values |
+| --- | --- |
+| Vault box | `collateralMicroAlgo`, `debtMicroStable`, `owner`, `status`. |
+| Protocol globals | `mcr`, `vmcp`, `tdbt`, `pdc`, `ofw`, integration app ids. |
+| Oracle globals | `px`, `upd`, `maxa`, `pflg`. |
+| Stablecoin globals | `asa`, `supply`, `ceil`. |
+
+The result is:
+
+```text
+collateral_value_micro_stable = collateral_micro_algo * price_micro_stable_per_algo / 1_000_000
+collateral_capacity = collateral_value_micro_stable * 10_000 / min_collateral_ratio_bps
+available = min(
+  collateral_capacity - existing_vault_debt,
+  vault_mint_cap - existing_vault_debt,
+  protocol_debt_ceiling - total_protocol_debt,
+  stablecoin_supply_ceiling - issued_stablecoin_supply
+)
+```
+
+All subtraction is saturating at zero. The oracle sample must not be in the
+future and must be within both the protocol freshness window and the oracle
+adapter max-age window.
+
+### Mint Stablecoin
+
+`mintStablecoin(uint64,uint64)void` requires a single outer app call. The method
+performs all health and capacity checks before requesting stablecoin transfer
+from the controller.
+
+Required references:
+
+| Reference Type | Required Values |
+| --- | --- |
+| Boxes | Vault box `v + uint64_be(vaultId)`. |
+| Apps | Oracle adapter app id and stablecoin controller app id. |
+| Assets | Stablecoin ASA id. |
+| Accounts | Vault owner/receiver and stablecoin controller app address. |
+| Fees | Extra fee budget for the protocol inner app call and the controller's inner ASA transfer. |
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Protocol as Protocol Manager
+  participant Oracle as Oracle Adapter
+  participant Stable as Stablecoin Controller
+  participant ASA as Stablecoin ASA
+  participant VaultBox as Vault Box
+
+  User->>Protocol: mintStablecoin(vaultId, amount)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify sender owns vault and mint is not paused
+  Protocol->>Oracle: read price and freshness globals
+  Protocol->>Stable: read stable asset, issued supply, ceiling globals
+  Protocol->>Protocol: calculate available capacity and post-mint health
+  Protocol->>Stable: inner app call mintForVault(vaultId, owner, amount)
+  Stable->>Stable: verify caller app == configured protocol manager
+  Stable->>ASA: inner axfer from controller reserve to owner
+  Stable->>Stable: issuedSupplyMicroStable += amount
+  Protocol->>VaultBox: debtMicroStable += amount
+  Protocol->>Protocol: totalDebtMicroStable += amount
+  Protocol-->>User: emit StablecoinMintedEvent
+```
+
+Stablecoin control is protocol-gated. Only the configured protocol manager app
+can call `mintForVault`, and the controller independently checks its pause flags,
+supply ceiling, ASA reserve balance, and receiver opt-in before transferring.
+If any step fails, the entire outer transaction fails and neither the vault nor
+the stablecoin supply counters are updated.
+
+### Keeper And Frontend Discovery
+
+Frontends should call `readProtocolStatus()` first to discover current app ids,
+pause flags, aggregate counters, and whether the protocol is initialized. A
+wallet's vaults can be discovered by scanning owner-index boxes with prefix `o`
+and the wallet address, then reading each `v` box or calling `readVault(vaultId)`.
+
+Keepers and indexers should watch ARC-28 logs:
+
+| Event | Use |
+| --- | --- |
+| `VaultCreatedEvent` | Discover new vault ids and owners without scanning every box. |
+| `CollateralDepositedEvent` | Update collateral totals and vault-level risk caches. |
+| `StablecoinMintedEvent` | Update debt totals, owner balances, and liquidation watchlists. |
+| `ProtocolPauseFlagsUpdatedEvent` | Suspend keeper actions for paused flows. |
+
+Box scans remain the canonical recovery path if an indexer misses logs. The
+monotonic `nvid`/`vcnt` counters let off-chain services reconcile expected vault
+counts against discovered boxes.
+
 ## Frontend And Keeper Discovery
 
 Frontends and keepers should discover state in layers:

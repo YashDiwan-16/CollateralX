@@ -152,7 +152,7 @@
                 ]
             },
             "readonly": false,
-            "desc": "Admin-only manual oracle update placeholder.",
+            "desc": "Admin-only manual oracle update used by the current adapter authority model.",
             "events": [
                 {
                     "name": "OracleUpdatedEvent",

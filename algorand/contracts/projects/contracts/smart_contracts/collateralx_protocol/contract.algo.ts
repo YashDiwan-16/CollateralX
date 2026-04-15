@@ -416,7 +416,7 @@ export class CollateralXProtocolManager extends Contract {
    * - tx 0: payment from vault owner to this app address
    * - tx 1: this app call with the payment transaction argument
    */
-  public depositCollateral(vaultId: uint64, payment: gtxn.PaymentTxn): void {
+  public depositCollateral(payment: gtxn.PaymentTxn, vaultId: uint64): void {
     this.assertReady()
     this.assertDepositGroup(payment)
     this.assertNotPaused(PAUSE_DEPOSIT)
@@ -490,7 +490,7 @@ export class CollateralXProtocolManager extends Contract {
   }
 
   /** Repayment entry point reserved for the repayment module. */
-  public repay(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
+  public repay(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_REPAY)
     assert(this.vaults(vaultId).exists, 'vault missing')
@@ -509,7 +509,7 @@ export class CollateralXProtocolManager extends Contract {
   }
 
   /** Liquidation entry point reserved for keeper/executor integration. */
-  public liquidate(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
+  public liquidate(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_LIQUIDATE)
     assert(this.vaults(vaultId).exists, 'vault missing')
