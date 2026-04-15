@@ -2,6 +2,14 @@
 
 import { useState } from "react"
 import { WalletProvider, WalletManager, WalletId, NetworkId } from "@txnlab/use-wallet-react"
+import { getProtocolConfig } from "@/lib/contracts/config"
+
+function activeNetworkId() {
+  const network = getProtocolConfig().network
+  if (network === "mainnet") return NetworkId.MAINNET
+  if (network === "testnet") return NetworkId.TESTNET
+  return NetworkId.LOCALNET
+}
 
 export function WalletKitProvider({ children }: { children: React.ReactNode }) {
   const [manager] = useState(
@@ -16,7 +24,7 @@ export function WalletKitProvider({ children }: { children: React.ReactNode }) {
           },
           WalletId.EXODUS,
         ],
-        defaultNetwork: NetworkId.MAINNET,
+        defaultNetwork: activeNetworkId(),
       })
   )
 

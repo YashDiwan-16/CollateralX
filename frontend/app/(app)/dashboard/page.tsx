@@ -1,33 +1,19 @@
+"use client"
+
 import Link from "next/link"
 import { StatCard } from "@/components/shared/stat-card"
 import { OracleStatus } from "@/components/shared/oracle-status"
-import { EventLog, type EventItem } from "@/components/shared/event-log"
+import { EventLog } from "@/components/shared/event-log"
 import { BarChart } from "@/components/shared/bar-chart"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
+import { useProtocol } from "@/providers/protocol-provider"
+import {
+  formatAlgo,
+  formatBps,
+  formatStable,
+  formatUsd,
+} from "@/lib/protocol/math"
 import { cn } from "@/lib/utils"
-
-const protoStats = [
-  { label: "Total Value Locked", value: "$4.2M", sub: "↑ 3.1% 24h" },
-  { label: "algoUSD Minted", value: "$1.8M", sub: "↑ 1.4% 24h" },
-  { label: "Active Vaults", value: "318", sub: "12 new today" },
-  { label: "System Collateral Ratio", value: "231%", sub: "Min required: 150%", valueClassName: "text-emerald-400" },
-]
-
-const priceBarData = [55, 60, 48, 65, 70, 62, 75, 80, 72, 68, 74, 78]
-
-const liquidationEvents: EventItem[] = [
-  { color: "red", time: "2m ago", text: "Vault #0041 liquidated — 4,200 ALGO" },
-  { color: "red", time: "18m ago", text: "Vault #0039 liquidated — 1,100 ALGO" },
-  { color: "amber", time: "1h ago", text: "Vault #0055 warning — ratio 156%" },
-]
-
-const recentEvents: EventItem[] = [
-  { color: "green", time: "5m", text: "New vault #0318 created — 3,000 ALGO deposited" },
-  { color: "green", time: "12m", text: "Vault #0212 minted 400 algoUSD" },
-  { color: "amber", time: "22m", text: "Oracle price update: $0.3812" },
-  { color: "green", time: "35m", text: "Vault #0180 repaid 200 algoUSD" },
-  { color: "red", time: "41m", text: "Vault #0041 flagged for liquidation" },
-]
 
 const quickActions = [
   { label: "+ Create new vault", href: "/vaults/create", primary: true },
@@ -36,68 +22,110 @@ const quickActions = [
   { label: "View protocol analytics", href: "/analytics", primary: false },
 ]
 
-const positionRows = [
-  ["Active vaults", "2", ""],
-  ["Total collateral", "8,500 ALGO", ""],
-  ["Total debt", "1,200 algoUSD", ""],
-  ["Avg. ratio", "270%", "text-emerald-400"],
-]
-
 export default function DashboardPage() {
+  const { snapshot, loading, error, refresh } = useProtocol()
+  const oracleStatus = snapshot.oracle.isFresh ? "live" : "warn"
+  const userCollateral = snapshot.userVaults.reduce((sum, vault) => sum + vault.collateralMicroAlgo, 0n)
+  const userDebt = snapshot.userVaults.reduce((sum, vault) => sum + vault.debtMicroStable, 0n)
+  const userRatio =
+    userDebt === 0n
+      ? null
+      : (snapshot.userVaults.reduce((sum, vault) => sum + vault.collateralValueMicroStable, 0n) * 10_000n) / userDebt
+
+  const protoStats = [
+    { label: "Total Value Locked", value: formatUsd(snapshot.dashboard.tvlMicroUsd) },
+    { label: "algoUSD Minted", value: formatStable(snapshot.dashboard.totalMintedMicroStable) },
+    { label: "Active Vaults", value: snapshot.dashboard.vaultCount.toLocaleString("en-US") },
+    {
+      label: "System Collateral Ratio",
+      value: formatBps(snapshot.dashboard.systemCollateralRatioBps),
+      sub: `Min required: ${formatBps(snapshot.params.minCollateralRatioBps, "")}`,
+      valueClassName:
+        snapshot.dashboard.systemCollateralRatioBps === null ||
+        snapshot.dashboard.systemCollateralRatioBps >= snapshot.params.minCollateralRatioBps + 3_000n
+          ? "text-emerald-400"
+          : "text-amber-400",
+    },
+  ]
+
+  const liquidationEvents = snapshot.liquidationQueue.slice(0, 3).map((vault) => ({
+    color: vault.isLiquidatable ? "red" as const : "amber" as const,
+    time: "now",
+    text: `Vault #${vault.displayId} ${vault.isLiquidatable ? "liquidatable" : "warning"} - ratio ${formatBps(vault.collateralRatioBps)}`,
+  }))
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-sm font-semibold">Protocol Dashboard</h1>
-        <OracleStatus label="Oracle live · last update 42s ago" />
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-sm font-semibold">Protocol Dashboard</h1>
+          {loading && <p className="text-[11px] text-muted-foreground">Refreshing protocol state...</p>}
+        </div>
+        <div className="flex items-center gap-3">
+          <OracleStatus
+            status={oracleStatus}
+            label={`Oracle ${snapshot.oracle.isFresh ? "live" : "stale"} · ${formatUsd(snapshot.oracle.pricePerAlgoMicroUsd, 4)}`}
+          />
+          <button onClick={refresh} className="text-[11px] text-muted-foreground hover:text-foreground">
+            Refresh
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2.5">
-        {protoStats.map((s) => <StatCard key={s.label} {...s} />)}
+      {(error || snapshot.warnings.length > 0) && (
+        <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs text-amber-300">
+          {error ?? snapshot.warnings[0]}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
+        {protoStats.map((stat) => <StatCard key={stat.label} {...stat} />)}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        {/* Price chart */}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <div className="bg-card border border-border rounded-lg p-4">
-          <div className="text-xs font-medium text-muted-foreground mb-1">ALGO / USD — Oracle Price</div>
-          <div className="text-xl font-semibold mb-0.5">$0.3812</div>
+          <div className="text-xs font-medium text-muted-foreground mb-1">ALGO / USD - Oracle Price</div>
+          <div className="text-xl font-semibold mb-0.5">{formatUsd(snapshot.oracle.pricePerAlgoMicroUsd, 4)}</div>
           <div className="text-[10px] text-muted-foreground mb-3">
-            Last update: block #42,881,204 · 42s ago
+            Last update: round #{snapshot.oracle.updatedRound.toLocaleString("en-US")} · freshness window{" "}
+            {snapshot.oracle.maxAgeSeconds.toString()}s
           </div>
-          <BarChart bars={priceBarData} height={80} />
-          <p className="text-[10px] text-muted-foreground/50 italic mt-1.5">24h price chart</p>
+          <BarChart bars={snapshot.priceHistory} height={80} />
+          <p className="text-[10px] text-muted-foreground/50 italic mt-1.5">Recent oracle samples</p>
         </div>
 
-        {/* Liquidation activity */}
         <div className="bg-card border border-border rounded-lg p-4">
-          <div className="text-xs font-medium text-muted-foreground mb-3">Liquidation Activity</div>
+          <div className="text-xs font-medium text-muted-foreground mb-3">Liquidation Queue Summary</div>
           <div className="grid grid-cols-2 gap-2 mb-3">
             <div className="bg-background rounded-md p-2.5">
-              <div className="text-[10px] text-muted-foreground mb-1">24h Liquidations</div>
-              <div className="text-base font-semibold">7</div>
+              <div className="text-[10px] text-muted-foreground mb-1">Liquidatable Now</div>
+              <div className="text-base font-semibold text-red-400">
+                {snapshot.dashboard.liquidatableVaultCount.toString()}
+              </div>
             </div>
             <div className="bg-background rounded-md p-2.5">
               <div className="text-[10px] text-muted-foreground mb-1">At-Risk Vaults</div>
-              <div className="text-base font-semibold text-amber-400">14</div>
+              <div className="text-base font-semibold text-amber-400">
+                {snapshot.dashboard.atRiskVaultCount.toString()}
+              </div>
             </div>
           </div>
-          <EventLog events={liquidationEvents} />
+          <EventLog events={liquidationEvents.length ? liquidationEvents : [{ color: "green", time: "now", text: "No vaults are currently near liquidation" }]} />
           <Link
             href="/liquidate"
             className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "mt-2 text-xs text-muted-foreground")}
           >
-            View all liquidation opportunities →
+            View all liquidation opportunities
           </Link>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        {/* Recent events */}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <div className="bg-card border border-border rounded-lg p-4">
           <div className="text-xs font-medium text-muted-foreground mb-3">Recent Protocol Events</div>
-          <EventLog events={recentEvents} />
+          <EventLog events={snapshot.events} />
         </div>
 
-        {/* Quick actions + position */}
         <div className="bg-card border border-border rounded-lg p-4">
           <div className="text-xs font-medium text-muted-foreground mb-3">Quick Actions</div>
           <div className="flex flex-col gap-2 mb-4">
@@ -116,7 +144,12 @@ export default function DashboardPage() {
           </div>
           <div className="pt-3 border-t border-border">
             <div className="text-xs font-medium text-muted-foreground mb-2">My position summary</div>
-            {positionRows.map(([label, val, cls]) => (
+            {[
+              ["Active vaults", snapshot.userVaults.length.toString(), ""],
+              ["Total collateral", formatAlgo(userCollateral), ""],
+              ["Total debt", formatStable(userDebt), ""],
+              ["Avg. ratio", formatBps(userRatio), userRatio === null || userRatio >= 18_000n ? "text-emerald-400" : "text-amber-400"],
+            ].map(([label, val, cls]) => (
               <div key={label} className="flex justify-between py-1.5 border-b border-border last:border-0 text-xs">
                 <span className="text-muted-foreground">{label}</span>
                 <span className={cn("font-medium", cls)}>{val}</span>

@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useWallet } from "@txnlab/use-wallet-react"
 import { ConnectWalletModal } from "@/components/wallet/connect-wallet-modal"
+import { useProtocol } from "@/providers/protocol-provider"
+import { formatUsd } from "@/lib/protocol/math"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
@@ -29,7 +30,7 @@ export function Navbar() {
         <Link href="/" className="text-[13px] font-semibold tracking-tight">
           ALGO<span className="text-muted-foreground font-normal">Stable</span>
         </Link>
-        <nav className="flex items-center gap-0.5">
+        <nav className="hidden md:flex items-center gap-0.5">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
@@ -57,7 +58,11 @@ export function Navbar() {
 
 // Separate component so useWallet only affects this small piece
 function AlgoPrice() {
+  const { snapshot } = useProtocol()
+
   return (
-    <span className="text-[10px] text-muted-foreground tabular-nums">ALGO: $0.38</span>
+    <span className="hidden sm:inline text-[10px] text-muted-foreground tabular-nums">
+      ALGO: {formatUsd(snapshot.oracle.pricePerAlgoMicroUsd, 4)}
+    </span>
   )
 }

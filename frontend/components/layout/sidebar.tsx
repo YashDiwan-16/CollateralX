@@ -38,7 +38,7 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="w-40 flex-shrink-0 border-r border-border bg-card flex flex-col gap-0 py-3 px-2">
+    <aside className="hidden md:flex w-40 flex-shrink-0 border-r border-border bg-card flex-col gap-0 py-3 px-2">
       {sections.map(({ title, links }) => (
         <div key={title}>
           <div className="px-2.5 pt-3 pb-1 text-[10px] font-medium text-muted-foreground/60 uppercase tracking-widest">

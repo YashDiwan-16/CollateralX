@@ -1,7 +1,16 @@
+"use client"
+
 import Link from "next/link"
 import { StatCard } from "@/components/shared/stat-card"
 import { StatusBadge } from "@/components/shared/status-badge"
 import { buttonVariants } from "@/components/ui/button"
+import { useProtocol } from "@/providers/protocol-provider"
+import {
+  formatAlgo,
+  formatBps,
+  formatStable,
+  formatUsd,
+} from "@/lib/protocol/math"
 import { cn } from "@/lib/utils"
 import {
   Table,
@@ -12,25 +21,27 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-const vaultStats = [
-  { label: "Total Collateral", value: "8,500 ALGO" },
-  { label: "Total Debt", value: "1,200 algoUSD" },
-  { label: "Avg. Collateral Ratio", value: "270%", valueClassName: "text-emerald-400" },
-  { label: "Vault Count", value: "2" },
-]
-
-const vaults = [
-  { id: "0211", collateral: "5,000 ALGO", collateralUsd: "$1,906", debt: "800 algoUSD", algoPrice: "$0.3812", ratio: 238, liqPrice: "$0.240", status: "safe" as const },
-  { id: "0212", collateral: "3,500 ALGO", collateralUsd: "$1,334", debt: "400 algoUSD", algoPrice: "$0.3812", ratio: 333, liqPrice: "$0.171", status: "safe" as const },
-]
-
-function ratioColor(ratio: number) {
-  if (ratio >= 180) return "text-emerald-400"
-  if (ratio >= 150) return "text-amber-400"
+function ratioColor(ratio: bigint | null) {
+  if (ratio === null || ratio >= 18_000n) return "text-emerald-400"
+  if (ratio >= 15_000n) return "text-amber-400"
   return "text-red-400"
 }
 
 export default function VaultsPage() {
+  const { snapshot } = useProtocol()
+  const vaults = snapshot.userVaults
+  const totalCollateral = vaults.reduce((sum, vault) => sum + vault.collateralMicroAlgo, 0n)
+  const totalDebt = vaults.reduce((sum, vault) => sum + vault.debtMicroStable, 0n)
+  const totalValue = vaults.reduce((sum, vault) => sum + vault.collateralValueMicroStable, 0n)
+  const avgRatio = totalDebt === 0n ? null : (totalValue * 10_000n) / totalDebt
+
+  const vaultStats = [
+    { label: "Total Collateral", value: formatAlgo(totalCollateral) },
+    { label: "Total Debt", value: formatStable(totalDebt) },
+    { label: "Avg. Collateral Ratio", value: formatBps(avgRatio), valueClassName: ratioColor(avgRatio) },
+    { label: "Vault Count", value: vaults.length.toString() },
+  ]
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -40,38 +51,40 @@ export default function VaultsPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-4 gap-2.5">
-        {vaultStats.map((s) => <StatCard key={s.label} {...s} />)}
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
+        {vaultStats.map((stat) => <StatCard key={stat.label} {...stat} />)}
       </div>
 
       <div className="bg-card border border-border rounded-lg">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent border-border">
-              {["Vault", "Collateral", "Debt", "ALGO Price", "Coll. Ratio", "Liq. Price", "Status", "Actions"].map((h) => (
-                <TableHead key={h} className="text-xs font-medium text-muted-foreground">{h}</TableHead>
+              {["Vault", "Collateral", "Debt", "ALGO Price", "Coll. Ratio", "Liq. Price", "Status", "Actions"].map((header) => (
+                <TableHead key={header} className="text-xs font-medium text-muted-foreground">{header}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {vaults.map((v) => (
-              <TableRow key={v.id} className="border-border text-xs">
-                <TableCell className="font-semibold">#{v.id}</TableCell>
+            {vaults.map((vault) => (
+              <TableRow key={vault.id.toString()} className="border-border text-xs">
+                <TableCell className="font-semibold">#{vault.displayId}</TableCell>
                 <TableCell>
-                  <div>{v.collateral}</div>
-                  <div className="text-[10px] text-muted-foreground">{v.collateralUsd}</div>
+                  <div>{formatAlgo(vault.collateralMicroAlgo)}</div>
+                  <div className="text-[10px] text-muted-foreground">{formatUsd(vault.collateralValueMicroStable)}</div>
                 </TableCell>
-                <TableCell>{v.debt}</TableCell>
-                <TableCell>{v.algoPrice}</TableCell>
-                <TableCell className={cn("font-semibold", ratioColor(v.ratio))}>{v.ratio}%</TableCell>
-                <TableCell>{v.liqPrice}</TableCell>
-                <TableCell><StatusBadge status={v.status} /></TableCell>
+                <TableCell>{formatStable(vault.debtMicroStable)}</TableCell>
+                <TableCell>{formatUsd(snapshot.oracle.pricePerAlgoMicroUsd, 4)}</TableCell>
+                <TableCell className={cn("font-semibold", ratioColor(vault.collateralRatioBps))}>
+                  {formatBps(vault.collateralRatioBps)}
+                </TableCell>
+                <TableCell>
+                  {vault.liquidationPriceMicroUsd ? formatUsd(vault.liquidationPriceMicroUsd, 4) : "No debt"}
+                </TableCell>
+                <TableCell><StatusBadge status={vault.health === "warn" ? "warn" : vault.health} /></TableCell>
                 <TableCell>
                   <div className="flex gap-1.5">
-                    <Link href={`/vaults/${v.id}`} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-6 text-[11px] px-2")}>View</Link>
-                    <Link href={`/vaults/${v.id}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-6 text-[11px] px-2")}>Deposit</Link>
-                    <Link href={`/vaults/${v.id}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-6 text-[11px] px-2")}>Mint</Link>
-                    <Link href={`/vaults/${v.id}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-6 text-[11px] px-2")}>Repay</Link>
+                    <Link href={`/vaults/${vault.id}`} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-6 text-[11px] px-2")}>View</Link>
+                    <Link href={`/vaults/${vault.id}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-6 text-[11px] px-2")}>Manage</Link>
                   </div>
                 </TableCell>
               </TableRow>
@@ -80,17 +93,21 @@ export default function VaultsPage() {
         </Table>
         <div className="px-4 py-2 border-t border-border">
           <p className="text-[10px] text-muted-foreground/50 italic">
-            Color coding: Safe = green ratio, Warn = amber (ratio 150–180%), Danger = red (ratio below 155%)
+            Vaults are discovered from deterministic ids and box-backed records. Closed boxes disappear after protocol cleanup.
           </p>
         </div>
       </div>
 
-      <div className="bg-card border border-dashed border-border rounded-lg p-8 text-center">
-        <p className="text-xs text-muted-foreground mb-3">No more vaults. Create another to diversify collateral positions.</p>
-        <Link href="/vaults/create" className={cn(buttonVariants({ size: "sm" }))}>
-          + Create new vault
-        </Link>
-      </div>
+      {vaults.length === 0 && (
+        <div className="bg-card border border-dashed border-border rounded-lg p-8 text-center">
+          <p className="text-xs text-muted-foreground mb-3">
+            No vaults found for this wallet. Create one to start depositing ALGO collateral.
+          </p>
+          <Link href="/vaults/create" className={cn(buttonVariants({ size: "sm" }))}>
+            + Create new vault
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
