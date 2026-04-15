@@ -33,6 +33,7 @@ import {
   safeAdd,
   safeSub,
 } from '../collateralx_shared/risk.algo'
+import { readFreshOracleAdapter } from '../collateralx_shared/oracle_adapter.algo'
 
 const MAX_BPS: uint64 = Uint64(100_000)
 const VAULT_STATUS_ACTIVE: uint64 = Uint64(1)
@@ -45,8 +46,6 @@ const PAUSE_WITHDRAW: uint64 = Uint64(8)
 const PAUSE_LIQUIDATE: uint64 = Uint64(16)
 const PAUSE_CREATE_VAULT: uint64 = Uint64(32)
 const PAUSE_EMERGENCY: uint64 = Uint64(64)
-
-const ORACLE_PAUSE_READS: uint64 = Uint64(2)
 
 export type ProtocolParamsSnapshot = {
   minCollateralRatioBps: uint64
@@ -162,6 +161,7 @@ type VaultClosedEvent = {
 type OracleSnapshot = {
   pricePerAlgoMicroStable: uint64
   updatedAt: uint64
+  updatedRound: uint64
   maxAgeSeconds: uint64
 }
 
@@ -706,30 +706,13 @@ export class CollateralXProtocolManager extends Contract {
   private readFreshOracle(): OracleSnapshot {
     assert(this.oracleAppId.value > Uint64(0), 'oracle app required')
     const oracleApp = Application(this.oracleAppId.value)
-
-    const [price, priceExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('px'))
-    const [updatedAt, updatedAtExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('upd'))
-    const [maxAgeSeconds, maxAgeExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('maxa'))
-    const [oraclePauseFlags, pauseFlagsExist] = op.AppGlobal.getExUint64(oracleApp, Bytes('pflg'))
-
-    assert(priceExists, 'oracle price missing')
-    assert(updatedAtExists, 'oracle timestamp missing')
-    assert(maxAgeExists, 'oracle max age missing')
-    assert(pauseFlagsExist, 'oracle pause missing')
-    assert(price > Uint64(0), 'oracle price required')
-    assert(updatedAt > Uint64(0), 'oracle timestamp required')
-    assert(maxAgeSeconds > Uint64(0), 'oracle max age required')
-    assert((oraclePauseFlags & ORACLE_PAUSE_READS) === Uint64(0), 'oracle reads paused')
-    assert(updatedAt <= Global.latestTimestamp, 'oracle timestamp future')
-
-    const oracleAge: uint64 = Global.latestTimestamp - updatedAt
-    assert(oracleAge <= this.oracleFreshnessWindowSeconds.value, 'oracle stale')
-    assert(oracleAge <= maxAgeSeconds, 'oracle stale')
+    const oracle = readFreshOracleAdapter(oracleApp, this.oracleFreshnessWindowSeconds.value)
 
     return {
-      pricePerAlgoMicroStable: price,
-      updatedAt,
-      maxAgeSeconds,
+      pricePerAlgoMicroStable: oracle.pricePerAlgoMicroStable,
+      updatedAt: oracle.updatedAt,
+      updatedRound: oracle.updatedRound,
+      maxAgeSeconds: oracle.maxAgeSeconds,
     }
   }
 

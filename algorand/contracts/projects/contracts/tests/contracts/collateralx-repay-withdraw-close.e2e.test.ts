@@ -29,6 +29,9 @@ type TestAccount = { addr: Address }
 
 type DeployOptions = {
   minDebtFloorMicroStable?: number | bigint
+  oracleUpdatedAt?: number
+  oracleUpdatedRound?: number | bigint
+  protocolOracleFreshnessWindowSeconds?: number | bigint
 }
 
 type DeployedSystem = {
@@ -72,6 +75,11 @@ async function freshTimestamp() {
     throw new Error("latest LocalNet block timestamp unavailable")
   }
   return timestamp > 1 ? timestamp - 1 : timestamp
+}
+
+async function latestRound() {
+  const status = (await fixture.context.algod.status().do()) as unknown as Record<string, number | bigint | undefined>
+  return BigInt(status.lastRound ?? status["last-round"] ?? 0)
 }
 
 function stableAmount(units: bigint) {
@@ -186,7 +194,8 @@ async function deploySystem(options: DeployOptions = {}): Promise<DeployedSystem
   await oracle.send.initializeOracle({
     args: {
       pricePerAlgoMicroUsd: ONE_USD_PER_ALGO,
-      updatedAt: await freshTimestamp(),
+      updatedAt: options.oracleUpdatedAt ?? (await freshTimestamp()),
+      updatedRound: options.oracleUpdatedRound ?? (await latestRound()),
       maxAgeSeconds: 3_600,
       source: SOURCE,
     },
@@ -223,7 +232,7 @@ async function deploySystem(options: DeployOptions = {}): Promise<DeployedSystem
       liquidationRatioBps: 12_500,
       liquidationPenaltyBps: 500,
       liquidationBonusBps: 300,
-      oracleFreshnessWindowSeconds: 3_600,
+      oracleFreshnessWindowSeconds: options.protocolOracleFreshnessWindowSeconds ?? 3_600,
       vaultMintCapMicroStable: stableAmount(1_000_000n),
       protocolDebtCeilingMicroStable: stableAmount(1_000_000n),
       minDebtFloorMicroStable: options.minDebtFloorMicroStable ?? MICRO_STABLE,
@@ -471,13 +480,20 @@ describe("CollateralX repay, withdraw, and close workflow", () => {
   }, TEST_TIMEOUT)
 
   it("rejects withdrawal health checks against stale oracle data", async () => {
-    const system = await deploySystem()
+    const system = await deploySystem({
+      oracleUpdatedAt: (await freshTimestamp()) - 10,
+    })
     await openVault(system, 300n * MICRO_ALGO, stableAmount(100n))
-    await system.oracle.send.adminUpdatePrice({
+    await system.protocol.send.adminSetParams({
       args: {
-        pricePerAlgoMicroUsd: ONE_USD_PER_ALGO,
-        updatedAt: 1,
-        source: SOURCE,
+        minCollateralRatioBps: 15_000,
+        liquidationRatioBps: 12_500,
+        liquidationPenaltyBps: 500,
+        liquidationBonusBps: 300,
+        oracleFreshnessWindowSeconds: 1,
+        vaultMintCapMicroStable: stableAmount(1_000_000n),
+        protocolDebtCeilingMicroStable: stableAmount(1_000_000n),
+        minDebtFloorMicroStable: MICRO_STABLE,
       },
     })
 

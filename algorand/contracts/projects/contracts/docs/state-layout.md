@@ -65,10 +65,12 @@ Pause flag bits:
 
 | Key | Type | Reason |
 | --- | --- | --- |
-| `adm` | `Account` | Admin authorized to update adapter configuration. |
+| `adm` | `Account` | Admin authorized to update adapter configuration and rotate the trusted updater. |
+| `updr` | `Account` | Trusted v1 price updater. Global because every price update checks it. |
 | `init` | `uint64` | Initialization guard. |
 | `px` | `uint64` | Current ALGO/USD price in microUSD. Global because every consumer needs the latest value. |
 | `upd` | `uint64` | UNIX timestamp for the current oracle sample. |
+| `urnd` | `uint64` | Algorand round associated with the current sample. Used to reject future or non-monotonic updates. |
 | `src` | `bytes` | Short source tag, such as `manual-v0` or an oracle feed id. |
 | `maxa` | `uint64` | Maximum permitted sample age in seconds for adapter-level checks. |
 | `pflg` | `uint64` | Pause bitmask for adapter updates/reads if governance needs to freeze the feed. |

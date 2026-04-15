@@ -72,14 +72,17 @@ Enforced by: `applyMint`, `validateProtocolDebtCeiling`.
 
 ```
 currentTime − price.updatedAt ≤ ORACLE_FRESHNESS_WINDOW
+price.updatedRound ≤ Global.round
 ```
 
 Any operation that reads the oracle price rejects stale data.  This prevents
 the protocol from acting on prices that may no longer reflect market conditions.
+The adapter also rejects future timestamps, future rounds, and non-monotonic
+round updates so a trusted updater cannot accidentally move the feed backward.
 
 Enforced by: `validateOracle` (called inside `applyMint`, `applyWithdraw`,
-`vaultHealth`, `isLiquidatable`, `liquidationOutcome`) and on-chain oracle reads
-inside mint and debt-bearing withdrawals.
+`vaultHealth`, `isLiquidatable`, `liquidationOutcome`) and the on-chain oracle
+adapter helper used by mint and debt-bearing withdrawals.
 
 ---
 

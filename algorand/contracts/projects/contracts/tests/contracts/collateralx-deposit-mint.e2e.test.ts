@@ -28,7 +28,9 @@ type TestAccount = { addr: Address }
 
 type DeployOptions = {
   oracleUpdatedAt?: number
+  oracleUpdatedRound?: number | bigint
   oraclePricePerAlgoMicroUsd?: number
+  protocolOracleFreshnessWindowSeconds?: number | bigint
   protocolDebtCeilingMicroStable?: number | bigint
   vaultMintCapMicroStable?: number | bigint
   supplyCeilingMicroStable?: number | bigint
@@ -76,6 +78,11 @@ async function freshTimestamp() {
     throw new Error("latest LocalNet block timestamp unavailable")
   }
   return timestamp > 1 ? timestamp - 1 : timestamp
+}
+
+async function latestRound() {
+  const status = (await fixture.context.algod.status().do()) as unknown as Record<string, number | bigint | undefined>
+  return BigInt(status.lastRound ?? status["last-round"] ?? 0)
 }
 
 function stableAmount(units: bigint) {
@@ -187,6 +194,7 @@ async function deploySystem(options: DeployOptions = {}): Promise<DeployedSystem
     args: {
       pricePerAlgoMicroUsd: options.oraclePricePerAlgoMicroUsd ?? ONE_USD_PER_ALGO,
       updatedAt: options.oracleUpdatedAt ?? (await freshTimestamp()),
+      updatedRound: options.oracleUpdatedRound ?? (await latestRound()),
       maxAgeSeconds: 3_600,
       source: SOURCE,
     },
@@ -223,7 +231,7 @@ async function deploySystem(options: DeployOptions = {}): Promise<DeployedSystem
       liquidationRatioBps: 12_500,
       liquidationPenaltyBps: 500,
       liquidationBonusBps: 300,
-      oracleFreshnessWindowSeconds: 3_600,
+      oracleFreshnessWindowSeconds: options.protocolOracleFreshnessWindowSeconds ?? 3_600,
       vaultMintCapMicroStable: options.vaultMintCapMicroStable ?? stableAmount(1_000_000n),
       protocolDebtCeilingMicroStable: options.protocolDebtCeilingMicroStable ?? stableAmount(1_000_000n),
       minDebtFloorMicroStable: options.minDebtFloorMicroStable ?? MICRO_STABLE,
@@ -385,7 +393,10 @@ describe("CollateralX deposit and mint workflow", () => {
   }, TEST_TIMEOUT)
 
   it("rejects stale oracle data", async () => {
-    const system = await deploySystem({ oracleUpdatedAt: 1 })
+    const system = await deploySystem({
+      oracleUpdatedAt: (await freshTimestamp()) - 10,
+      protocolOracleFreshnessWindowSeconds: 1,
+    })
     await createVault(system)
     await depositCollateral(system, 1n, system.owner, 150n * MICRO_ALGO)
 

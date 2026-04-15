@@ -54,6 +54,28 @@ function addressString(account: { addr: Address }) {
   return account.addr.toString()
 }
 
+async function freshOracleClock(ageSeconds = 1) {
+  const status = (await fixture.context.algod.status().do()) as unknown as Record<string, number | bigint | undefined>
+  const lastRound = Number(status.lastRound ?? status["last-round"])
+  const block = (await fixture.context.algod.block(lastRound).do()) as unknown as {
+    block?: {
+      ts?: number | bigint
+      timestamp?: number | bigint
+      header?: { ts?: number | bigint; timestamp?: number | bigint }
+    }
+  }
+  const timestampValue =
+    block.block?.ts ?? block.block?.timestamp ?? block.block?.header?.ts ?? block.block?.header?.timestamp
+  const timestamp = timestampValue === undefined ? undefined : Number(timestampValue)
+  if (timestamp === undefined || !Number.isFinite(timestamp)) {
+    throw new Error("latest LocalNet block timestamp unavailable")
+  }
+  return {
+    updatedAt: timestamp > ageSeconds ? timestamp - ageSeconds : timestamp,
+    updatedRound: BigInt(lastRound),
+  }
+}
+
 function uint64Bytes(value: bigint) {
   return new algosdk.ABIUintType(64).encode(value)
 }
@@ -153,10 +175,12 @@ async function initializeProtocol(client: CollateralXProtocolManagerClient) {
 }
 
 async function initializeOracle(client: CollateralXOracleAdapterClient) {
+  const clock = await freshOracleClock()
   await client.send.initializeOracle({
     args: {
       pricePerAlgoMicroUsd: 250_000,
-      updatedAt: 1_700_000_000,
+      updatedAt: clock.updatedAt,
+      updatedRound: clock.updatedRound,
       maxAgeSeconds: 3_600,
       source: SOURCE,
     },
@@ -447,6 +471,7 @@ describe("CollateralX oracle adapter", () => {
     const { testAccount } = fixture.context
     const other = await fixture.context.generateAccount({ initialFunds: (10).algo(), suppressLog: true })
     const client = await deployOracle(testAccount)
+    const clock = await freshOracleClock()
 
     await expect(client.readOraclePrice()).rejects.toThrow()
     await expect(
@@ -454,7 +479,8 @@ describe("CollateralX oracle adapter", () => {
         sender: other.addr,
         args: {
           pricePerAlgoMicroUsd: 250_000,
-          updatedAt: 1_700_000_000,
+          updatedAt: clock.updatedAt,
+          updatedRound: clock.updatedRound,
           maxAgeSeconds: 3_600,
           source: SOURCE,
         },
@@ -464,7 +490,8 @@ describe("CollateralX oracle adapter", () => {
       client.send.initializeOracle({
         args: {
           pricePerAlgoMicroUsd: 0,
-          updatedAt: 1_700_000_000,
+          updatedAt: clock.updatedAt,
+          updatedRound: clock.updatedRound,
           maxAgeSeconds: 3_600,
           source: SOURCE,
         },
@@ -475,34 +502,41 @@ describe("CollateralX oracle adapter", () => {
 
     let sample = await client.readOraclePrice()
     expect(sample.pricePerAlgoMicroUsd).toBe(250_000n)
-    expect(sample.updatedAt).toBe(1_700_000_000n)
+    expect(sample.updatedRound).toBeGreaterThan(0n)
     expect(Buffer.from(sample.source).toString("utf8")).toBe("manual:localnet")
     expect(sample.maxAgeSeconds).toBe(3_600n)
+    expect(sample.updater).toBe(addressString(testAccount))
+    expect(sample.isFresh).toBe(true)
+    await expect(client.readFreshOraclePrice()).resolves.toMatchObject({ pricePerAlgoMicroUsd: 250_000n })
 
     await expect(client.send.initializeOracle({
       args: {
         pricePerAlgoMicroUsd: 250_000,
-        updatedAt: 1_700_000_000,
+        updatedAt: clock.updatedAt,
+        updatedRound: clock.updatedRound,
         maxAgeSeconds: 3_600,
         source: SOURCE,
       },
     })).rejects.toThrow()
 
+    const updateClock = await freshOracleClock()
     await expect(
-      client.send.adminUpdatePrice({
+      client.send.updatePrice({
         sender: other.addr,
         args: {
           pricePerAlgoMicroUsd: 260_000,
-          updatedAt: 1_700_000_050,
+          updatedAt: updateClock.updatedAt,
+          updatedRound: updateClock.updatedRound,
           source: SOURCE,
         },
       })
     ).rejects.toThrow()
 
-    await client.send.adminUpdatePrice({
+    await client.send.updatePrice({
       args: {
         pricePerAlgoMicroUsd: 260_000,
-        updatedAt: 1_700_000_050,
+        updatedAt: updateClock.updatedAt,
+        updatedRound: updateClock.updatedRound,
         source: new TextEncoder().encode("manual:update"),
       },
     })
@@ -510,17 +544,38 @@ describe("CollateralX oracle adapter", () => {
     expect(sample.pricePerAlgoMicroUsd).toBe(260_000n)
     expect(Buffer.from(sample.source).toString("utf8")).toBe("manual:update")
 
+    await expect(client.send.adminSetUpdater({ args: { newUpdater: ZERO_ADDRESS } })).rejects.toThrow()
+    await client.send.adminSetUpdater({ args: { newUpdater: addressString(other) } })
+    sample = await client.readOraclePrice()
+    expect(sample.updater).toBe(addressString(other))
+
+    const rotatedClock = await freshOracleClock()
+    await client.send.updatePrice({
+      sender: other.addr,
+      args: {
+        pricePerAlgoMicroUsd: 265_000,
+        updatedAt: rotatedClock.updatedAt,
+        updatedRound: rotatedClock.updatedRound,
+        source: new TextEncoder().encode("manual:rotated"),
+      },
+    })
+    sample = await client.readOraclePrice()
+    expect(sample.pricePerAlgoMicroUsd).toBe(265_000n)
+
     await expect(client.send.adminSetOracleConfig({ args: { maxAgeSeconds: 0 } })).rejects.toThrow()
     await client.send.adminSetOracleConfig({ args: { maxAgeSeconds: 7_200 } })
     sample = await client.readOraclePrice()
     expect(sample.maxAgeSeconds).toBe(7_200n)
 
     await client.send.adminSetPauseFlags({ args: { pauseFlags: ORACLE_UPDATE_PAUSE_FLAG } })
+    const pausedClock = await freshOracleClock()
     await expect(
-      client.send.adminUpdatePrice({
+      client.send.updatePrice({
+        sender: other.addr,
         args: {
           pricePerAlgoMicroUsd: 270_000,
-          updatedAt: 1_700_000_100,
+          updatedAt: pausedClock.updatedAt,
+          updatedRound: pausedClock.updatedRound,
           source: SOURCE,
         },
       })
@@ -530,11 +585,76 @@ describe("CollateralX oracle adapter", () => {
     await expect(client.readOraclePrice()).rejects.toThrow()
 
     await client.send.adminSetPauseFlags({ args: { pauseFlags: 0 } })
+  }, TEST_TIMEOUT)
+
+  it("validates freshness, timestamp, and round boundaries", async () => {
+    const { testAccount } = fixture.context
+    const client = await deployOracle(testAccount)
+    const clock = await freshOracleClock()
+
     await expect(
-      client.send.verifyExternalPriceUpdate({
-        args: { proof: new TextEncoder().encode("proof") },
+      client.send.initializeOracle({
+        args: {
+          pricePerAlgoMicroUsd: 250_000,
+          updatedAt: clock.updatedAt + 10_000,
+          updatedRound: clock.updatedRound,
+          maxAgeSeconds: 3_600,
+          source: SOURCE,
+        },
       })
-    ).rejects.toThrow()
+    ).rejects.toThrow(/timestamp future/)
+
+    await expect(
+      client.send.initializeOracle({
+        args: {
+          pricePerAlgoMicroUsd: 250_000,
+          updatedAt: clock.updatedAt,
+          updatedRound: clock.updatedRound + 1_000_000n,
+          maxAgeSeconds: 3_600,
+          source: SOURCE,
+        },
+      })
+    ).rejects.toThrow(/round future/)
+
+    await expect(
+      client.send.initializeOracle({
+        args: {
+          pricePerAlgoMicroUsd: 250_000,
+          updatedAt: clock.updatedAt - 10,
+          updatedRound: clock.updatedRound,
+          maxAgeSeconds: 1,
+          source: SOURCE,
+        },
+      })
+    ).rejects.toThrow(/price stale/)
+
+    const staleableClock = await freshOracleClock(10)
+    await client.send.initializeOracle({
+      args: {
+        pricePerAlgoMicroUsd: 250_000,
+        updatedAt: staleableClock.updatedAt,
+        updatedRound: staleableClock.updatedRound,
+        maxAgeSeconds: 3_600,
+        source: SOURCE,
+      },
+    })
+    let sample = await client.readOraclePrice()
+
+    await expect(
+      client.send.updatePrice({
+        args: {
+          pricePerAlgoMicroUsd: 260_000,
+          updatedAt: Number(sample.updatedAt),
+          updatedRound: sample.updatedRound,
+          source: SOURCE,
+        },
+      })
+    ).rejects.toThrow(/round not newer/)
+
+    await client.send.adminSetOracleConfig({ args: { maxAgeSeconds: 1 } })
+    sample = await client.readOraclePrice()
+    expect(sample.isFresh).toBe(false)
+    await expect(client.readFreshOraclePrice()).rejects.toThrow(/oracle stale/)
   }, TEST_TIMEOUT)
 })
 

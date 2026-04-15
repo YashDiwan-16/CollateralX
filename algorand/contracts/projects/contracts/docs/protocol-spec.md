@@ -13,13 +13,14 @@ for the current Algorand contracts. It should be read together with
 | Oracle price | microUSD per ALGO |
 | Ratios | basis points, where `10_000 = 100%` |
 | Time | UNIX seconds from `Global.latestTimestamp` and oracle samples |
+| Oracle round | Algorand round recorded with each oracle sample |
 
 ## Contracts
 
 | Contract | Role |
 | --- | --- |
 | `CollateralXProtocolManager` | Canonical vault storage, protocol configuration, aggregate debt/collateral counters, user actions. |
-| `CollateralXOracleAdapter` | Current ALGO/USD oracle sample, sample timestamp, max age, source tag, and read/update pause flags. |
+| `CollateralXOracleAdapter` | Current ALGO/USD oracle sample, sample timestamp/round, trusted updater, max age, source tag, and read/update pause flags. |
 | `CollateralXStablecoinController` | Stablecoin ASA reserve controller, issued-supply accounting, protocol-gated mint/retire methods. |
 | `CollateralXLiquidationExecutor` | Liquidation configuration shell for the later keeper phase. |
 
@@ -35,6 +36,12 @@ every economic action needs them in O(1) reads:
 | `tdbt`, `tcol` | Aggregate accounting used for debt ceiling enforcement and dashboard reads. |
 | `mcr`, `lqr`, `lpn`, `lbn`, `ofw`, `vmcp`, `pdc`, `dflo` | Risk parameters required by mint, repay, withdraw, and liquidation flows. |
 | `oapp`, `sapp`, `lapp` | Replaceable integration pointers for oracle, stablecoin controller, and liquidation executor. |
+
+Oracle adapter globals are also part of the protocol-facing interface. The
+protocol manager reads them through `collateralx_shared/oracle_adapter.algo.ts`
+instead of duplicating key names in vault actions. A replacement oracle can be
+swapped by governance if it preserves these keys and semantics, or by upgrading
+that one shared adapter helper.
 
 Per-vault state lives in boxes because vault count is unbounded and global state
 is capped. Local state is intentionally unused: users do not need to opt in to
