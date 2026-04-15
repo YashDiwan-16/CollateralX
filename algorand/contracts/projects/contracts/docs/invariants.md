@@ -39,7 +39,7 @@ A vault that has carried debt must always have at least `MIN_DEBT_FLOOR`
 outstanding, or zero (fully repaid).  This prevents economically unviable
 micro-positions that would cost more to liquidate than they are worth.
 
-Enforced by: `applyRepay`.
+Enforced by: `applyRepay` and on-chain `repay`.
 
 ---
 
@@ -78,7 +78,8 @@ Any operation that reads the oracle price rejects stale data.  This prevents
 the protocol from acting on prices that may no longer reflect market conditions.
 
 Enforced by: `validateOracle` (called inside `applyMint`, `applyWithdraw`,
-`vaultHealth`, `isLiquidatable`, `liquidationOutcome`).
+`vaultHealth`, `isLiquidatable`, `liquidationOutcome`) and on-chain oracle reads
+inside mint and debt-bearing withdrawals.
 
 ---
 
@@ -133,42 +134,83 @@ Enforced by: `isLiquidatable` called inside `liquidationOutcome`.
 
 ---
 
-## I11 — Emergency pause halts all state changes
+## I11 — Emergency pause halts all user state changes
 
 ```
-emergencyPaused = true → no vault state may change
+emergency pause active → no user vault state may change
 ```
 
-When the emergency flag is set, all operations that would modify vault state
-are rejected.
+When the emergency flag is set, user operations that would create, deposit,
+mint, repay, withdraw, close, or liquidate are rejected. Admin configuration
+remains available so governance can unpause or rotate integrations.
 
-Enforced by: every `apply*` function and `liquidationOutcome`.
+Enforced by: every `apply*` function and `liquidationOutcome`; on-chain
+`assertNotPaused` applies the emergency bit before action-specific pause bits.
 
 ---
 
-## I12 — Mint pause halts minting only
+## I12 — Action pause flags halt only selected flows
 
 ```
-mintPaused = true → applyMint rejected
+mintPaused = true → mint rejected
+repayPaused = true → repay rejected
+withdrawPaused = true → withdraw and close rejected
 ```
 
-Repayments and withdrawals remain available so users can reduce risk even when
-minting is paused.
+Repayments and withdrawals remain available when only minting is paused so users
+can reduce risk. Repay and withdraw have their own pause bits for emergency
+response.
 
-Enforced by: `applyMint`, `validateMint`.
+Enforced by: `applyMint`, `validateMint`, and on-chain action-specific
+`assertNotPaused` checks.
 
 ---
 
-## I13 — Closed vault has zero balances
+## I13 — Closed vault is removed from active state
 
 ```
-After applyClose: vault.collateral = 0 ∧ vault.debt = 0
+After close: vault box missing ∧ owner index box missing
 ```
 
-A vault can only be closed when debt is already zero; the operation then zeroes
-the collateral (caller receives the collateral in the on-chain implementation).
+A vault can only be closed when debt is already zero. The on-chain close path
+returns remaining collateral to the owner, decrements aggregate collateral, and
+deletes both active-discovery boxes. The pure model represents the same outcome
+by zeroing collateral and debt.
 
-Enforced by: `applyClose` (rejects non-zero debt).
+Enforced by: `applyClose` (rejects non-zero debt), on-chain `closeVault`, and
+the debt-free full-withdraw auto-close path.
+
+---
+
+## I14 — Stablecoin supply equals aggregate debt
+
+```
+stableController.issuedSupplyMicroStable = Σ active vault debtMicroStable
+```
+
+Minting increments both the vault debt and stablecoin issued supply by the same
+amount. Repayment decrements both values by the same amount after the user has
+returned stablecoin ASA units to the controller reserve in the same atomic
+transaction group.
+
+Enforced by: on-chain `mintStablecoin`, `mintForVault`, `repay`, and
+`burnForVault`.
+
+---
+
+## I15 — Collateral accounting equals active vault collateral
+
+```
+protocol.totalCollateralMicroAlgo = Σ active vault collateralMicroAlgo
+```
+
+Deposit increments both the vault collateral and aggregate collateral. Withdraw
+and close decrement both before returning ALGO from the protocol app account.
+Deleting a vault requires aggregate collateral for that vault to have been
+removed.
+
+Enforced by: on-chain `depositCollateral`, `withdrawCollateral`, and
+`closeVault`.
 
 ---
 
@@ -178,16 +220,18 @@ The test suite in `tests/math/` covers:
 
 | Invariant | Test file | Key scenario |
 |-----------|-----------|--------------|
-| I1 | `vault.test.ts` | Mint and withdraw at exact 150 % boundary |
+| I1 | `vault.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Mint and withdraw at exact 150 % boundary |
 | I2 | `edge-cases.test.ts` | Zero collateral, zero debt cases |
-| I3 | `vault.test.ts`, `edge-cases.test.ts` | Dust repay rejection |
+| I3 | `vault.test.ts`, `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Dust repay rejection |
 | I4 | `minting.test.ts` | Vault cap exceeded |
 | I5 | `minting.test.ts` | Protocol ceiling at, above boundary |
-| I6 | `edge-cases.test.ts` | Stale price on mint, withdraw, liquidate |
+| I6 | `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Stale price on mint, withdraw, liquidate |
 | I7 | (built into `validateOracle`) | |
 | I8 | `liquidation.test.ts` | Repay exceeds debt rejection |
 | I9 | `liquidation.test.ts` | Full liquidation caps at collateral |
 | I10 | `liquidation.test.ts` | Healthy vault rejected; 150 % accepted |
 | I11 | `edge-cases.test.ts` | Emergency pause blocks all ops |
-| I12 | `edge-cases.test.ts` | Mint pause does not block repay/withdraw |
-| I13 | `vault.test.ts` | Close with debt fails; close after repay succeeds |
+| I12 | `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Mint, repay, and withdraw pause behavior |
+| I13 | `vault.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Close with debt fails; close after repay succeeds |
+| I14 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Mint and repay supply/debt reconciliation |
+| I15 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Deposit, withdraw, close collateral reconciliation |

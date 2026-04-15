@@ -132,10 +132,13 @@ opt in before receiving or operating a vault.
 | Key type | `{ owner: Account; vaultId: uint64 }` |
 | Value type | `uint64` set to `1` |
 
-The owner index is intentionally append-only for discovery. It lets frontends
-and keepers discover a user's vault ids by scanning boxes with prefix `o` and
-the owner's address in the encoded key. It duplicates a small amount of data to
-avoid local state opt-in and to avoid requiring a dynamic array in one large box.
+The owner index represents currently open vaults. It lets frontends and keepers
+discover a user's active vault ids by scanning boxes with prefix `o` and the
+owner's address in the encoded key. The index box is deleted when a vault is
+closed, so historical discovery should use emitted events or an indexer rather
+than relying on owner-index boxes as an append-only audit log. It duplicates a
+small amount of data to avoid local state opt-in and to avoid requiring a dynamic
+array in one large box.
 
 ## Deterministic Vault IDs
 
@@ -291,6 +294,105 @@ supply ceiling, ASA reserve balance, and receiver opt-in before transferring.
 If any step fails, the entire outer transaction fails and neither the vault nor
 the stablecoin supply counters are updated.
 
+### Repay Stablecoin
+
+`repay(axfer,uint64)void` requires exactly two outer transactions:
+
+| Group Index | Transaction | Required Fields |
+| ---: | --- | --- |
+| `0` | Asset transfer | `sender = vault.owner`, `assetReceiver = stablecoin controller app address`, `xferAsset = stablecoin ASA`, `assetAmount > 0`, no `rekeyTo`, no `assetCloseTo`. |
+| `1` | App call | `sender = vault.owner`, method `repay`, vault box reference `v + uint64_be(vaultId)`, stablecoin controller app reference, stablecoin ASA reference. |
+
+The repayment ASA transfer is the economic burn input. The stablecoin controller
+does not destroy the ASA on-chain; instead, the user's circulating units return
+to the controller reserve and `issuedSupplyMicroStable` is decremented by the
+same amount. This makes repayment auditable from both ASA transfer history and
+controller supply events.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Protocol as Protocol Manager
+  participant Stable as Stablecoin Controller
+  participant VaultBox as Vault Box
+
+  User->>Stable: group[0] axfer cxUSD to controller reserve
+  User->>Protocol: group[1] repay(axfer, vaultId)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify owner, ASA id, receiver, no rekey/close, amount <= debt
+  Protocol->>Stable: inner app call burnForVault(vaultId, amount)
+  Stable->>Stable: issuedSupplyMicroStable -= amount
+  Protocol->>VaultBox: debtMicroStable -= amount
+  Protocol->>Protocol: totalDebtMicroStable -= amount
+  Protocol-->>User: emit StablecoinRepaidEvent
+```
+
+Partial repayment may leave either zero debt or debt greater than or equal to
+`dflo`. A repayment that would leave `0 < debt < dflo` is rejected as dust.
+
+### Withdraw Collateral
+
+`withdrawCollateral(uint64,uint64)void` requires a single outer app call. If the
+vault still has debt, the protocol reads the current oracle sample and checks
+that the post-withdrawal collateral ratio remains at or above `mcr`. Debt-free
+withdrawals do not require oracle price data because zero-debt vaults are always
+healthy.
+
+Required references:
+
+| Reference Type | Required Values |
+| --- | --- |
+| Boxes | Vault box `v + uint64_be(vaultId)`. Include owner-index box `o + owner + uint64_be(vaultId)` when withdrawing all collateral from a debt-free vault because the method deletes both boxes. |
+| Apps | Oracle adapter app id when the vault has non-zero debt. Supplying it on all withdraw calls is safe and frontend-friendly. |
+| Accounts | Vault owner when the client wants the inner payment receiver explicitly listed. The sender is also available by default. |
+| Fees | Extra fee budget for the protocol inner ALGO payment. |
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Protocol as Protocol Manager
+  participant Oracle as Oracle Adapter
+  participant VaultBox as Vault Box
+
+  User->>Protocol: withdrawCollateral(vaultId, amount)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify owner, active vault, amount <= collateral
+  alt debt remains
+    Protocol->>Oracle: read fresh ALGO/USD sample
+    Protocol->>Protocol: verify post-withdraw health
+  end
+  Protocol->>VaultBox: collateralMicroAlgo -= amount or delete boxes if drained debt-free
+  Protocol->>User: inner payment returns ALGO collateral
+  Protocol-->>User: emit CollateralWithdrawnEvent
+```
+
+### Close Vault
+
+`closeVault(uint64)void` is an explicit debt-free close path. It requires one
+outer app call, the vault box, the owner-index box, and fee budget for the inner
+ALGO payment when collateral is returned.
+
+The method rejects any vault with outstanding debt. On success it updates
+`tcol`, deletes both vault discovery boxes, transfers any remaining collateral to
+the owner, and emits `VaultClosedEvent`.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Protocol as Protocol Manager
+  participant VaultBox as Vault Box
+  participant OwnerIndex as Owner Index Box
+
+  User->>Protocol: closeVault(vaultId)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify owner, active vault, debt == 0
+  Protocol->>Protocol: totalCollateralMicroAlgo -= collateral
+  Protocol->>VaultBox: delete v + vaultId
+  Protocol->>OwnerIndex: delete o + owner + vaultId
+  Protocol->>User: inner payment returns remaining collateral
+  Protocol-->>User: emit VaultClosedEvent
+```
+
 ### Keeper And Frontend Discovery
 
 Frontends should call `readProtocolStatus()` first to discover current app ids,
@@ -305,11 +407,16 @@ Keepers and indexers should watch ARC-28 logs:
 | `VaultCreatedEvent` | Discover new vault ids and owners without scanning every box. |
 | `CollateralDepositedEvent` | Update collateral totals and vault-level risk caches. |
 | `StablecoinMintedEvent` | Update debt totals, owner balances, and liquidation watchlists. |
+| `StablecoinRepaidEvent` | Update debt totals and reconcile retired stablecoin supply. |
+| `CollateralWithdrawnEvent` | Update collateral totals and vault-level risk caches. |
+| `VaultClosedEvent` | Remove closed vaults from active keeper/watch lists. |
 | `ProtocolPauseFlagsUpdatedEvent` | Suspend keeper actions for paused flows. |
 
 Box scans remain the canonical recovery path if an indexer misses logs. The
 monotonic `nvid`/`vcnt` counters let off-chain services reconcile expected vault
-counts against discovered boxes.
+counts against created vault events. Because close deletes vault and owner-index
+boxes, a full historical vault list requires event indexing or archival box
+history rather than only current box scans.
 
 ## Frontend And Keeper Discovery
 

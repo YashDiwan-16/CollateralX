@@ -9,13 +9,12 @@ import {
   Uint64,
   assert,
   emit,
-  err,
   itxn,
   readonly,
   type uint64,
 } from '@algorandfoundation/algorand-typescript'
 import { abimethod } from '@algorandfoundation/algorand-typescript/arc4'
-import { safeAdd } from '../collateralx_shared/risk.algo'
+import { safeAdd, safeSub } from '../collateralx_shared/risk.algo'
 
 const PAUSE_MINT: uint64 = Uint64(1)
 const PAUSE_BURN: uint64 = Uint64(2)
@@ -45,6 +44,12 @@ type StablecoinAssetOptedInEvent = {
 type StablecoinMintedForVaultEvent = {
   vaultId: uint64
   receiver: Account
+  amountMicroStable: uint64
+  issuedSupplyMicroStable: uint64
+}
+
+type StablecoinRetiredForVaultEvent = {
+  vaultId: uint64
   amountMicroStable: uint64
   issuedSupplyMicroStable: uint64
 }
@@ -189,14 +194,29 @@ export class CollateralXStablecoinController extends Contract {
     })
   }
 
-  /** Manager-authorized burn/escrow entry point reserved for repayment flow. */
+  /**
+   * Manager-authorized repayment accounting.
+   *
+   * The protocol manager validates the grouped user ASA transfer into this app
+   * before calling this method. The ASA units are retired by returning them to
+   * the controller reserve and decrementing issued protocol supply.
+   */
   public burnForVault(vaultId: uint64, amountMicroStable: uint64): void {
     this.assertReady()
     this.assertManagerCaller()
     this.assertNotPaused(PAUSE_BURN)
     assert(vaultId > Uint64(0), 'vault id required')
     assert(amountMicroStable > Uint64(0), 'zero burn')
-    err('stablecoin burn disabled')
+    assert(this.stableAssetId.value > Uint64(0), 'stable asset required')
+    assert(amountMicroStable <= this.issuedSupplyMicroStable.value, 'burn exceeds issued')
+
+    const newIssuedSupply = safeSub(this.issuedSupplyMicroStable.value, amountMicroStable)
+    this.issuedSupplyMicroStable.value = newIssuedSupply
+    emit<StablecoinRetiredForVaultEvent>({
+      vaultId,
+      amountMicroStable,
+      issuedSupplyMicroStable: newIssuedSupply,
+    })
   }
 
   private assertReady(): void {

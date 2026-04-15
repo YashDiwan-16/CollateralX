@@ -28,8 +28,10 @@ import {
 import {
   BPS_DENOMINATOR,
   availableToMintMicroStable,
+  isDustDebt,
   isHealthyDebt,
   safeAdd,
+  safeSub,
 } from '../collateralx_shared/risk.algo'
 
 const MAX_BPS: uint64 = Uint64(100_000)
@@ -132,6 +134,29 @@ type StablecoinMintedEvent = {
   amountMicroStable: uint64
   newDebtMicroStable: uint64
   totalDebtMicroStable: uint64
+}
+
+type StablecoinRepaidEvent = {
+  vaultId: uint64
+  owner: Account
+  amountMicroStable: uint64
+  newDebtMicroStable: uint64
+  totalDebtMicroStable: uint64
+}
+
+type CollateralWithdrawnEvent = {
+  vaultId: uint64
+  owner: Account
+  amountMicroAlgo: uint64
+  remainingCollateralMicroAlgo: uint64
+  totalCollateralMicroAlgo: uint64
+}
+
+type VaultClosedEvent = {
+  vaultId: uint64
+  owner: Account
+  returnedCollateralMicroAlgo: uint64
+  closedAt: uint64
 }
 
 type OracleSnapshot = {
@@ -489,23 +514,131 @@ export class CollateralXProtocolManager extends Contract {
     })
   }
 
-  /** Repayment entry point reserved for the repayment module. */
+  /**
+   * Repays stablecoin debt.
+   *
+   * Required group shape:
+   * - tx 0: stablecoin ASA transfer from vault owner to stablecoin controller
+   * - tx 1: this app call with the asset-transfer transaction argument
+   */
   public repay(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     this.assertReady()
+    this.assertRepayGroup(repayment)
     this.assertNotPaused(PAUSE_REPAY)
     assert(this.vaults(vaultId).exists, 'vault missing')
-    assert(repayment.sender === Txn.sender, 'repay sender mismatch')
-    assert(repayment.assetAmount > Uint64(0), 'zero repay')
-    err('repay module disabled')
+    const stablecoin = this.readStablecoinSnapshot()
+    this.assertRepaymentTransfer(repayment, stablecoin)
+
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.owner === Txn.sender, 'vault owner only')
+    assert(repayment.assetAmount <= vault.debtMicroStable, 'repay exceeds debt')
+
+    const newVaultDebt = safeSub(vault.debtMicroStable, repayment.assetAmount)
+    assert(!isDustDebt(newVaultDebt, this.minDebtFloorMicroStable.value), 'debt below floor')
+    const newTotalDebt = safeSub(this.totalDebtMicroStable.value, repayment.assetAmount)
+
+    this.callStablecoinBurn(vaultId, repayment.assetAmount)
+
+    vault.debtMicroStable = newVaultDebt
+    vault.updatedAt = Global.latestTimestamp
+    this.vaults(vaultId).value = clone(vault)
+    this.totalDebtMicroStable.value = newTotalDebt
+
+    emit<StablecoinRepaidEvent>({
+      vaultId,
+      owner: Txn.sender,
+      amountMicroStable: repayment.assetAmount,
+      newDebtMicroStable: newVaultDebt,
+      totalDebtMicroStable: newTotalDebt,
+    })
   }
 
-  /** Withdraw entry point reserved for the withdrawal module. */
+  /**
+   * Withdraws ALGO collateral. If this drains a debt-free vault, the vault and
+   * owner index boxes are deleted after aggregate accounting is updated.
+   */
   public withdrawCollateral(vaultId: uint64, amountMicroAlgo: uint64): void {
     this.assertReady()
+    this.assertWithdrawSingleCallGroup()
     this.assertNotPaused(PAUSE_WITHDRAW)
     assert(this.vaults(vaultId).exists, 'vault missing')
     assert(amountMicroAlgo > Uint64(0), 'zero withdraw')
-    err('withdraw module disabled')
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.owner === Txn.sender, 'vault owner only')
+    assert(amountMicroAlgo <= vault.collateralMicroAlgo, 'withdraw exceeds collateral')
+
+    const newCollateral = safeSub(vault.collateralMicroAlgo, amountMicroAlgo)
+    if (vault.debtMicroStable > Uint64(0)) {
+      const oracle = this.readFreshOracle()
+      assert(
+        isHealthyDebt(newCollateral, vault.debtMicroStable, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value),
+        'withdraw unhealthy'
+      )
+    }
+
+    const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, amountMicroAlgo)
+    vault.collateralMicroAlgo = newCollateral
+    vault.updatedAt = Global.latestTimestamp
+    this.totalCollateralMicroAlgo.value = newTotalCollateral
+
+    const shouldClose = newCollateral === Uint64(0) && vault.debtMicroStable === Uint64(0)
+    if (shouldClose) {
+      this.deleteVaultBoxes(vault)
+    } else {
+      this.vaults(vaultId).value = clone(vault)
+    }
+
+    this.payCollateral(vault.owner, amountMicroAlgo)
+
+    emit<CollateralWithdrawnEvent>({
+      vaultId,
+      owner: Txn.sender,
+      amountMicroAlgo,
+      remainingCollateralMicroAlgo: newCollateral,
+      totalCollateralMicroAlgo: newTotalCollateral,
+    })
+
+    if (shouldClose) {
+      emit<VaultClosedEvent>({
+        vaultId,
+        owner: Txn.sender,
+        returnedCollateralMicroAlgo: amountMicroAlgo,
+        closedAt: Global.latestTimestamp,
+      })
+    }
+  }
+
+  /**
+   * Closes a debt-free vault, returns all remaining collateral, and deletes the
+   * vault and owner-index boxes.
+   */
+  public closeVault(vaultId: uint64): void {
+    this.assertReady()
+    this.assertCloseSingleCallGroup()
+    this.assertNotPaused(PAUSE_WITHDRAW)
+    assert(this.vaults(vaultId).exists, 'vault missing')
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.owner === Txn.sender, 'vault owner only')
+    assert(vault.debtMicroStable === Uint64(0), 'debt not zero')
+
+    const returnedCollateral = vault.collateralMicroAlgo
+    const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, returnedCollateral)
+    this.totalCollateralMicroAlgo.value = newTotalCollateral
+    this.deleteVaultBoxes(vault)
+
+    if (returnedCollateral > Uint64(0)) {
+      this.payCollateral(vault.owner, returnedCollateral)
+    }
+
+    emit<VaultClosedEvent>({
+      vaultId,
+      owner: Txn.sender,
+      returnedCollateralMicroAlgo: returnedCollateral,
+      closedAt: Global.latestTimestamp,
+    })
   }
 
   /** Liquidation entry point reserved for keeper/executor integration. */
@@ -541,6 +674,33 @@ export class CollateralXProtocolManager extends Contract {
   private assertSingleCallGroup(): void {
     assert(Global.groupSize === Uint64(1), 'mint group size')
     assert(Txn.groupIndex === Uint64(0), 'mint app call index')
+  }
+
+  private assertWithdrawSingleCallGroup(): void {
+    assert(Global.groupSize === Uint64(1), 'withdraw group size')
+    assert(Txn.groupIndex === Uint64(0), 'withdraw app call index')
+  }
+
+  private assertCloseSingleCallGroup(): void {
+    assert(Global.groupSize === Uint64(1), 'close group size')
+    assert(Txn.groupIndex === Uint64(0), 'close app call index')
+  }
+
+  private assertRepayGroup(repayment: gtxn.AssetTransferTxn): void {
+    assert(Global.groupSize === Uint64(2), 'repay group size')
+    assert(repayment.groupIndex === Uint64(0), 'repay transfer index')
+    assert(Txn.groupIndex === Uint64(1), 'repay app call index')
+  }
+
+  private assertRepaymentTransfer(repayment: gtxn.AssetTransferTxn, stablecoin: StablecoinSnapshot): void {
+    const stablecoinApp = Application(this.stablecoinAppId.value)
+    const stableAsset = Asset(stablecoin.stableAssetId)
+    assert(repayment.sender === Txn.sender, 'repay sender mismatch')
+    assert(repayment.assetReceiver === stablecoinApp.address, 'repay receiver mismatch')
+    assert(repayment.xferAsset === stableAsset, 'repay asset mismatch')
+    assert(repayment.rekeyTo === Global.zeroAddress, 'repay rekey forbidden')
+    assert(repayment.assetCloseTo === Global.zeroAddress, 'repay close forbidden')
+    assert(repayment.assetAmount > Uint64(0), 'zero repay')
   }
 
   private readFreshOracle(): OracleSnapshot {
@@ -629,6 +789,36 @@ export class CollateralXProtocolManager extends Contract {
         assets: [stableAsset],
       })
       .submit()
+  }
+
+  private callStablecoinBurn(vaultId: uint64, amountMicroStable: uint64): void {
+    const stablecoinApp = Application(this.stablecoinAppId.value)
+    itxn
+      .applicationCall({
+        appId: stablecoinApp,
+        fee: Uint64(0),
+        appArgs: [
+          methodSelector('burnForVault(uint64,uint64)void'),
+          new Arc4Uint<64>(vaultId).bytes,
+          new Arc4Uint<64>(amountMicroStable).bytes,
+        ],
+      })
+      .submit()
+  }
+
+  private payCollateral(receiver: Account, amountMicroAlgo: uint64): void {
+    itxn
+      .payment({
+        receiver,
+        amount: amountMicroAlgo,
+        fee: Uint64(0),
+      })
+      .submit()
+  }
+
+  private deleteVaultBoxes(vault: VaultRecord): void {
+    assert(this.vaults(vault.id).delete(), 'vault cleanup missing')
+    assert(this.ownerVaults({ owner: vault.owner, vaultId: vault.id }).delete(), 'owner index cleanup missing')
   }
 
   private validateParams(

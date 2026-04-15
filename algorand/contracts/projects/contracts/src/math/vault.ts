@@ -194,6 +194,7 @@ export function applyWithdraw(
   params: ProtocolParams
 ): Result<VaultState, ProtocolError> {
   if (params.emergencyPaused) return err(ProtocolError.EMERGENCY_PAUSED)
+  if (amountMicroAlgo === 0n) return err(ProtocolError.ZERO_WITHDRAW_AMOUNT)
 
   const priceResult = validateOracle(price, nowSeconds, params)
   if (!priceResult.ok) return err(priceResult.error)
@@ -254,6 +255,7 @@ export function applyRepay(
   params: ProtocolParams
 ): Result<VaultState, ProtocolError> {
   if (params.emergencyPaused) return err(ProtocolError.EMERGENCY_PAUSED)
+  if (amountMicroStable === 0n) return err(ProtocolError.ZERO_REPAY_AMOUNT)
   if (amountMicroStable > vault.debtMicroStable) return err(ProtocolError.REPAY_EXCEEDS_DEBT)
 
   const newDebt = microStable(vault.debtMicroStable - amountMicroStable)

@@ -190,6 +190,13 @@ describe("applyWithdraw", () => {
     expect(res.ok).toBe(false)
     if (!res.ok) expect(res.error).toBe(ProtocolError.STALE_ORACLE)
   })
+
+  it("rejects zero withdrawals", () => {
+    const vault = makeVault(300n, 100n)
+    const res = applyWithdraw(vault, microAlgo(0n), PRICE_1USD, NOW, DEFAULT_PARAMS)
+    expect(res.ok).toBe(false)
+    if (!res.ok) expect(res.error).toBe(ProtocolError.ZERO_WITHDRAW_AMOUNT)
+  })
 })
 
 // ── applyMint ─────────────────────────────────────────────────────────────
@@ -248,6 +255,13 @@ describe("applyRepay", () => {
     const res = applyRepay(vault, microStable(101n * MICRO_DENOMINATOR), NOW, DEFAULT_PARAMS)
     expect(res.ok).toBe(false)
     if (!res.ok) expect(res.error).toBe(ProtocolError.REPAY_EXCEEDS_DEBT)
+  })
+
+  it("rejects zero repay", () => {
+    const vault = makeVault(300n, 100n)
+    const res = applyRepay(vault, microStable(0n), NOW, DEFAULT_PARAMS)
+    expect(res.ok).toBe(false)
+    if (!res.ok) expect(res.error).toBe(ProtocolError.ZERO_REPAY_AMOUNT)
   })
 
   it("rejects partial repay that leaves dust below floor", () => {

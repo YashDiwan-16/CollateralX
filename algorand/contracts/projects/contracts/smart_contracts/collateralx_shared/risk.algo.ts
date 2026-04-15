@@ -20,6 +20,15 @@ export function safeAdd(left: uint64, right: uint64): uint64 {
   return bigToUint64(BigUint(left) + BigUint(right))
 }
 
+export function safeSub(left: uint64, right: uint64): uint64 {
+  assert(left >= right, 'uint64 underflow')
+  return left - right
+}
+
+export function isDustDebt(debtMicroStable: uint64, minDebtFloorMicroStable: uint64): boolean {
+  return debtMicroStable > Uint64(0) && debtMicroStable < minDebtFloorMicroStable
+}
+
 export function collateralValueMicroStable(collateralMicroAlgo: uint64, pricePerAlgoMicroStable: uint64): uint64 {
   assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
   return bigToUint64((BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable)) / BigUint(MICRO_UNIT))

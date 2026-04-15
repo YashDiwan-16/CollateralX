@@ -16,6 +16,10 @@ export const enum ProtocolError {
   ZERO_COLLATERAL = "ZERO_COLLATERAL",
   /** Attempting to withdraw more collateral than is in the vault. */
   INSUFFICIENT_COLLATERAL = "INSUFFICIENT_COLLATERAL",
+  /** Withdrawal amount is zero. */
+  ZERO_WITHDRAW_AMOUNT = "ZERO_WITHDRAW_AMOUNT",
+  /** Repayment amount is zero. */
+  ZERO_REPAY_AMOUNT = "ZERO_REPAY_AMOUNT",
   /** Attempting to repay more than the outstanding debt. */
   REPAY_EXCEEDS_DEBT = "REPAY_EXCEEDS_DEBT",
   /** Withdrawal would leave the vault below the minimum collateral ratio. */
