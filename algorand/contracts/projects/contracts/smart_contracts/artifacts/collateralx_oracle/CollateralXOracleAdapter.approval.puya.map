@@ -3132,8 +3132,8 @@
       "stack_out": []
     },
     "525": {
-      "error": "oracle proof verification not implemented",
-      "op": "err // oracle proof verification not implemented"
+      "error": "oracle proof verification disabled",
+      "op": "err // oracle proof verification disabled"
     },
     "526": {
       "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",

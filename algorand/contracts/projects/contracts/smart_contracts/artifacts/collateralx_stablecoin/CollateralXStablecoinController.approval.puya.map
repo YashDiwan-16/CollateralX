@@ -1,9 +1,10 @@
 {
   "version": 3,
   "sources": [
+    "../../collateralx_shared/risk.algo.ts",
     "../../collateralx_stablecoin/contract.algo.ts"
   ],
-  "mappings": "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",
+  "mappings": "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",
   "op_pc_offset": 0,
   "pc_events": {
     "1": {
@@ -14,7 +15,7 @@
       "op": "intcblock 0 8 1 32"
     },
     "7": {
-      "op": "bytecblock \"init\" \"mgr\" \"ceil\" \"asa\" \"supply\" \"pflg\" \"adm\""
+      "op": "bytecblock \"asa\" \"init\" \"mgr\" \"supply\" \"ceil\" \"pflg\" \"adm\""
     },
     "43": {
       "op": "txn ApplicationID",
@@ -30,7 +31,7 @@
       "stack_out": []
     },
     "48": {
-      "op": "bytec_0 // \"init\"",
+      "op": "bytec_1 // \"init\"",
       "defined_out": [
         "\"init\""
       ],
@@ -54,7 +55,7 @@
       "stack_out": []
     },
     "51": {
-      "op": "bytec_1 // \"mgr\"",
+      "op": "bytec_2 // \"mgr\"",
       "defined_out": [
         "\"mgr\""
       ],
@@ -74,7 +75,7 @@
       "stack_out": []
     },
     "54": {
-      "op": "bytec_3 // \"asa\"",
+      "op": "bytec_0 // \"asa\"",
       "defined_out": [
         "\"asa\""
       ],
@@ -94,7 +95,7 @@
       "stack_out": []
     },
     "57": {
-      "op": "bytec 4 // \"supply\"",
+      "op": "bytec_3 // \"supply\"",
       "defined_out": [
         "\"supply\""
       ],
@@ -102,19 +103,19 @@
         "\"supply\""
       ]
     },
-    "59": {
+    "58": {
       "op": "intc_0 // 0",
       "stack_out": [
         "\"supply\"",
         "0"
       ]
     },
-    "60": {
+    "59": {
       "op": "app_global_put",
       "stack_out": []
     },
-    "61": {
-      "op": "bytec_2 // \"ceil\"",
+    "60": {
+      "op": "bytec 4 // \"ceil\"",
       "defined_out": [
         "\"ceil\""
       ],
@@ -188,17 +189,18 @@
       ]
     },
     "74": {
-      "op": "bz main_create_NoOp@12",
+      "op": "bz main_create_NoOp@13",
       "stack_out": []
     },
     "77": {
-      "op": "pushbytess 0xf7b01412 0xef9f9274 0x56694ceb 0xf7cd8980 0x10f76476 0x4d06c049 // method \"initializeStablecoinController(uint64,uint64,uint64)void\", method \"readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64)\", method \"adminSetStablecoinConfig(uint64,uint64,uint64)void\", method \"adminSetPauseFlags(uint64)void\", method \"mintForVault(uint64,address,uint64)void\", method \"burnForVault(uint64,uint64)void\"",
+      "op": "pushbytess 0xf7b01412 0xef9f9274 0x56694ceb 0xf7cd8980 0x8954c682 0x10f76476 0x4d06c049 // method \"initializeStablecoinController(uint64,uint64,uint64)void\", method \"readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64)\", method \"adminSetStablecoinConfig(uint64,uint64,uint64)void\", method \"adminSetPauseFlags(uint64)void\", method \"optInToStableAsset()void\", method \"mintForVault(uint64,address,uint64)void\", method \"burnForVault(uint64,uint64)void\"",
       "defined_out": [
         "Method(adminSetPauseFlags(uint64)void)",
         "Method(adminSetStablecoinConfig(uint64,uint64,uint64)void)",
         "Method(burnForVault(uint64,uint64)void)",
         "Method(initializeStablecoinController(uint64,uint64,uint64)void)",
         "Method(mintForVault(uint64,address,uint64)void)",
+        "Method(optInToStableAsset()void)",
         "Method(readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64))"
       ],
       "stack_out": [
@@ -206,11 +208,12 @@
         "Method(readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64))",
         "Method(adminSetStablecoinConfig(uint64,uint64,uint64)void)",
         "Method(adminSetPauseFlags(uint64)void)",
+        "Method(optInToStableAsset()void)",
         "Method(mintForVault(uint64,address,uint64)void)",
         "Method(burnForVault(uint64,uint64)void)"
       ]
     },
-    "109": {
+    "114": {
       "op": "txna ApplicationArgs 0",
       "defined_out": [
         "Method(adminSetPauseFlags(uint64)void)",
@@ -218,6 +221,7 @@
         "Method(burnForVault(uint64,uint64)void)",
         "Method(initializeStablecoinController(uint64,uint64,uint64)void)",
         "Method(mintForVault(uint64,address,uint64)void)",
+        "Method(optInToStableAsset()void)",
         "Method(readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64))",
         "tmp%4#0"
       ],
@@ -226,20 +230,21 @@
         "Method(readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64))",
         "Method(adminSetStablecoinConfig(uint64,uint64,uint64)void)",
         "Method(adminSetPauseFlags(uint64)void)",
+        "Method(optInToStableAsset()void)",
         "Method(mintForVault(uint64,address,uint64)void)",
         "Method(burnForVault(uint64,uint64)void)",
         "tmp%4#0"
       ]
     },
-    "112": {
-      "op": "match initializeStablecoinController readStablecoinControlState adminSetStablecoinConfig adminSetPauseFlags mintForVault burnForVault",
+    "117": {
+      "op": "match initializeStablecoinController readStablecoinControlState adminSetStablecoinConfig adminSetPauseFlags optInToStableAsset mintForVault burnForVault",
       "stack_out": []
     },
-    "126": {
+    "133": {
       "op": "err"
     },
-    "127": {
-      "block": "main_create_NoOp@12",
+    "134": {
+      "block": "main_create_NoOp@13",
       "stack_in": [],
       "op": "pushbytes 0xd324bea4 // method \"createApplication(address)void\"",
       "defined_out": [
@@ -249,7 +254,7 @@
         "Method(createApplication(address)void)"
       ]
     },
-    "133": {
+    "140": {
       "op": "txna ApplicationArgs 0",
       "defined_out": [
         "Method(createApplication(address)void)",
@@ -260,14 +265,14 @@
         "tmp%5#0"
       ]
     },
-    "136": {
+    "143": {
       "op": "match createApplication",
       "stack_out": []
     },
-    "140": {
+    "147": {
       "op": "err"
     },
-    "141": {
+    "148": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.createApplication[routing]",
       "params": {},
       "block": "createApplication",
@@ -280,7 +285,7 @@
         "admin#0"
       ]
     },
-    "144": {
+    "151": {
       "op": "dup",
       "defined_out": [
         "admin#0",
@@ -291,7 +296,7 @@
         "admin#0 (copy)"
       ]
     },
-    "145": {
+    "152": {
       "op": "len",
       "defined_out": [
         "admin#0",
@@ -302,7 +307,7 @@
         "len%0#0"
       ]
     },
-    "146": {
+    "153": {
       "op": "intc_3 // 32",
       "defined_out": [
         "32",
@@ -315,7 +320,7 @@
         "32"
       ]
     },
-    "147": {
+    "154": {
       "op": "==",
       "defined_out": [
         "admin#0",
@@ -326,17 +331,17 @@
         "eq%0#0"
       ]
     },
-    "148": {
+    "155": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
         "admin#0"
       ]
     },
-    "149": {
+    "156": {
       "op": "dup"
     },
-    "150": {
+    "157": {
       "op": "global ZeroAddress",
       "defined_out": [
         "admin#0",
@@ -349,7 +354,7 @@
         "tmp%0#1"
       ]
     },
-    "152": {
+    "159": {
       "op": "!=",
       "defined_out": [
         "admin#0",
@@ -360,14 +365,14 @@
         "tmp%1#1"
       ]
     },
-    "153": {
+    "160": {
       "error": "admin required",
       "op": "assert // admin required",
       "stack_out": [
         "admin#0"
       ]
     },
-    "154": {
+    "161": {
       "op": "bytec 6 // \"adm\"",
       "defined_out": [
         "\"adm\"",
@@ -378,7 +383,7 @@
         "\"adm\""
       ]
     },
-    "156": {
+    "163": {
       "op": "dig 1",
       "stack_out": [
         "admin#0",
@@ -386,13 +391,13 @@
         "admin#0 (copy)"
       ]
     },
-    "158": {
+    "165": {
       "op": "app_global_put",
       "stack_out": [
         "admin#0"
       ]
     },
-    "159": {
+    "166": {
       "op": "pushbytes 0x2ac1f974 // method \"StablecoinAdminCreated(address)\"",
       "defined_out": [
         "Method(StablecoinAdminCreated(address))",
@@ -403,14 +408,14 @@
         "Method(StablecoinAdminCreated(address))"
       ]
     },
-    "165": {
+    "172": {
       "op": "swap",
       "stack_out": [
         "Method(StablecoinAdminCreated(address))",
         "admin#0"
       ]
     },
-    "166": {
+    "173": {
       "op": "concat",
       "defined_out": [
         "event%0#0"
@@ -419,11 +424,11 @@
         "event%0#0"
       ]
     },
-    "167": {
+    "174": {
       "op": "log",
       "stack_out": []
     },
-    "168": {
+    "175": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1"
@@ -432,11 +437,11 @@
         "1"
       ]
     },
-    "169": {
+    "176": {
       "op": "return",
       "stack_out": []
     },
-    "170": {
+    "177": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.initializeStablecoinController[routing]",
       "params": {},
       "block": "initializeStablecoinController",
@@ -449,7 +454,7 @@
         "tmp%0#0"
       ]
     },
-    "173": {
+    "180": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -460,7 +465,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "174": {
+    "181": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -471,7 +476,7 @@
         "len%0#0"
       ]
     },
-    "175": {
+    "182": {
       "op": "intc_1 // 8",
       "defined_out": [
         "8",
@@ -484,7 +489,7 @@
         "8"
       ]
     },
-    "176": {
+    "183": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -495,14 +500,14 @@
         "eq%0#0"
       ]
     },
-    "177": {
+    "184": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "178": {
+    "185": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0"
@@ -511,7 +516,7 @@
         "protocolManagerAppId#0"
       ]
     },
-    "179": {
+    "186": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -522,7 +527,7 @@
         "tmp%2#0"
       ]
     },
-    "182": {
+    "189": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -535,7 +540,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "183": {
+    "190": {
       "op": "len",
       "defined_out": [
         "len%1#0",
@@ -548,7 +553,7 @@
         "len%1#0"
       ]
     },
-    "184": {
+    "191": {
       "op": "intc_1 // 8",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -557,7 +562,7 @@
         "8"
       ]
     },
-    "185": {
+    "192": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -570,7 +575,7 @@
         "eq%1#0"
       ]
     },
-    "186": {
+    "193": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -578,7 +583,7 @@
         "tmp%2#0"
       ]
     },
-    "187": {
+    "194": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -589,7 +594,7 @@
         "stableAssetId#0"
       ]
     },
-    "188": {
+    "195": {
       "op": "txna ApplicationArgs 3",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -602,7 +607,7 @@
         "tmp%4#0"
       ]
     },
-    "191": {
+    "198": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -617,7 +622,7 @@
         "tmp%4#0 (copy)"
       ]
     },
-    "192": {
+    "199": {
       "op": "len",
       "defined_out": [
         "len%2#0",
@@ -632,7 +637,7 @@
         "len%2#0"
       ]
     },
-    "193": {
+    "200": {
       "op": "intc_1 // 8",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -642,7 +647,7 @@
         "8"
       ]
     },
-    "194": {
+    "201": {
       "op": "==",
       "defined_out": [
         "eq%2#0",
@@ -657,7 +662,7 @@
         "eq%2#0"
       ]
     },
-    "195": {
+    "202": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -666,7 +671,7 @@
         "tmp%4#0"
       ]
     },
-    "196": {
+    "203": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -679,11 +684,11 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "197": {
+    "204": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin",
       "op": "callsub assertAdmin"
     },
-    "200": {
+    "207": {
       "op": "intc_0 // 0",
       "defined_out": [
         "0",
@@ -698,8 +703,8 @@
         "0"
       ]
     },
-    "201": {
-      "op": "bytec_0 // \"init\"",
+    "208": {
+      "op": "bytec_1 // \"init\"",
       "defined_out": [
         "\"init\"",
         "0",
@@ -715,7 +720,7 @@
         "\"init\""
       ]
     },
-    "202": {
+    "209": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -732,7 +737,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "203": {
+    "210": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -742,7 +747,7 @@
         "maybe_value%0#0"
       ]
     },
-    "204": {
+    "211": {
       "op": "!",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -757,7 +762,7 @@
         "tmp%0#1"
       ]
     },
-    "205": {
+    "212": {
       "error": "already initialized",
       "op": "assert // already initialized",
       "stack_out": [
@@ -766,7 +771,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "206": {
+    "213": {
       "op": "dig 2",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -781,7 +786,7 @@
         "protocolManagerAppId#0 (copy)"
       ]
     },
-    "208": {
+    "215": {
       "error": "manager app required",
       "op": "assert // manager app required",
       "stack_out": [
@@ -790,7 +795,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "209": {
+    "216": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -805,7 +810,7 @@
         "supplyCeilingMicroStable#0 (copy)"
       ]
     },
-    "210": {
+    "217": {
       "error": "ceiling required",
       "op": "assert // ceiling required",
       "stack_out": [
@@ -814,8 +819,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "211": {
-      "op": "bytec_1 // \"mgr\"",
+    "218": {
+      "op": "bytec_2 // \"mgr\"",
       "defined_out": [
         "\"mgr\"",
         "protocolManagerAppId#0",
@@ -829,7 +834,7 @@
         "\"mgr\""
       ]
     },
-    "212": {
+    "219": {
       "op": "dig 3",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -839,7 +844,7 @@
         "protocolManagerAppId#0 (copy)"
       ]
     },
-    "214": {
+    "221": {
       "op": "app_global_put",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -847,8 +852,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "215": {
-      "op": "bytec_3 // \"asa\"",
+    "222": {
+      "op": "bytec_0 // \"asa\"",
       "defined_out": [
         "\"asa\"",
         "protocolManagerAppId#0",
@@ -862,7 +867,7 @@
         "\"asa\""
       ]
     },
-    "216": {
+    "223": {
       "op": "dig 2",
       "defined_out": [
         "\"asa\"",
@@ -879,7 +884,7 @@
         "stableAssetId#0 (copy)"
       ]
     },
-    "218": {
+    "225": {
       "op": "app_global_put",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -887,8 +892,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "219": {
-      "op": "bytec_2 // \"ceil\"",
+    "226": {
+      "op": "bytec 4 // \"ceil\"",
       "defined_out": [
         "\"ceil\"",
         "protocolManagerAppId#0",
@@ -902,7 +907,7 @@
         "\"ceil\""
       ]
     },
-    "220": {
+    "228": {
       "op": "dig 1",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -912,7 +917,7 @@
         "supplyCeilingMicroStable#0 (copy)"
       ]
     },
-    "222": {
+    "230": {
       "op": "app_global_put",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -920,8 +925,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "223": {
-      "op": "bytec_0 // \"init\"",
+    "231": {
+      "op": "bytec_1 // \"init\"",
       "stack_out": [
         "protocolManagerAppId#0",
         "stableAssetId#0",
@@ -929,7 +934,7 @@
         "\"init\""
       ]
     },
-    "224": {
+    "232": {
       "op": "intc_2 // 1",
       "defined_out": [
         "\"init\"",
@@ -946,7 +951,7 @@
         "1"
       ]
     },
-    "225": {
+    "233": {
       "op": "app_global_put",
       "stack_out": [
         "protocolManagerAppId#0",
@@ -954,7 +959,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "226": {
+    "234": {
       "op": "txn Sender",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -969,7 +974,7 @@
         "tmp%1#1"
       ]
     },
-    "228": {
+    "236": {
       "op": "uncover 3",
       "stack_out": [
         "stableAssetId#0",
@@ -978,7 +983,7 @@
         "protocolManagerAppId#0"
       ]
     },
-    "230": {
+    "238": {
       "op": "itob",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -993,7 +998,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "231": {
+    "239": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%1#0",
@@ -1006,7 +1011,7 @@
         "aggregate%head%1#0"
       ]
     },
-    "232": {
+    "240": {
       "op": "uncover 2",
       "stack_out": [
         "supplyCeilingMicroStable#0",
@@ -1014,7 +1019,7 @@
         "stableAssetId#0"
       ]
     },
-    "234": {
+    "242": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%1#0",
@@ -1027,7 +1032,7 @@
         "aggregate%val_as_bytes%1#0"
       ]
     },
-    "235": {
+    "243": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%2#0",
@@ -1038,14 +1043,14 @@
         "aggregate%head%2#0"
       ]
     },
-    "236": {
+    "244": {
       "op": "swap",
       "stack_out": [
         "aggregate%head%2#0",
         "supplyCeilingMicroStable#0"
       ]
     },
-    "237": {
+    "245": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%2#0",
@@ -1056,7 +1061,7 @@
         "aggregate%val_as_bytes%2#0"
       ]
     },
-    "238": {
+    "246": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%3#0"
@@ -1065,7 +1070,7 @@
         "aggregate%head%3#0"
       ]
     },
-    "239": {
+    "247": {
       "op": "pushbytes 0xc76770d3 // method \"StablecoinControllerInitializedEvent(address,uint64,uint64,uint64)\"",
       "defined_out": [
         "Method(StablecoinControllerInitializedEvent(address,uint64,uint64,uint64))",
@@ -1076,14 +1081,14 @@
         "Method(StablecoinControllerInitializedEvent(address,uint64,uint64,uint64))"
       ]
     },
-    "245": {
+    "253": {
       "op": "swap",
       "stack_out": [
         "Method(StablecoinControllerInitializedEvent(address,uint64,uint64,uint64))",
         "aggregate%head%3#0"
       ]
     },
-    "246": {
+    "254": {
       "op": "concat",
       "defined_out": [
         "event%0#0"
@@ -1092,21 +1097,21 @@
         "event%0#0"
       ]
     },
-    "247": {
+    "255": {
       "op": "log",
       "stack_out": []
     },
-    "248": {
+    "256": {
       "op": "intc_2 // 1",
       "stack_out": [
         "1"
       ]
     },
-    "249": {
+    "257": {
       "op": "return",
       "stack_out": []
     },
-    "250": {
+    "258": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.readStablecoinControlState[routing]",
       "params": {},
       "block": "readStablecoinControlState",
@@ -1119,7 +1124,7 @@
         "0"
       ]
     },
-    "251": {
+    "259": {
       "op": "bytec 6 // \"adm\"",
       "defined_out": [
         "\"adm\"",
@@ -1130,7 +1135,7 @@
         "\"adm\""
       ]
     },
-    "253": {
+    "261": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -1141,22 +1146,22 @@
         "maybe_exists%0#0"
       ]
     },
-    "254": {
+    "262": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
         "maybe_value%0#0"
       ]
     },
-    "255": {
+    "263": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
         "0"
       ]
     },
-    "256": {
-      "op": "bytec_0 // \"init\"",
+    "264": {
+      "op": "bytec_1 // \"init\"",
       "defined_out": [
         "\"init\"",
         "0",
@@ -1168,7 +1173,7 @@
         "\"init\""
       ]
     },
-    "257": {
+    "265": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%1#0",
@@ -1181,7 +1186,7 @@
         "maybe_exists%1#0"
       ]
     },
-    "258": {
+    "266": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1189,7 +1194,7 @@
         "maybe_value%1#0"
       ]
     },
-    "259": {
+    "267": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
@@ -1197,8 +1202,8 @@
         "0"
       ]
     },
-    "260": {
-      "op": "bytec_1 // \"mgr\"",
+    "268": {
+      "op": "bytec_2 // \"mgr\"",
       "defined_out": [
         "\"mgr\"",
         "0",
@@ -1212,7 +1217,7 @@
         "\"mgr\""
       ]
     },
-    "261": {
+    "269": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%2#0",
@@ -1227,7 +1232,7 @@
         "maybe_exists%2#0"
       ]
     },
-    "262": {
+    "270": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1236,7 +1241,7 @@
         "maybe_value%2#0"
       ]
     },
-    "263": {
+    "271": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
@@ -1245,8 +1250,8 @@
         "0"
       ]
     },
-    "264": {
-      "op": "bytec_3 // \"asa\"",
+    "272": {
+      "op": "bytec_0 // \"asa\"",
       "defined_out": [
         "\"asa\"",
         "0",
@@ -1262,7 +1267,7 @@
         "\"asa\""
       ]
     },
-    "265": {
+    "273": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%3#0",
@@ -1279,7 +1284,7 @@
         "maybe_exists%3#0"
       ]
     },
-    "266": {
+    "274": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1289,7 +1294,7 @@
         "maybe_value%3#0"
       ]
     },
-    "267": {
+    "275": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
@@ -1299,8 +1304,8 @@
         "0"
       ]
     },
-    "268": {
-      "op": "bytec 4 // \"supply\"",
+    "276": {
+      "op": "bytec_3 // \"supply\"",
       "defined_out": [
         "\"supply\"",
         "0",
@@ -1318,7 +1323,7 @@
         "\"supply\""
       ]
     },
-    "270": {
+    "277": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%4#0",
@@ -1337,7 +1342,7 @@
         "maybe_exists%4#0"
       ]
     },
-    "271": {
+    "278": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1348,7 +1353,7 @@
         "maybe_value%4#0"
       ]
     },
-    "272": {
+    "279": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
@@ -1359,8 +1364,8 @@
         "0"
       ]
     },
-    "273": {
-      "op": "bytec_2 // \"ceil\"",
+    "280": {
+      "op": "bytec 4 // \"ceil\"",
       "defined_out": [
         "\"ceil\"",
         "0",
@@ -1380,7 +1385,7 @@
         "\"ceil\""
       ]
     },
-    "274": {
+    "282": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%5#0",
@@ -1401,7 +1406,7 @@
         "maybe_exists%5#0"
       ]
     },
-    "275": {
+    "283": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1413,7 +1418,7 @@
         "maybe_value%5#0"
       ]
     },
-    "276": {
+    "284": {
       "op": "intc_0 // 0",
       "stack_out": [
         "maybe_value%0#0",
@@ -1425,7 +1430,7 @@
         "0"
       ]
     },
-    "277": {
+    "285": {
       "op": "bytec 5 // \"pflg\"",
       "defined_out": [
         "\"pflg\"",
@@ -1448,7 +1453,7 @@
         "\"pflg\""
       ]
     },
-    "279": {
+    "287": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%6#0",
@@ -1471,7 +1476,7 @@
         "maybe_exists%6#0"
       ]
     },
-    "280": {
+    "288": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1484,7 +1489,7 @@
         "maybe_value%6#0"
       ]
     },
-    "281": {
+    "289": {
       "op": "uncover 5",
       "stack_out": [
         "maybe_value%0#0",
@@ -1496,7 +1501,7 @@
         "maybe_value%1#0"
       ]
     },
-    "283": {
+    "291": {
       "op": "itob",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -1517,7 +1522,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "284": {
+    "292": {
       "op": "uncover 6",
       "stack_out": [
         "maybe_value%2#0",
@@ -1529,7 +1534,7 @@
         "maybe_value%0#0"
       ]
     },
-    "286": {
+    "294": {
       "op": "swap",
       "stack_out": [
         "maybe_value%2#0",
@@ -1541,7 +1546,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "287": {
+    "295": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%1#0",
@@ -1560,7 +1565,7 @@
         "aggregate%head%1#0"
       ]
     },
-    "288": {
+    "296": {
       "op": "uncover 5",
       "stack_out": [
         "maybe_value%3#0",
@@ -1571,7 +1576,7 @@
         "maybe_value%2#0"
       ]
     },
-    "290": {
+    "298": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%1#0",
@@ -1590,7 +1595,7 @@
         "aggregate%val_as_bytes%1#0"
       ]
     },
-    "291": {
+    "299": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%2#0",
@@ -1607,7 +1612,7 @@
         "aggregate%head%2#0"
       ]
     },
-    "292": {
+    "300": {
       "op": "uncover 4",
       "stack_out": [
         "maybe_value%4#0",
@@ -1617,7 +1622,7 @@
         "maybe_value%3#0"
       ]
     },
-    "294": {
+    "302": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%2#0",
@@ -1634,7 +1639,7 @@
         "aggregate%val_as_bytes%2#0"
       ]
     },
-    "295": {
+    "303": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%3#0",
@@ -1649,7 +1654,7 @@
         "aggregate%head%3#0"
       ]
     },
-    "296": {
+    "304": {
       "op": "uncover 3",
       "stack_out": [
         "maybe_value%5#0",
@@ -1658,7 +1663,7 @@
         "maybe_value%4#0"
       ]
     },
-    "298": {
+    "306": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%3#0",
@@ -1673,7 +1678,7 @@
         "aggregate%val_as_bytes%3#0"
       ]
     },
-    "299": {
+    "307": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%4#0",
@@ -1686,7 +1691,7 @@
         "aggregate%head%4#0"
       ]
     },
-    "300": {
+    "308": {
       "op": "uncover 2",
       "stack_out": [
         "maybe_value%6#0",
@@ -1694,7 +1699,7 @@
         "maybe_value%5#0"
       ]
     },
-    "302": {
+    "310": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%4#0",
@@ -1707,7 +1712,7 @@
         "aggregate%val_as_bytes%4#0"
       ]
     },
-    "303": {
+    "311": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%5#0",
@@ -1718,14 +1723,14 @@
         "aggregate%head%5#0"
       ]
     },
-    "304": {
+    "312": {
       "op": "swap",
       "stack_out": [
         "aggregate%head%5#0",
         "maybe_value%6#0"
       ]
     },
-    "305": {
+    "313": {
       "op": "itob",
       "defined_out": [
         "aggregate%head%5#0",
@@ -1736,7 +1741,7 @@
         "aggregate%val_as_bytes%5#0"
       ]
     },
-    "306": {
+    "314": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%6#0"
@@ -1745,7 +1750,7 @@
         "aggregate%head%6#0"
       ]
     },
-    "307": {
+    "315": {
       "op": "pushbytes 0x151f7c75",
       "defined_out": [
         "0x151f7c75",
@@ -1756,14 +1761,14 @@
         "0x151f7c75"
       ]
     },
-    "313": {
+    "321": {
       "op": "swap",
       "stack_out": [
         "0x151f7c75",
         "aggregate%head%6#0"
       ]
     },
-    "314": {
+    "322": {
       "op": "concat",
       "defined_out": [
         "tmp%1#0"
@@ -1772,11 +1777,11 @@
         "tmp%1#0"
       ]
     },
-    "315": {
+    "323": {
       "op": "log",
       "stack_out": []
     },
-    "316": {
+    "324": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1"
@@ -1785,11 +1790,11 @@
         "1"
       ]
     },
-    "317": {
+    "325": {
       "op": "return",
       "stack_out": []
     },
-    "318": {
+    "326": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.adminSetStablecoinConfig[routing]",
       "params": {},
       "block": "adminSetStablecoinConfig",
@@ -1802,7 +1807,7 @@
         "tmp%0#0"
       ]
     },
-    "321": {
+    "329": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -1813,7 +1818,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "322": {
+    "330": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -1824,7 +1829,7 @@
         "len%0#0"
       ]
     },
-    "323": {
+    "331": {
       "op": "intc_1 // 8",
       "defined_out": [
         "8",
@@ -1837,7 +1842,7 @@
         "8"
       ]
     },
-    "324": {
+    "332": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -1848,21 +1853,21 @@
         "eq%0#0"
       ]
     },
-    "325": {
+    "333": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "326": {
+    "334": {
       "op": "dup",
       "stack_out": [
         "tmp%0#0",
         "tmp%0#0 (copy)"
       ]
     },
-    "327": {
+    "335": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -1873,7 +1878,7 @@
         "protocolManagerAppId#0"
       ]
     },
-    "328": {
+    "336": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -1886,7 +1891,7 @@
         "tmp%2#0"
       ]
     },
-    "331": {
+    "339": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -1901,7 +1906,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "332": {
+    "340": {
       "op": "len",
       "defined_out": [
         "len%1#0",
@@ -1916,7 +1921,7 @@
         "len%1#0"
       ]
     },
-    "333": {
+    "341": {
       "op": "intc_1 // 8",
       "stack_out": [
         "tmp%0#0",
@@ -1926,7 +1931,7 @@
         "8"
       ]
     },
-    "334": {
+    "342": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -1941,7 +1946,7 @@
         "eq%1#0"
       ]
     },
-    "335": {
+    "343": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -1950,7 +1955,7 @@
         "tmp%2#0"
       ]
     },
-    "336": {
+    "344": {
       "op": "dup",
       "stack_out": [
         "tmp%0#0",
@@ -1959,7 +1964,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "337": {
+    "345": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -1974,7 +1979,7 @@
         "stableAssetId#0"
       ]
     },
-    "338": {
+    "346": {
       "op": "txna ApplicationArgs 3",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -1991,7 +1996,7 @@
         "tmp%4#0"
       ]
     },
-    "341": {
+    "349": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -2010,7 +2015,7 @@
         "tmp%4#0 (copy)"
       ]
     },
-    "342": {
+    "350": {
       "op": "len",
       "defined_out": [
         "len%2#0",
@@ -2029,7 +2034,7 @@
         "len%2#0"
       ]
     },
-    "343": {
+    "351": {
       "op": "intc_1 // 8",
       "stack_out": [
         "tmp%0#0",
@@ -2041,7 +2046,7 @@
         "8"
       ]
     },
-    "344": {
+    "352": {
       "op": "==",
       "defined_out": [
         "eq%2#0",
@@ -2060,7 +2065,7 @@
         "eq%2#0"
       ]
     },
-    "345": {
+    "353": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -2071,7 +2076,7 @@
         "tmp%4#0"
       ]
     },
-    "346": {
+    "354": {
       "op": "dup",
       "stack_out": [
         "tmp%0#0",
@@ -2082,7 +2087,7 @@
         "tmp%4#0 (copy)"
       ]
     },
-    "347": {
+    "355": {
       "op": "btoi",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -2101,15 +2106,15 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "348": {
+    "356": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
       "op": "callsub assertReady"
     },
-    "351": {
+    "359": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin",
       "op": "callsub assertAdmin"
     },
-    "354": {
+    "362": {
       "op": "dig 4",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -2130,7 +2135,7 @@
         "protocolManagerAppId#0 (copy)"
       ]
     },
-    "356": {
+    "364": {
       "error": "manager app required",
       "op": "assert // manager app required",
       "stack_out": [
@@ -2142,7 +2147,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "357": {
+    "365": {
       "op": "dup",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -2163,7 +2168,7 @@
         "supplyCeilingMicroStable#0 (copy)"
       ]
     },
-    "358": {
+    "366": {
       "error": "ceiling required",
       "op": "assert // ceiling required",
       "stack_out": [
@@ -2175,7 +2180,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "359": {
+    "367": {
       "op": "intc_0 // 0",
       "defined_out": [
         "0",
@@ -2196,8 +2201,8 @@
         "0"
       ]
     },
-    "360": {
-      "op": "bytec 4 // \"supply\"",
+    "368": {
+      "op": "bytec_3 // \"supply\"",
       "defined_out": [
         "\"supply\"",
         "0",
@@ -2219,7 +2224,7 @@
         "\"supply\""
       ]
     },
-    "362": {
+    "369": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -2242,7 +2247,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "363": {
+    "370": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -2255,7 +2260,7 @@
         "maybe_value%0#0"
       ]
     },
-    "364": {
+    "371": {
       "op": "dig 1",
       "stack_out": [
         "tmp%0#0",
@@ -2268,7 +2273,7 @@
         "supplyCeilingMicroStable#0 (copy)"
       ]
     },
-    "366": {
+    "373": {
       "op": "<=",
       "defined_out": [
         "protocolManagerAppId#0",
@@ -2289,7 +2294,7 @@
         "tmp%0#1"
       ]
     },
-    "367": {
+    "374": {
       "error": "ceiling below supply",
       "op": "assert // ceiling below supply",
       "stack_out": [
@@ -2301,8 +2306,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "368": {
-      "op": "bytec_1 // \"mgr\"",
+    "375": {
+      "op": "bytec_2 // \"mgr\"",
       "defined_out": [
         "\"mgr\"",
         "protocolManagerAppId#0",
@@ -2322,7 +2327,7 @@
         "\"mgr\""
       ]
     },
-    "369": {
+    "376": {
       "op": "uncover 5",
       "stack_out": [
         "tmp%0#0",
@@ -2334,7 +2339,7 @@
         "protocolManagerAppId#0"
       ]
     },
-    "371": {
+    "378": {
       "op": "app_global_put",
       "stack_out": [
         "tmp%0#0",
@@ -2344,8 +2349,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "372": {
-      "op": "bytec_3 // \"asa\"",
+    "379": {
+      "op": "bytec_0 // \"asa\"",
       "defined_out": [
         "\"asa\"",
         "stableAssetId#0",
@@ -2363,7 +2368,7 @@
         "\"asa\""
       ]
     },
-    "373": {
+    "380": {
       "op": "uncover 3",
       "stack_out": [
         "tmp%0#0",
@@ -2374,7 +2379,7 @@
         "stableAssetId#0"
       ]
     },
-    "375": {
+    "382": {
       "op": "app_global_put",
       "stack_out": [
         "tmp%0#0",
@@ -2383,8 +2388,8 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "376": {
-      "op": "bytec_2 // \"ceil\"",
+    "383": {
+      "op": "bytec 4 // \"ceil\"",
       "defined_out": [
         "\"ceil\"",
         "supplyCeilingMicroStable#0",
@@ -2400,7 +2405,7 @@
         "\"ceil\""
       ]
     },
-    "377": {
+    "385": {
       "op": "swap",
       "stack_out": [
         "tmp%0#0",
@@ -2410,7 +2415,7 @@
         "supplyCeilingMicroStable#0"
       ]
     },
-    "378": {
+    "386": {
       "op": "app_global_put",
       "stack_out": [
         "tmp%0#0",
@@ -2418,7 +2423,7 @@
         "tmp%4#0"
       ]
     },
-    "379": {
+    "387": {
       "op": "txn Sender",
       "defined_out": [
         "tmp%0#0",
@@ -2433,7 +2438,7 @@
         "tmp%1#1"
       ]
     },
-    "381": {
+    "389": {
       "op": "uncover 3",
       "stack_out": [
         "tmp%2#0",
@@ -2442,7 +2447,7 @@
         "tmp%0#0"
       ]
     },
-    "383": {
+    "391": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%1#0",
@@ -2455,7 +2460,7 @@
         "aggregate%head%1#0"
       ]
     },
-    "384": {
+    "392": {
       "op": "uncover 2",
       "stack_out": [
         "tmp%4#0",
@@ -2463,7 +2468,7 @@
         "tmp%2#0"
       ]
     },
-    "386": {
+    "394": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%2#0",
@@ -2474,14 +2479,14 @@
         "aggregate%head%2#0"
       ]
     },
-    "387": {
+    "395": {
       "op": "swap",
       "stack_out": [
         "aggregate%head%2#0",
         "tmp%4#0"
       ]
     },
-    "388": {
+    "396": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%3#0"
@@ -2490,7 +2495,7 @@
         "aggregate%head%3#0"
       ]
     },
-    "389": {
+    "397": {
       "op": "pushbytes 0x063ec276 // method \"StablecoinConfigUpdated(address,uint64,uint64,uint64)\"",
       "defined_out": [
         "Method(StablecoinConfigUpdated(address,uint64,uint64,uint64))",
@@ -2501,14 +2506,14 @@
         "Method(StablecoinConfigUpdated(address,uint64,uint64,uint64))"
       ]
     },
-    "395": {
+    "403": {
       "op": "swap",
       "stack_out": [
         "Method(StablecoinConfigUpdated(address,uint64,uint64,uint64))",
         "aggregate%head%3#0"
       ]
     },
-    "396": {
+    "404": {
       "op": "concat",
       "defined_out": [
         "event%0#0"
@@ -2517,11 +2522,11 @@
         "event%0#0"
       ]
     },
-    "397": {
+    "405": {
       "op": "log",
       "stack_out": []
     },
-    "398": {
+    "406": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1"
@@ -2530,11 +2535,11 @@
         "1"
       ]
     },
-    "399": {
+    "407": {
       "op": "return",
       "stack_out": []
     },
-    "400": {
+    "408": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.adminSetPauseFlags[routing]",
       "params": {},
       "block": "adminSetPauseFlags",
@@ -2547,7 +2552,7 @@
         "tmp%0#0"
       ]
     },
-    "403": {
+    "411": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -2558,7 +2563,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "404": {
+    "412": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -2569,7 +2574,7 @@
         "len%0#0"
       ]
     },
-    "405": {
+    "413": {
       "op": "intc_1 // 8",
       "defined_out": [
         "8",
@@ -2582,7 +2587,7 @@
         "8"
       ]
     },
-    "406": {
+    "414": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -2593,21 +2598,21 @@
         "eq%0#0"
       ]
     },
-    "407": {
+    "415": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "408": {
+    "416": {
       "op": "dup",
       "stack_out": [
         "tmp%0#0",
         "tmp%0#0 (copy)"
       ]
     },
-    "409": {
+    "417": {
       "op": "btoi",
       "defined_out": [
         "pauseFlags#0",
@@ -2618,15 +2623,15 @@
         "pauseFlags#0"
       ]
     },
-    "410": {
+    "418": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
       "op": "callsub assertReady"
     },
-    "413": {
+    "421": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin",
       "op": "callsub assertAdmin"
     },
-    "416": {
+    "424": {
       "op": "bytec 5 // \"pflg\"",
       "defined_out": [
         "\"pflg\"",
@@ -2639,7 +2644,7 @@
         "\"pflg\""
       ]
     },
-    "418": {
+    "426": {
       "op": "swap",
       "stack_out": [
         "tmp%0#0",
@@ -2647,13 +2652,13 @@
         "pauseFlags#0"
       ]
     },
-    "419": {
+    "427": {
       "op": "app_global_put",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "420": {
+    "428": {
       "op": "txn Sender",
       "defined_out": [
         "tmp%0#0",
@@ -2664,14 +2669,14 @@
         "tmp%0#1"
       ]
     },
-    "422": {
+    "430": {
       "op": "swap",
       "stack_out": [
         "tmp%0#1",
         "tmp%0#0"
       ]
     },
-    "423": {
+    "431": {
       "op": "concat",
       "defined_out": [
         "aggregate%head%1#0"
@@ -2680,7 +2685,7 @@
         "aggregate%head%1#0"
       ]
     },
-    "424": {
+    "432": {
       "op": "pushbytes 0x004bf936 // method \"StablecoinPauseFlagsUpdated(address,uint64)\"",
       "defined_out": [
         "Method(StablecoinPauseFlagsUpdated(address,uint64))",
@@ -2691,14 +2696,14 @@
         "Method(StablecoinPauseFlagsUpdated(address,uint64))"
       ]
     },
-    "430": {
+    "438": {
       "op": "swap",
       "stack_out": [
         "Method(StablecoinPauseFlagsUpdated(address,uint64))",
         "aggregate%head%1#0"
       ]
     },
-    "431": {
+    "439": {
       "op": "concat",
       "defined_out": [
         "event%0#0"
@@ -2707,11 +2712,11 @@
         "event%0#0"
       ]
     },
-    "432": {
+    "440": {
       "op": "log",
       "stack_out": []
     },
-    "433": {
+    "441": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1"
@@ -2720,11 +2725,242 @@
         "1"
       ]
     },
-    "434": {
+    "442": {
       "op": "return",
       "stack_out": []
     },
-    "435": {
+    "443": {
+      "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.optInToStableAsset[routing]",
+      "params": {},
+      "block": "optInToStableAsset",
+      "stack_in": [],
+      "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
+      "op": "callsub assertReady"
+    },
+    "446": {
+      "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "449": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "450": {
+      "op": "bytec_0 // \"asa\"",
+      "defined_out": [
+        "\"asa\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"asa\""
+      ]
+    },
+    "451": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "stableAsset#0"
+      ],
+      "stack_out": [
+        "stableAsset#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "452": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "453": {
+      "op": "dup",
+      "defined_out": [
+        "stableAsset#0",
+        "stableAsset#0 (copy)"
+      ],
+      "stack_out": [
+        "stableAsset#0",
+        "stableAsset#0 (copy)"
+      ]
+    },
+    "454": {
+      "error": "stable asset required",
+      "op": "assert // stable asset required",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "455": {
+      "op": "itxn_begin"
+    },
+    "456": {
+      "op": "global CurrentApplicationAddress",
+      "defined_out": [
+        "inner_txn_params%0%%param_AssetReceiver_idx_0#0",
+        "stableAsset#0"
+      ],
+      "stack_out": [
+        "stableAsset#0",
+        "inner_txn_params%0%%param_AssetReceiver_idx_0#0"
+      ]
+    },
+    "458": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "stableAsset#0",
+        "inner_txn_params%0%%param_AssetReceiver_idx_0#0",
+        "0"
+      ]
+    },
+    "459": {
+      "op": "itxn_field AssetAmount",
+      "stack_out": [
+        "stableAsset#0",
+        "inner_txn_params%0%%param_AssetReceiver_idx_0#0"
+      ]
+    },
+    "461": {
+      "op": "itxn_field AssetReceiver",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "463": {
+      "op": "dup",
+      "stack_out": [
+        "stableAsset#0",
+        "stableAsset#0 (copy)"
+      ]
+    },
+    "464": {
+      "op": "itxn_field XferAsset",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "466": {
+      "op": "pushint 4 // 4",
+      "defined_out": [
+        "4",
+        "stableAsset#0"
+      ],
+      "stack_out": [
+        "stableAsset#0",
+        "4"
+      ]
+    },
+    "468": {
+      "op": "itxn_field TypeEnum",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "470": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "stableAsset#0",
+        "0"
+      ]
+    },
+    "471": {
+      "op": "itxn_field Fee",
+      "stack_out": [
+        "stableAsset#0"
+      ]
+    },
+    "473": {
+      "op": "itxn_submit"
+    },
+    "474": {
+      "op": "txn Sender",
+      "defined_out": [
+        "stableAsset#0",
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "stableAsset#0",
+        "tmp%1#0"
+      ]
+    },
+    "476": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%1#0",
+        "stableAsset#0"
+      ]
+    },
+    "477": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "478": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0"
+      ]
+    },
+    "479": {
+      "op": "pushbytes 0xdecac2f9 // method \"StablecoinAssetOptedInEvent(address,uint64)\"",
+      "defined_out": [
+        "Method(StablecoinAssetOptedInEvent(address,uint64))",
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "Method(StablecoinAssetOptedInEvent(address,uint64))"
+      ]
+    },
+    "485": {
+      "op": "swap",
+      "stack_out": [
+        "Method(StablecoinAssetOptedInEvent(address,uint64))",
+        "aggregate%head%1#0"
+      ]
+    },
+    "486": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "487": {
+      "op": "log",
+      "stack_out": []
+    },
+    "488": {
+      "op": "intc_2 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "489": {
+      "op": "return",
+      "stack_out": []
+    },
+    "490": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.mintForVault[routing]",
       "params": {},
       "block": "mintForVault",
@@ -2737,7 +2973,7 @@
         "tmp%0#0"
       ]
     },
-    "438": {
+    "493": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -2748,7 +2984,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "439": {
+    "494": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -2759,7 +2995,7 @@
         "len%0#0"
       ]
     },
-    "440": {
+    "495": {
       "op": "intc_1 // 8",
       "defined_out": [
         "8",
@@ -2772,7 +3008,7 @@
         "8"
       ]
     },
-    "441": {
+    "496": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -2783,14 +3019,14 @@
         "eq%0#0"
       ]
     },
-    "442": {
+    "497": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "443": {
+    "498": {
       "op": "btoi",
       "defined_out": [
         "vaultId#0"
@@ -2799,7 +3035,7 @@
         "vaultId#0"
       ]
     },
-    "444": {
+    "499": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "receiver#0",
@@ -2810,7 +3046,7 @@
         "receiver#0"
       ]
     },
-    "447": {
+    "502": {
       "op": "dup",
       "defined_out": [
         "receiver#0",
@@ -2823,7 +3059,7 @@
         "receiver#0 (copy)"
       ]
     },
-    "448": {
+    "503": {
       "op": "len",
       "defined_out": [
         "len%1#0",
@@ -2836,7 +3072,7 @@
         "len%1#0"
       ]
     },
-    "449": {
+    "504": {
       "op": "intc_3 // 32",
       "defined_out": [
         "32",
@@ -2851,7 +3087,7 @@
         "32"
       ]
     },
-    "450": {
+    "505": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -2864,7 +3100,7 @@
         "eq%1#0"
       ]
     },
-    "451": {
+    "506": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
@@ -2872,7 +3108,7 @@
         "receiver#0"
       ]
     },
-    "452": {
+    "507": {
       "op": "txna ApplicationArgs 3",
       "defined_out": [
         "receiver#0",
@@ -2885,7 +3121,7 @@
         "tmp%4#0"
       ]
     },
-    "455": {
+    "510": {
       "op": "dup",
       "defined_out": [
         "receiver#0",
@@ -2900,7 +3136,7 @@
         "tmp%4#0 (copy)"
       ]
     },
-    "456": {
+    "511": {
       "op": "len",
       "defined_out": [
         "len%2#0",
@@ -2915,7 +3151,7 @@
         "len%2#0"
       ]
     },
-    "457": {
+    "512": {
       "op": "intc_1 // 8",
       "stack_out": [
         "vaultId#0",
@@ -2925,7 +3161,7 @@
         "8"
       ]
     },
-    "458": {
+    "513": {
       "op": "==",
       "defined_out": [
         "eq%2#0",
@@ -2940,7 +3176,7 @@
         "eq%2#0"
       ]
     },
-    "459": {
+    "514": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -2949,7 +3185,7 @@
         "tmp%4#0"
       ]
     },
-    "460": {
+    "515": {
       "op": "btoi",
       "defined_out": [
         "amountMicroStable#0",
@@ -2962,15 +3198,15 @@
         "amountMicroStable#0"
       ]
     },
-    "461": {
+    "516": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
       "op": "callsub assertReady"
     },
-    "464": {
+    "519": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertManagerCaller",
       "op": "callsub assertManagerCaller"
     },
-    "467": {
+    "522": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1",
@@ -2985,7 +3221,7 @@
         "1"
       ]
     },
-    "468": {
+    "523": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertNotPaused",
       "op": "callsub assertNotPaused",
       "stack_out": [
@@ -2994,11 +3230,21 @@
         "amountMicroStable#0"
       ]
     },
-    "471": {
+    "526": {
+      "op": "dig 1",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "receiver#0 (copy)"
+      ]
+    },
+    "528": {
       "op": "global ZeroAddress",
       "defined_out": [
         "amountMicroStable#0",
         "receiver#0",
+        "receiver#0 (copy)",
         "tmp%0#1",
         "vaultId#0"
       ],
@@ -3006,185 +3252,1091 @@
         "vaultId#0",
         "receiver#0",
         "amountMicroStable#0",
+        "receiver#0 (copy)",
         "tmp%0#1"
       ]
     },
-    "473": {
-      "op": "uncover 2",
-      "stack_out": [
-        "vaultId#0",
-        "amountMicroStable#0",
-        "tmp%0#1",
-        "receiver#0"
-      ]
-    },
-    "475": {
+    "530": {
       "op": "!=",
       "defined_out": [
         "amountMicroStable#0",
+        "receiver#0",
         "tmp%1#1",
         "vaultId#0"
       ],
       "stack_out": [
         "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
         "tmp%1#1"
       ]
     },
-    "476": {
+    "531": {
       "error": "receiver required",
       "op": "assert // receiver required",
       "stack_out": [
         "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0"
       ]
     },
-    "477": {
-      "op": "swap",
-      "stack_out": [
+    "532": {
+      "op": "dig 2",
+      "defined_out": [
         "amountMicroStable#0",
-        "vaultId#0"
+        "receiver#0",
+        "vaultId#0",
+        "vaultId#0 (copy)"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "vaultId#0 (copy)"
       ]
     },
-    "478": {
+    "534": {
       "error": "vault id required",
       "op": "assert // vault id required",
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0"
       ]
     },
-    "479": {
+    "535": {
       "op": "dup",
       "defined_out": [
         "amountMicroStable#0",
-        "amountMicroStable#0 (copy)"
+        "amountMicroStable#0 (copy)",
+        "receiver#0",
+        "vaultId#0"
       ],
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
         "amountMicroStable#0 (copy)"
       ]
     },
-    "480": {
+    "536": {
       "error": "zero mint",
       "op": "assert // zero mint",
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0"
       ]
     },
-    "481": {
+    "537": {
       "op": "intc_0 // 0",
       "defined_out": [
         "0",
-        "amountMicroStable#0"
+        "amountMicroStable#0",
+        "receiver#0",
+        "vaultId#0"
       ],
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
         "0"
       ]
     },
-    "482": {
-      "op": "bytec 4 // \"supply\"",
+    "538": {
+      "op": "bytec_0 // \"asa\"",
       "defined_out": [
-        "\"supply\"",
+        "\"asa\"",
         "0",
-        "amountMicroStable#0"
+        "amountMicroStable#0",
+        "receiver#0",
+        "vaultId#0"
       ],
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
         "0",
-        "\"supply\""
+        "\"asa\""
       ]
     },
-    "484": {
+    "539": {
       "op": "app_global_get_ex",
       "defined_out": [
         "amountMicroStable#0",
         "maybe_exists%0#0",
-        "maybe_value%0#0"
+        "receiver#0",
+        "stableAsset#0",
+        "vaultId#0"
       ],
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
-        "maybe_value%0#0",
+        "stableAsset#0",
         "maybe_exists%0#0"
       ]
     },
-    "485": {
+    "540": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
+        "vaultId#0",
+        "receiver#0",
         "amountMicroStable#0",
-        "maybe_value%0#0"
+        "stableAsset#0"
       ]
     },
-    "486": {
-      "op": "+",
+    "541": {
+      "op": "dup",
       "defined_out": [
-        "tmp%4#1"
+        "amountMicroStable#0",
+        "receiver#0",
+        "stableAsset#0",
+        "stableAsset#0 (copy)",
+        "vaultId#0"
       ],
       "stack_out": [
-        "tmp%4#1"
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "stableAsset#0 (copy)"
       ]
     },
-    "487": {
+    "542": {
+      "error": "stable asset required",
+      "op": "assert // stable asset required",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0"
+      ]
+    },
+    "543": {
       "op": "intc_0 // 0",
       "stack_out": [
-        "tmp%4#1",
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
         "0"
       ]
     },
-    "488": {
-      "op": "bytec_2 // \"ceil\"",
+    "544": {
+      "op": "bytec_3 // \"supply\"",
+      "defined_out": [
+        "\"supply\"",
+        "0",
+        "amountMicroStable#0",
+        "receiver#0",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "0",
+        "\"supply\""
+      ]
+    },
+    "545": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "amountMicroStable#0",
+        "left#0",
+        "maybe_exists%1#0",
+        "receiver#0",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "left#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "546": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "left#0"
+      ]
+    },
+    "547": {
+      "op": "itob",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%0#0",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%0#0"
+      ]
+    },
+    "548": {
+      "op": "dig 2",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%0#0",
+        "amountMicroStable#0 (copy)"
+      ]
+    },
+    "550": {
+      "op": "itob",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%0#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%0#0",
+        "reinterpret_biguint%1#0"
+      ]
+    },
+    "551": {
+      "op": "swap",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "reinterpret_biguint%0#0"
+      ]
+    },
+    "552": {
+      "op": "dig 1",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%0#0",
+        "reinterpret_biguint%1#0",
+        "reinterpret_biguint%1#0 (copy)",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "reinterpret_biguint%0#0",
+        "reinterpret_biguint%1#0 (copy)"
+      ]
+    },
+    "554": {
+      "op": "b+",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "value#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0"
+      ]
+    },
+    "555": {
+      "op": "dup",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "value#0",
+        "value#0 (copy)",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "value#0 (copy)"
+      ]
+    },
+    "556": {
+      "op": "pushbytes 0xffffffffffffffff",
+      "defined_out": [
+        "0xffffffffffffffff",
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "value#0",
+        "value#0 (copy)",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "value#0 (copy)",
+        "0xffffffffffffffff"
+      ]
+    },
+    "566": {
+      "op": "b<=",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%0#3",
+        "value#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "tmp%0#3"
+      ]
+    },
+    "567": {
+      "error": "uint64 overflow",
+      "op": "assert // uint64 overflow",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0"
+      ]
+    },
+    "568": {
+      "op": "dup",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "value#0 (copy)"
+      ]
+    },
+    "569": {
+      "op": "len",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%1#3",
+        "value#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "tmp%1#3"
+      ]
+    },
+    "570": {
+      "op": "intc_1 // 8",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "tmp%1#3",
+        "8"
+      ]
+    },
+    "571": {
+      "op": "==",
+      "defined_out": [
+        "amountMicroStable#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%2#2",
+        "value#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0",
+        "tmp%2#2"
+      ]
+    },
+    "572": {
+      "error": "Length must be 8",
+      "op": "assert // Length must be 8",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "value#0"
+      ]
+    },
+    "573": {
+      "op": "btoi",
+      "defined_out": [
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "574": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "0"
+      ]
+    },
+    "575": {
+      "op": "bytec 4 // \"ceil\"",
       "defined_out": [
         "\"ceil\"",
         "0",
-        "tmp%4#1"
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "vaultId#0"
       ],
       "stack_out": [
-        "tmp%4#1",
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
         "0",
         "\"ceil\""
       ]
     },
-    "489": {
+    "577": {
       "op": "app_global_get_ex",
       "defined_out": [
-        "maybe_exists%1#0",
-        "maybe_value%1#0",
-        "tmp%4#1"
+        "amountMicroStable#0",
+        "maybe_exists%2#0",
+        "maybe_value%2#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "vaultId#0"
       ],
       "stack_out": [
-        "tmp%4#1",
-        "maybe_value%1#0",
-        "maybe_exists%1#0"
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
       ]
     },
-    "490": {
+    "578": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
-        "tmp%4#1",
-        "maybe_value%1#0"
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "maybe_value%2#0"
       ]
     },
-    "491": {
-      "op": "<=",
+    "579": {
+      "op": "dig 1",
       "defined_out": [
-        "tmp%5#1"
+        "amountMicroStable#0",
+        "maybe_value%2#0",
+        "newIssuedSupply#0",
+        "newIssuedSupply#0 (copy)",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "vaultId#0"
       ],
       "stack_out": [
-        "tmp%5#1"
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "maybe_value%2#0",
+        "newIssuedSupply#0 (copy)"
       ]
     },
-    "492": {
+    "581": {
+      "op": ">=",
+      "defined_out": [
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%6#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%6#0"
+      ]
+    },
+    "582": {
       "error": "ceiling exceeded",
       "op": "assert // ceiling exceeded",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "583": {
+      "op": "dig 4",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "receiver#0 (copy)"
+      ]
+    },
+    "585": {
+      "op": "dig 3",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "receiver#0 (copy)",
+        "stableAsset#0 (copy)"
+      ]
+    },
+    "587": {
+      "op": "asset_holding_get AssetBalance",
+      "defined_out": [
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%7#0",
+        "tmp%8#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%7#0",
+        "tmp%8#0"
+      ]
+    },
+    "589": {
+      "op": "bury 1",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%8#0"
+      ]
+    },
+    "591": {
+      "error": "receiver asset opt-in required",
+      "op": "assert // receiver asset opt-in required",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "592": {
+      "op": "global CurrentApplicationAddress",
+      "defined_out": [
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%9#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%9#0"
+      ]
+    },
+    "594": {
+      "op": "dig 3",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%9#0",
+        "stableAsset#0 (copy)"
+      ]
+    },
+    "596": {
+      "op": "asset_holding_get AssetBalance",
+      "defined_out": [
+        "amountMicroStable#0",
+        "check%0#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "value%0#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "value%0#0",
+        "check%0#0"
+      ]
+    },
+    "598": {
+      "error": "account opted into asset",
+      "op": "assert // account opted into asset",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "value%0#0"
+      ]
+    },
+    "599": {
+      "op": "dig 4",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "value%0#0",
+        "amountMicroStable#0 (copy)"
+      ]
+    },
+    "601": {
+      "op": ">=",
+      "defined_out": [
+        "amountMicroStable#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "stableAsset#0",
+        "tmp%10#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "tmp%10#0"
+      ]
+    },
+    "602": {
+      "error": "stable reserve insufficient",
+      "op": "assert // stable reserve insufficient",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "amountMicroStable#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "603": {
+      "op": "itxn_begin"
+    },
+    "604": {
+      "op": "uncover 3",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "amountMicroStable#0"
+      ]
+    },
+    "606": {
+      "op": "itxn_field AssetAmount",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "608": {
+      "op": "dig 3",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "receiver#0 (copy)"
+      ]
+    },
+    "610": {
+      "op": "itxn_field AssetReceiver",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "stableAsset#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "612": {
+      "op": "uncover 2",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "stableAsset#0"
+      ]
+    },
+    "614": {
+      "op": "itxn_field XferAsset",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "616": {
+      "op": "pushint 4 // 4",
+      "defined_out": [
+        "4",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "4"
+      ]
+    },
+    "618": {
+      "op": "itxn_field TypeEnum",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "620": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "0"
+      ]
+    },
+    "621": {
+      "op": "itxn_field Fee",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "623": {
+      "op": "itxn_submit"
+    },
+    "624": {
+      "op": "bytec_3 // \"supply\"",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "\"supply\""
+      ]
+    },
+    "625": {
+      "op": "dig 1",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "\"supply\"",
+        "newIssuedSupply#0 (copy)"
+      ]
+    },
+    "627": {
+      "op": "app_global_put",
+      "stack_out": [
+        "vaultId#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "628": {
+      "op": "uncover 3",
+      "stack_out": [
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "vaultId#0"
+      ]
+    },
+    "630": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "newIssuedSupply#0",
+        "receiver#0",
+        "reinterpret_biguint%1#0"
+      ],
+      "stack_out": [
+        "receiver#0",
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "631": {
+      "op": "uncover 3",
+      "stack_out": [
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "aggregate%val_as_bytes%0#0",
+        "receiver#0"
+      ]
+    },
+    "633": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "newIssuedSupply#0",
+        "reinterpret_biguint%1#0"
+      ],
+      "stack_out": [
+        "reinterpret_biguint%1#0",
+        "newIssuedSupply#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "634": {
+      "op": "uncover 2",
+      "stack_out": [
+        "newIssuedSupply#0",
+        "aggregate%head%1#0",
+        "reinterpret_biguint%1#0"
+      ]
+    },
+    "636": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "newIssuedSupply#0"
+      ],
+      "stack_out": [
+        "newIssuedSupply#0",
+        "aggregate%head%2#0"
+      ]
+    },
+    "637": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%2#0",
+        "newIssuedSupply#0"
+      ]
+    },
+    "638": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0"
+      ]
+    },
+    "639": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%3#0"
+      ],
+      "stack_out": [
+        "aggregate%head%3#0"
+      ]
+    },
+    "640": {
+      "op": "pushbytes 0x043e9d41 // method \"StablecoinMintedForVaultEvent(uint64,address,uint64,uint64)\"",
+      "defined_out": [
+        "Method(StablecoinMintedForVaultEvent(uint64,address,uint64,uint64))",
+        "aggregate%head%3#0"
+      ],
+      "stack_out": [
+        "aggregate%head%3#0",
+        "Method(StablecoinMintedForVaultEvent(uint64,address,uint64,uint64))"
+      ]
+    },
+    "646": {
+      "op": "swap",
+      "stack_out": [
+        "Method(StablecoinMintedForVaultEvent(uint64,address,uint64,uint64))",
+        "aggregate%head%3#0"
+      ]
+    },
+    "647": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "648": {
+      "op": "log",
       "stack_out": []
     },
-    "493": {
-      "error": "stablecoin mint not implemented",
-      "op": "err // stablecoin mint not implemented"
+    "649": {
+      "op": "intc_2 // 1",
+      "stack_out": [
+        "1"
+      ]
     },
-    "494": {
+    "650": {
+      "op": "return",
+      "stack_out": []
+    },
+    "651": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.burnForVault[routing]",
       "params": {},
       "block": "burnForVault",
@@ -3197,7 +4349,7 @@
         "tmp%0#0"
       ]
     },
-    "497": {
+    "654": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -3208,7 +4360,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "498": {
+    "655": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -3219,7 +4371,7 @@
         "len%0#0"
       ]
     },
-    "499": {
+    "656": {
       "op": "intc_1 // 8",
       "defined_out": [
         "8",
@@ -3232,7 +4384,7 @@
         "8"
       ]
     },
-    "500": {
+    "657": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -3243,14 +4395,14 @@
         "eq%0#0"
       ]
     },
-    "501": {
+    "658": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "502": {
+    "659": {
       "op": "btoi",
       "defined_out": [
         "vaultId#0"
@@ -3259,7 +4411,7 @@
         "vaultId#0"
       ]
     },
-    "503": {
+    "660": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "tmp%2#0",
@@ -3270,7 +4422,7 @@
         "tmp%2#0"
       ]
     },
-    "506": {
+    "663": {
       "op": "dup",
       "defined_out": [
         "tmp%2#0",
@@ -3283,7 +4435,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "507": {
+    "664": {
       "op": "len",
       "defined_out": [
         "len%1#0",
@@ -3296,7 +4448,7 @@
         "len%1#0"
       ]
     },
-    "508": {
+    "665": {
       "op": "intc_1 // 8",
       "stack_out": [
         "vaultId#0",
@@ -3305,7 +4457,7 @@
         "8"
       ]
     },
-    "509": {
+    "666": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -3318,7 +4470,7 @@
         "eq%1#0"
       ]
     },
-    "510": {
+    "667": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -3326,7 +4478,7 @@
         "tmp%2#0"
       ]
     },
-    "511": {
+    "668": {
       "op": "btoi",
       "defined_out": [
         "amountMicroStable#0",
@@ -3337,15 +4489,15 @@
         "amountMicroStable#0"
       ]
     },
-    "512": {
+    "669": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
       "op": "callsub assertReady"
     },
-    "515": {
+    "672": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertManagerCaller",
       "op": "callsub assertManagerCaller"
     },
-    "518": {
+    "675": {
       "op": "pushint 2 // 2",
       "defined_out": [
         "2",
@@ -3358,7 +4510,7 @@
         "2"
       ]
     },
-    "520": {
+    "677": {
       "callsub": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertNotPaused",
       "op": "callsub assertNotPaused",
       "stack_out": [
@@ -3366,30 +4518,30 @@
         "amountMicroStable#0"
       ]
     },
-    "523": {
+    "680": {
       "op": "swap",
       "stack_out": [
         "amountMicroStable#0",
         "vaultId#0"
       ]
     },
-    "524": {
+    "681": {
       "error": "vault id required",
       "op": "assert // vault id required",
       "stack_out": [
         "amountMicroStable#0"
       ]
     },
-    "525": {
+    "682": {
       "error": "zero burn",
       "op": "assert // zero burn",
       "stack_out": []
     },
-    "526": {
-      "error": "stablecoin burn not implemented",
-      "op": "err // stablecoin burn not implemented"
+    "683": {
+      "error": "stablecoin burn disabled",
+      "op": "err // stablecoin burn disabled"
     },
-    "527": {
+    "684": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady",
       "params": {},
       "block": "assertReady",
@@ -3402,8 +4554,8 @@
         "0"
       ]
     },
-    "528": {
-      "op": "bytec_0 // \"init\"",
+    "685": {
+      "op": "bytec_1 // \"init\"",
       "defined_out": [
         "\"init\"",
         "0"
@@ -3413,7 +4565,7 @@
         "\"init\""
       ]
     },
-    "529": {
+    "686": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -3424,14 +4576,14 @@
         "maybe_exists%0#0"
       ]
     },
-    "530": {
+    "687": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
         "maybe_value%0#0"
       ]
     },
-    "531": {
+    "688": {
       "op": "intc_2 // 1",
       "defined_out": [
         "1",
@@ -3442,7 +4594,7 @@
         "1"
       ]
     },
-    "532": {
+    "689": {
       "op": "==",
       "defined_out": [
         "tmp%0#0"
@@ -3451,16 +4603,16 @@
         "tmp%0#0"
       ]
     },
-    "533": {
+    "690": {
       "error": "stablecoin controller not initialized",
       "op": "assert // stablecoin controller not initialized",
       "stack_out": []
     },
-    "534": {
+    "691": {
       "retsub": true,
       "op": "retsub"
     },
-    "535": {
+    "692": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin",
       "params": {},
       "block": "assertAdmin",
@@ -3473,7 +4625,7 @@
         "tmp%0#0"
       ]
     },
-    "537": {
+    "694": {
       "op": "intc_0 // 0",
       "defined_out": [
         "0",
@@ -3484,7 +4636,7 @@
         "0"
       ]
     },
-    "538": {
+    "695": {
       "op": "bytec 6 // \"adm\"",
       "defined_out": [
         "\"adm\"",
@@ -3497,7 +4649,7 @@
         "\"adm\""
       ]
     },
-    "540": {
+    "697": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -3510,7 +4662,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "541": {
+    "698": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -3518,7 +4670,7 @@
         "maybe_value%0#0"
       ]
     },
-    "542": {
+    "699": {
       "op": "==",
       "defined_out": [
         "tmp%1#0"
@@ -3527,115 +4679,169 @@
         "tmp%1#0"
       ]
     },
-    "543": {
+    "700": {
       "error": "admin only",
       "op": "assert // admin only",
       "stack_out": []
     },
-    "544": {
+    "701": {
       "retsub": true,
       "op": "retsub"
     },
-    "545": {
+    "702": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertManagerCaller",
       "params": {},
       "block": "assertManagerCaller",
       "stack_in": [],
-      "op": "intc_0 // 0",
+      "op": "global CallerApplicationID",
       "defined_out": [
-        "0"
+        "tmp%0#0"
       ],
       "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "704": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
         "0"
       ]
     },
-    "546": {
-      "op": "bytec_1 // \"mgr\"",
+    "705": {
+      "op": "bytec_2 // \"mgr\"",
       "defined_out": [
         "\"mgr\"",
-        "0"
+        "0",
+        "tmp%0#0"
       ],
       "stack_out": [
+        "tmp%0#0",
         "0",
         "\"mgr\""
       ]
     },
-    "547": {
+    "706": {
       "op": "app_global_get_ex",
       "defined_out": [
         "managerApp#0",
-        "maybe_exists%0#0"
+        "maybe_exists%0#0",
+        "tmp%0#0"
       ],
       "stack_out": [
+        "tmp%0#0",
         "managerApp#0",
         "maybe_exists%0#0"
       ]
     },
-    "548": {
+    "707": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
+        "tmp%0#0",
         "managerApp#0"
       ]
     },
-    "549": {
+    "708": {
+      "op": "swap",
+      "stack_out": [
+        "managerApp#0",
+        "tmp%0#0"
+      ]
+    },
+    "709": {
+      "op": "dig 1",
+      "defined_out": [
+        "managerApp#0",
+        "managerApp#0 (copy)",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "managerApp#0",
+        "tmp%0#0",
+        "managerApp#0 (copy)"
+      ]
+    },
+    "711": {
+      "op": "==",
+      "defined_out": [
+        "managerApp#0",
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "managerApp#0",
+        "tmp%1#0"
+      ]
+    },
+    "712": {
+      "error": "manager app only",
+      "op": "assert // manager app only",
+      "stack_out": [
+        "managerApp#0"
+      ]
+    },
+    "713": {
       "op": "txn Sender",
       "defined_out": [
         "managerApp#0",
-        "tmp%0#0"
+        "tmp%2#0"
       ],
       "stack_out": [
         "managerApp#0",
-        "tmp%0#0"
+        "tmp%2#0"
       ]
     },
-    "551": {
+    "715": {
       "op": "swap",
       "stack_out": [
-        "tmp%0#0",
+        "tmp%2#0",
         "managerApp#0"
       ]
     },
-    "552": {
+    "716": {
       "op": "app_params_get AppAddress",
       "defined_out": [
         "check%0#0",
-        "tmp%0#0",
+        "tmp%2#0",
         "value%0#0"
       ],
       "stack_out": [
-        "tmp%0#0",
+        "tmp%2#0",
         "value%0#0",
         "check%0#0"
       ]
     },
-    "554": {
+    "718": {
       "error": "application exists",
       "op": "assert // application exists",
       "stack_out": [
-        "tmp%0#0",
+        "tmp%2#0",
         "value%0#0"
       ]
     },
-    "555": {
+    "719": {
       "op": "==",
       "defined_out": [
-        "tmp%1#0"
+        "tmp%3#0"
       ],
       "stack_out": [
-        "tmp%1#0"
+        "tmp%3#0"
       ]
     },
-    "556": {
-      "error": "manager app only",
-      "op": "assert // manager app only",
+    "720": {
+      "error": "manager sender mismatch",
+      "op": "assert // manager sender mismatch",
       "stack_out": []
     },
-    "557": {
+    "721": {
       "retsub": true,
       "op": "retsub"
     },
-    "558": {
+    "722": {
       "subroutine": "smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertNotPaused",
       "params": {
         "flag#0": "uint64"
@@ -3644,7 +4850,7 @@
       "stack_in": [],
       "op": "proto 1 0"
     },
-    "561": {
+    "725": {
       "op": "intc_0 // 0",
       "defined_out": [
         "0"
@@ -3653,7 +4859,7 @@
         "0"
       ]
     },
-    "562": {
+    "726": {
       "op": "bytec 5 // \"pflg\"",
       "defined_out": [
         "\"pflg\"",
@@ -3664,7 +4870,7 @@
         "\"pflg\""
       ]
     },
-    "564": {
+    "728": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -3675,14 +4881,14 @@
         "maybe_exists%0#0"
       ]
     },
-    "565": {
+    "729": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
         "maybe_value%0#0"
       ]
     },
-    "566": {
+    "730": {
       "op": "frame_dig -1",
       "defined_out": [
         "flag#0 (copy)",
@@ -3693,7 +4899,7 @@
         "flag#0 (copy)"
       ]
     },
-    "568": {
+    "732": {
       "op": "&",
       "defined_out": [
         "active#0"
@@ -3702,7 +4908,7 @@
         "active#0"
       ]
     },
-    "569": {
+    "733": {
       "op": "!",
       "defined_out": [
         "tmp%1#0"
@@ -3711,12 +4917,12 @@
         "tmp%1#0"
       ]
     },
-    "570": {
+    "734": {
       "error": "stablecoin paused",
       "op": "assert // stablecoin paused",
       "stack_out": []
     },
-    "571": {
+    "735": {
       "retsub": true,
       "op": "retsub"
     }

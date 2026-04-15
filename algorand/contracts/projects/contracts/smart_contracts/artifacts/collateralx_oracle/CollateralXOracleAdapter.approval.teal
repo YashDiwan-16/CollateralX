@@ -517,8 +517,8 @@ verifyExternalPriceUpdate:
     len
     assert // proof required
     // smart_contracts/collateralx_oracle/contract.algo.ts:130
-    // err('oracle proof verification not implemented')
-    err // oracle proof verification not implemented
+    // err('oracle proof verification disabled')
+    err // oracle proof verification disabled
 
 
 // smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady() -> void:

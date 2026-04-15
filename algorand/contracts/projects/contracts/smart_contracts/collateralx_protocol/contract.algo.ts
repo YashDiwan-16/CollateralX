@@ -1,7 +1,9 @@
 import {
   Account,
   Application,
+  Asset,
   BoxMap,
+  Bytes,
   Contract,
   Global,
   GlobalState,
@@ -12,12 +14,24 @@ import {
   emit,
   err,
   gtxn,
+  itxn,
+  op,
   readonly,
   type uint64,
 } from '@algorandfoundation/algorand-typescript'
-import { abimethod } from '@algorandfoundation/algorand-typescript/arc4'
+import {
+  Address as Arc4Address,
+  Uint as Arc4Uint,
+  abimethod,
+  methodSelector,
+} from '@algorandfoundation/algorand-typescript/arc4'
+import {
+  BPS_DENOMINATOR,
+  availableToMintMicroStable,
+  isHealthyDebt,
+  safeAdd,
+} from '../collateralx_shared/risk.algo'
 
-const BPS_DENOMINATOR: uint64 = Uint64(10_000)
 const MAX_BPS: uint64 = Uint64(100_000)
 const VAULT_STATUS_ACTIVE: uint64 = Uint64(1)
 const VAULT_SCHEMA_VERSION: uint64 = Uint64(1)
@@ -29,6 +43,8 @@ const PAUSE_WITHDRAW: uint64 = Uint64(8)
 const PAUSE_LIQUIDATE: uint64 = Uint64(16)
 const PAUSE_CREATE_VAULT: uint64 = Uint64(32)
 const PAUSE_EMERGENCY: uint64 = Uint64(64)
+
+const ORACLE_PAUSE_READS: uint64 = Uint64(2)
 
 export type ProtocolParamsSnapshot = {
   minCollateralRatioBps: uint64
@@ -102,12 +118,40 @@ type VaultCreatedEvent = {
   createdAt: uint64
 }
 
+type CollateralDepositedEvent = {
+  vaultId: uint64
+  owner: Account
+  amountMicroAlgo: uint64
+  newCollateralMicroAlgo: uint64
+  totalCollateralMicroAlgo: uint64
+}
+
+type StablecoinMintedEvent = {
+  vaultId: uint64
+  owner: Account
+  amountMicroStable: uint64
+  newDebtMicroStable: uint64
+  totalDebtMicroStable: uint64
+}
+
+type OracleSnapshot = {
+  pricePerAlgoMicroStable: uint64
+  updatedAt: uint64
+  maxAgeSeconds: uint64
+}
+
+type StablecoinSnapshot = {
+  stableAssetId: uint64
+  issuedSupplyMicroStable: uint64
+  supplyCeilingMicroStable: uint64
+}
+
 /**
- * Protocol/vault manager skeleton.
+ * Protocol/vault manager.
  *
  * Safety-critical assumption: this contract owns the protocol's canonical vault
- * boxes. Economic methods are intentionally stubs until grouped funding,
- * oracle validation, and ASA movement are implemented and audited.
+ * boxes, while the stablecoin controller owns ASA reserve movement. Minting is
+ * only requested by this app after vault health, caps, and oracle freshness pass.
  */
 export class CollateralXProtocolManager extends Contract {
   admin = GlobalState<Account>({ key: 'adm' })
@@ -172,6 +216,7 @@ export class CollateralXProtocolManager extends Contract {
       protocolDebtCeilingMicroStable,
       minDebtFloorMicroStable
     )
+    assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
 
     this.minCollateralRatioBps.value = minCollateralRatioBps
     this.liquidationRatioBps.value = liquidationRatioBps
@@ -239,6 +284,21 @@ export class CollateralXProtocolManager extends Contract {
     return this.vaults(vaultId).exists
   }
 
+  /**
+   * Returns the currently mintable amount for a vault after applying collateral,
+   * per-vault, protocol debt, and stablecoin supply ceilings. Requires vault box,
+   * oracle app, and stablecoin controller app resources.
+   */
+  @readonly
+  public readMaxMintable(vaultId: uint64): uint64 {
+    this.assertReady()
+    assert(this.vaults(vaultId).exists, 'vault missing')
+    const vault = clone(this.vaults(vaultId).value)
+    const oracle = this.readFreshOracle()
+    const stablecoin = this.readStablecoinSnapshot()
+    return this.calculateAvailableToMint(vault, oracle.pricePerAlgoMicroStable, stablecoin)
+  }
+
   /** Returns protocol-wide counters, pause flags, and integration ids. */
   @readonly
   public readProtocolStatus(): ProtocolStatusSnapshot {
@@ -294,6 +354,7 @@ export class CollateralXProtocolManager extends Contract {
       protocolDebtCeilingMicroStable,
       minDebtFloorMicroStable
     )
+    assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
 
     this.minCollateralRatioBps.value = minCollateralRatioBps
     this.liquidationRatioBps.value = liquidationRatioBps
@@ -348,52 +409,112 @@ export class CollateralXProtocolManager extends Contract {
     emit('ProtocolAdminTransferred', Txn.sender, newAdmin)
   }
 
-  /** Future phase: grouped payment will increase collateral and aggregate TVL. */
+  /**
+   * Deposits ALGO collateral into a vault.
+   *
+   * Required group shape:
+   * - tx 0: payment from vault owner to this app address
+   * - tx 1: this app call with the payment transaction argument
+   */
   public depositCollateral(vaultId: uint64, payment: gtxn.PaymentTxn): void {
     this.assertReady()
+    this.assertDepositGroup(payment)
     this.assertNotPaused(PAUSE_DEPOSIT)
     assert(this.vaults(vaultId).exists, 'vault missing')
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.owner === Txn.sender, 'vault owner only')
     assert(payment.sender === Txn.sender, 'payment sender mismatch')
     assert(payment.receiver === Global.currentApplicationAddress, 'payment receiver mismatch')
+    assert(payment.rekeyTo === Global.zeroAddress, 'payment rekey forbidden')
+    assert(payment.closeRemainderTo === Global.zeroAddress, 'payment close forbidden')
     assert(payment.amount > Uint64(0), 'zero deposit')
-    err('deposit not implemented')
+
+    const newCollateral = safeAdd(vault.collateralMicroAlgo, payment.amount)
+    const newTotalCollateral = safeAdd(this.totalCollateralMicroAlgo.value, payment.amount)
+    vault.collateralMicroAlgo = newCollateral
+    vault.updatedAt = Global.latestTimestamp
+    this.vaults(vaultId).value = clone(vault)
+    this.totalCollateralMicroAlgo.value = newTotalCollateral
+
+    emit<CollateralDepositedEvent>({
+      vaultId,
+      owner: Txn.sender,
+      amountMicroAlgo: payment.amount,
+      newCollateralMicroAlgo: newCollateral,
+      totalCollateralMicroAlgo: newTotalCollateral,
+    })
   }
 
-  /** Future phase: stablecoin controller will mint ASA units after risk checks. */
+  /**
+   * Mints stablecoin to the vault owner through the stablecoin controller.
+   *
+   * This call must be a single outer transaction. It performs a protocol-gated
+   * inner app call to the stablecoin controller, which then transfers ASA units
+   * from its reserve account to the vault owner.
+   */
   public mintStablecoin(vaultId: uint64, amountMicroStable: uint64): void {
     this.assertReady()
+    this.assertSingleCallGroup()
     this.assertNotPaused(PAUSE_MINT)
     assert(this.vaults(vaultId).exists, 'vault missing')
     assert(amountMicroStable > Uint64(0), 'zero mint')
-    err('mint not implemented')
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.owner === Txn.sender, 'vault owner only')
+
+    const oracle = this.readFreshOracle()
+    const stablecoin = this.readStablecoinSnapshot()
+    const availableToMint = this.calculateAvailableToMint(vault, oracle.pricePerAlgoMicroStable, stablecoin)
+    assert(amountMicroStable <= availableToMint, 'mint exceeds safe amount')
+
+    const newVaultDebt = safeAdd(vault.debtMicroStable, amountMicroStable)
+    const newTotalDebt = safeAdd(this.totalDebtMicroStable.value, amountMicroStable)
+    assert(newVaultDebt >= this.minDebtFloorMicroStable.value, 'debt below floor')
+    assert(isHealthyDebt(vault.collateralMicroAlgo, newVaultDebt, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value), 'vault unhealthy')
+
+    this.callStablecoinMint(vault, amountMicroStable, stablecoin.stableAssetId)
+
+    vault.debtMicroStable = newVaultDebt
+    vault.updatedAt = Global.latestTimestamp
+    this.vaults(vaultId).value = clone(vault)
+    this.totalDebtMicroStable.value = newTotalDebt
+
+    emit<StablecoinMintedEvent>({
+      vaultId,
+      owner: Txn.sender,
+      amountMicroStable,
+      newDebtMicroStable: newVaultDebt,
+      totalDebtMicroStable: newTotalDebt,
+    })
   }
 
-  /** Future phase: stablecoin ASA transfer will burn or escrow repayment. */
+  /** Repayment entry point reserved for the repayment module. */
   public repay(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_REPAY)
     assert(this.vaults(vaultId).exists, 'vault missing')
     assert(repayment.sender === Txn.sender, 'repay sender mismatch')
     assert(repayment.assetAmount > Uint64(0), 'zero repay')
-    err('repay not implemented')
+    err('repay module disabled')
   }
 
-  /** Future phase: sends collateral back after preserving collateral ratio. */
+  /** Withdraw entry point reserved for the withdrawal module. */
   public withdrawCollateral(vaultId: uint64, amountMicroAlgo: uint64): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_WITHDRAW)
     assert(this.vaults(vaultId).exists, 'vault missing')
     assert(amountMicroAlgo > Uint64(0), 'zero withdraw')
-    err('withdraw not implemented')
+    err('withdraw module disabled')
   }
 
-  /** Future phase: called directly or by the liquidation executor app. */
+  /** Liquidation entry point reserved for keeper/executor integration. */
   public liquidate(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_LIQUIDATE)
     assert(this.vaults(vaultId).exists, 'vault missing')
     assert(repayment.assetAmount > Uint64(0), 'zero liquidation')
-    err('liquidate not implemented')
+    err('liquidation module disabled')
   }
 
   private assertReady(): void {
@@ -409,6 +530,105 @@ export class CollateralXProtocolManager extends Contract {
     const actionActive: uint64 = this.pauseFlags.value & actionFlag
     assert(emergencyActive === Uint64(0), 'emergency paused')
     assert(actionActive === Uint64(0), 'action paused')
+  }
+
+  private assertDepositGroup(payment: gtxn.PaymentTxn): void {
+    assert(Global.groupSize === Uint64(2), 'deposit group size')
+    assert(payment.groupIndex === Uint64(0), 'deposit payment index')
+    assert(Txn.groupIndex === Uint64(1), 'deposit app call index')
+  }
+
+  private assertSingleCallGroup(): void {
+    assert(Global.groupSize === Uint64(1), 'mint group size')
+    assert(Txn.groupIndex === Uint64(0), 'mint app call index')
+  }
+
+  private readFreshOracle(): OracleSnapshot {
+    assert(this.oracleAppId.value > Uint64(0), 'oracle app required')
+    const oracleApp = Application(this.oracleAppId.value)
+
+    const [price, priceExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('px'))
+    const [updatedAt, updatedAtExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('upd'))
+    const [maxAgeSeconds, maxAgeExists] = op.AppGlobal.getExUint64(oracleApp, Bytes('maxa'))
+    const [oraclePauseFlags, pauseFlagsExist] = op.AppGlobal.getExUint64(oracleApp, Bytes('pflg'))
+
+    assert(priceExists, 'oracle price missing')
+    assert(updatedAtExists, 'oracle timestamp missing')
+    assert(maxAgeExists, 'oracle max age missing')
+    assert(pauseFlagsExist, 'oracle pause missing')
+    assert(price > Uint64(0), 'oracle price required')
+    assert(updatedAt > Uint64(0), 'oracle timestamp required')
+    assert(maxAgeSeconds > Uint64(0), 'oracle max age required')
+    assert((oraclePauseFlags & ORACLE_PAUSE_READS) === Uint64(0), 'oracle reads paused')
+    assert(updatedAt <= Global.latestTimestamp, 'oracle timestamp future')
+
+    const oracleAge: uint64 = Global.latestTimestamp - updatedAt
+    assert(oracleAge <= this.oracleFreshnessWindowSeconds.value, 'oracle stale')
+    assert(oracleAge <= maxAgeSeconds, 'oracle stale')
+
+    return {
+      pricePerAlgoMicroStable: price,
+      updatedAt,
+      maxAgeSeconds,
+    }
+  }
+
+  private readStablecoinSnapshot(): StablecoinSnapshot {
+    assert(this.stablecoinAppId.value > Uint64(0), 'stablecoin app required')
+    const stablecoinApp = Application(this.stablecoinAppId.value)
+
+    const [stableAssetId, stableAssetExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('asa'))
+    const [issuedSupply, issuedSupplyExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('supply'))
+    const [supplyCeiling, supplyCeilingExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('ceil'))
+
+    assert(stableAssetExists, 'stable asset missing')
+    assert(issuedSupplyExists, 'stable supply missing')
+    assert(supplyCeilingExists, 'stable ceiling missing')
+    assert(stableAssetId > Uint64(0), 'stable asset required')
+    assert(supplyCeiling > Uint64(0), 'stable ceiling required')
+
+    return {
+      stableAssetId,
+      issuedSupplyMicroStable: issuedSupply,
+      supplyCeilingMicroStable: supplyCeiling,
+    }
+  }
+
+  private calculateAvailableToMint(
+    vault: VaultRecord,
+    pricePerAlgoMicroStable: uint64,
+    stablecoin: StablecoinSnapshot
+  ): uint64 {
+    return availableToMintMicroStable(
+      vault.collateralMicroAlgo,
+      vault.debtMicroStable,
+      pricePerAlgoMicroStable,
+      this.minCollateralRatioBps.value,
+      this.vaultMintCapMicroStable.value,
+      this.totalDebtMicroStable.value,
+      this.protocolDebtCeilingMicroStable.value,
+      stablecoin.issuedSupplyMicroStable,
+      stablecoin.supplyCeilingMicroStable
+    )
+  }
+
+  private callStablecoinMint(vault: VaultRecord, amountMicroStable: uint64, stableAssetId: uint64): void {
+    const stablecoinApp = Application(this.stablecoinAppId.value)
+    const stableAsset = Asset(stableAssetId)
+    itxn
+      .applicationCall({
+        appId: stablecoinApp,
+        fee: Uint64(0),
+        appArgs: [
+          methodSelector('mintForVault(uint64,address,uint64)void'),
+          new Arc4Uint<64>(vault.id).bytes,
+          new Arc4Address(vault.owner).bytes,
+          new Arc4Uint<64>(amountMicroStable).bytes,
+        ],
+        accounts: [vault.owner, stablecoinApp.address],
+        assets: [stableAsset],
+      })
+      .submit()
   }
 
   private validateParams(
@@ -432,4 +652,3 @@ export class CollateralXProtocolManager extends Contract {
     assert(minDebtFloorMicroStable <= vaultMintCapMicroStable, 'debt floor too high')
   }
 }
-

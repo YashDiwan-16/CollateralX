@@ -2261,8 +2261,8 @@
       ]
     },
     "394": {
-      "error": "liquidation execution not implemented",
-      "op": "err // liquidation execution not implemented"
+      "error": "liquidation execution disabled",
+      "op": "err // liquidation execution disabled"
     },
     "395": {
       "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady",

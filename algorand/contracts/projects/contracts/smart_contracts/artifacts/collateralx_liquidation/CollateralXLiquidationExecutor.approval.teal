@@ -418,8 +418,8 @@ executeLiquidation_after_if_else@5:
     gtxns AssetAmount
     assert // zero repayment
     // smart_contracts/collateralx_liquidation/contract.algo.ts:102
-    // err('liquidation execution not implemented')
-    err // liquidation execution not implemented
+    // err('liquidation execution disabled')
+    err // liquidation execution disabled
 
 
 // smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady() -> void:

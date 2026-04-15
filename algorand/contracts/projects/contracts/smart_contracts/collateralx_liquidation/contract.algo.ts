@@ -92,14 +92,14 @@ export class CollateralXLiquidationExecutor extends Contract {
     emit('LiquidationPauseFlagsUpdated', Txn.sender, pauseFlags)
   }
 
-  /** Future phase: keeper or permissionless liquidation entry point. */
+  /** Keeper or permissionless liquidation entry point reserved for liquidation integration. */
   public executeLiquidation(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_EXECUTION)
     this.assertKeeperIfConfigured()
     assert(vaultId > Uint64(0), 'vault id required')
     assert(repayment.assetAmount > Uint64(0), 'zero repayment')
-    err('liquidation execution not implemented')
+    err('liquidation execution disabled')
   }
 
   private assertReady(): void {

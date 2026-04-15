@@ -1,6 +1,7 @@
 import {
   Account,
   Application,
+  Asset,
   Contract,
   Global,
   GlobalState,
@@ -9,10 +10,12 @@ import {
   assert,
   emit,
   err,
+  itxn,
   readonly,
   type uint64,
 } from '@algorandfoundation/algorand-typescript'
 import { abimethod } from '@algorandfoundation/algorand-typescript/arc4'
+import { safeAdd } from '../collateralx_shared/risk.algo'
 
 const PAUSE_MINT: uint64 = Uint64(1)
 const PAUSE_BURN: uint64 = Uint64(2)
@@ -34,12 +37,24 @@ type StablecoinControllerInitializedEvent = {
   supplyCeilingMicroStable: uint64
 }
 
+type StablecoinAssetOptedInEvent = {
+  admin: Account
+  stableAssetId: uint64
+}
+
+type StablecoinMintedForVaultEvent = {
+  vaultId: uint64
+  receiver: Account
+  amountMicroStable: uint64
+  issuedSupplyMicroStable: uint64
+}
+
 /**
- * Stablecoin control skeleton.
+ * Stablecoin control logic.
  *
- * Safety-critical assumption: this app stores stablecoin control metadata only.
- * ASA creation, clawback/freeze roles, and mint/burn inner transactions are left
- * for a later phase so asset authority can be designed and tested separately.
+ * Safety-critical assumption: the stable ASA has a fixed reserve held by this
+ * app account. The protocol manager is the only caller allowed to move reserve
+ * units to vault owners.
  */
 export class CollateralXStablecoinController extends Contract {
   admin = GlobalState<Account>({ key: 'adm' })
@@ -116,7 +131,30 @@ export class CollateralXStablecoinController extends Contract {
     emit('StablecoinPauseFlagsUpdated', Txn.sender, pauseFlags)
   }
 
-  /** Future phase: manager-authorized mint to a vault owner. */
+  /**
+   * Opts the app account into the stable ASA so it can hold mint reserves.
+   * The app account must be pre-funded for the ASA opt-in MBR and inner fee.
+   */
+  public optInToStableAsset(): void {
+    this.assertReady()
+    this.assertAdmin()
+    assert(this.stableAssetId.value > Uint64(0), 'stable asset required')
+    const stableAsset = Asset(this.stableAssetId.value)
+    itxn
+      .assetTransfer({
+        xferAsset: stableAsset,
+        assetReceiver: Global.currentApplicationAddress,
+        assetAmount: Uint64(0),
+        fee: Uint64(0),
+      })
+      .submit()
+    emit<StablecoinAssetOptedInEvent>({
+      admin: Txn.sender,
+      stableAssetId: this.stableAssetId.value,
+    })
+  }
+
+  /** Manager-authorized reserve transfer to a vault owner. */
   public mintForVault(vaultId: uint64, receiver: Account, amountMicroStable: uint64): void {
     this.assertReady()
     this.assertManagerCaller()
@@ -124,18 +162,41 @@ export class CollateralXStablecoinController extends Contract {
     assert(receiver !== Global.zeroAddress, 'receiver required')
     assert(vaultId > Uint64(0), 'vault id required')
     assert(amountMicroStable > Uint64(0), 'zero mint')
-    assert(this.issuedSupplyMicroStable.value + amountMicroStable <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')
-    err('stablecoin mint not implemented')
+    assert(this.stableAssetId.value > Uint64(0), 'stable asset required')
+
+    const newIssuedSupply = safeAdd(this.issuedSupplyMicroStable.value, amountMicroStable)
+    assert(newIssuedSupply <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')
+
+    const stableAsset = Asset(this.stableAssetId.value)
+    assert(receiver.isOptedIn(stableAsset), 'receiver asset opt-in required')
+    assert(stableAsset.balance(Global.currentApplicationAddress) >= amountMicroStable, 'stable reserve insufficient')
+
+    itxn
+      .assetTransfer({
+        xferAsset: stableAsset,
+        assetReceiver: receiver,
+        assetAmount: amountMicroStable,
+        fee: Uint64(0),
+      })
+      .submit()
+
+    this.issuedSupplyMicroStable.value = newIssuedSupply
+    emit<StablecoinMintedForVaultEvent>({
+      vaultId,
+      receiver,
+      amountMicroStable,
+      issuedSupplyMicroStable: newIssuedSupply,
+    })
   }
 
-  /** Future phase: manager-authorized burn/escrow of repaid stablecoin units. */
+  /** Manager-authorized burn/escrow entry point reserved for repayment flow. */
   public burnForVault(vaultId: uint64, amountMicroStable: uint64): void {
     this.assertReady()
     this.assertManagerCaller()
     this.assertNotPaused(PAUSE_BURN)
     assert(vaultId > Uint64(0), 'vault id required')
     assert(amountMicroStable > Uint64(0), 'zero burn')
-    err('stablecoin burn not implemented')
+    err('stablecoin burn disabled')
   }
 
   private assertReady(): void {
@@ -147,8 +208,9 @@ export class CollateralXStablecoinController extends Contract {
   }
 
   private assertManagerCaller(): void {
+    assert(Global.callerApplicationId === this.protocolManagerAppId.value, 'manager app only')
     const managerApp = Application(this.protocolManagerAppId.value)
-    assert(Txn.sender === managerApp.address, 'manager app only')
+    assert(Txn.sender === managerApp.address, 'manager sender mismatch')
   }
 
   private assertNotPaused(flag: uint64): void {
@@ -161,4 +223,3 @@ export class CollateralXStablecoinController extends Contract {
     assert(supplyCeilingMicroStable > Uint64(0), 'ceiling required')
   }
 }
-

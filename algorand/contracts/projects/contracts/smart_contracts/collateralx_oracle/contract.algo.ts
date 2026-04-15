@@ -122,12 +122,12 @@ export class CollateralXOracleAdapter extends Contract {
     emit('OraclePauseFlagsUpdated', Txn.sender, pauseFlags)
   }
 
-  /** Future phase: verify an external oracle proof or delegated feed update. */
+  /** External proof verification entry point reserved for oracle feed integration. */
   public verifyExternalPriceUpdate(proof: bytes): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_ORACLE_UPDATES)
     assert(proof.length > Uint64(0), 'proof required')
-    err('oracle proof verification not implemented')
+    err('oracle proof verification disabled')
   }
 
   private assertReady(): void {
@@ -156,4 +156,3 @@ export class CollateralXOracleAdapter extends Contract {
     assert(source.length <= MAX_SOURCE_BYTES, 'source too long')
   }
 }
-
