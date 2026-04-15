@@ -1,0 +1,20 @@
+# Ignore everything at repo root by default
+/*
+
+# Keep project source directories
+!contracts/
+!frontend/
+
+# Keep root-level project files
+!CLAUDE.md
+!AGENTS.md
+!algo_stablecoin_protocol_wireframe.html
+!.gitignore
+
+# Tool-generated config dirs (vibekit, cursor, codex, etc.)
+.agents/
+.claude/
+.codex/
+.cursor/
+.cursorrules
+.mcp.json
