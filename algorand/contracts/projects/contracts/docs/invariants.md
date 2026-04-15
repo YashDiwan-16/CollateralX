@@ -80,9 +80,8 @@ the protocol from acting on prices that may no longer reflect market conditions.
 The adapter also rejects future timestamps, future rounds, and non-monotonic
 round updates so a trusted updater cannot accidentally move the feed backward.
 
-Enforced by: `validateOracle` (called inside `applyMint`, `applyWithdraw`,
-`vaultHealth`, `isLiquidatable`, `liquidationOutcome`) and the on-chain oracle
-adapter helper used by mint and debt-bearing withdrawals.
+Enforced by: the on-chain oracle adapter helper used by mint, debt-bearing
+withdrawals, and liquidation.
 
 ---
 
@@ -101,27 +100,34 @@ Enforced by: `validateOracle`.
 ## I8 — Liquidation may only reduce outstanding debt
 
 ```
-After liquidation: vault.debt' = vault.debt − repayAmount
-  where repayAmount ≤ vault.debt
+After liquidation: vault is deleted and
+  totalDebtMicroStable' = totalDebtMicroStable − vault.debt
+  stableController.issuedSupplyMicroStable' =
+    stableController.issuedSupplyMicroStable − vault.debt
 ```
 
-A liquidation cannot increase debt or create new debt.
+A liquidation cannot increase debt, create new debt, or partially repay debt.
+The grouped repayment transfer must equal exactly the vault debt.
 
-Enforced by: `liquidationOutcome` (rejects `repay > debt`).
+Enforced by: on-chain `liquidate` and `burnForVault`.
 
 ---
 
 ## I9 — Liquidation may only reduce collateral
 
 ```
-After liquidation: vault.collateral' = vault.collateral − seized
-  where seized ≤ vault.collateral
+After liquidation:
+  totalCollateralMicroAlgo' = totalCollateralMicroAlgo − vault.collateral
+  liquidatorCollateral + protocolFeeCollateral + ownerRefundCollateral =
+    vault.collateral
 ```
 
-The seized amount is capped at the vault's collateral balance; the protocol
-cannot seize more than exists.
+The liquidator payout is capped at the vault's collateral balance; protocol fee
+collateral is capped at what remains after the liquidator reward; any surplus is
+returned to the original vault owner.
 
-Enforced by: `liquidationOutcome` (cap logic).
+Enforced by: centralized liquidation math in `risk.algo.ts` and on-chain
+`liquidate`.
 
 ---
 
@@ -131,9 +137,10 @@ Enforced by: `liquidationOutcome` (cap logic).
 Liquidation is only allowed when vault.ratio ≤ LIQUIDATION_RATIO
 ```
 
-A healthy vault cannot be liquidated.
+A healthy vault cannot be liquidated. The threshold is inclusive, so a vault
+exactly at `LIQUIDATION_RATIO` is liquidatable.
 
-Enforced by: `isLiquidatable` called inside `liquidationOutcome`.
+Enforced by: `isLiquidatableDebt` and on-chain `liquidate`.
 
 ---
 
@@ -147,8 +154,8 @@ When the emergency flag is set, user operations that would create, deposit,
 mint, repay, withdraw, close, or liquidate are rejected. Admin configuration
 remains available so governance can unpause or rotate integrations.
 
-Enforced by: every `apply*` function and `liquidationOutcome`; on-chain
-`assertNotPaused` applies the emergency bit before action-specific pause bits.
+Enforced by: on-chain `assertNotPaused`, which applies the emergency bit before
+action-specific pause bits.
 
 ---
 
@@ -196,8 +203,11 @@ amount. Repayment decrements both values by the same amount after the user has
 returned stablecoin ASA units to the controller reserve in the same atomic
 transaction group.
 
-Enforced by: on-chain `mintStablecoin`, `mintForVault`, `repay`, and
-`burnForVault`.
+Liquidation also preserves this invariant by requiring full debt repayment and
+calling `burnForVault` for the full vault debt before deleting the vault.
+
+Enforced by: on-chain `mintStablecoin`, `mintForVault`, `repay`, `liquidate`,
+and `burnForVault`.
 
 ---
 
@@ -212,8 +222,13 @@ and close decrement both before returning ALGO from the protocol app account.
 Deleting a vault requires aggregate collateral for that vault to have been
 removed.
 
-Enforced by: on-chain `depositCollateral`, `withdrawCollateral`, and
-`closeVault`.
+Liquidation decrements `totalCollateralMicroAlgo` by the full vault collateral
+when deleting the vault. Retained protocol liquidation fees are tracked in
+`protocolFeeCollateralMicroAlgo` because they are no longer active vault
+collateral.
+
+Enforced by: on-chain `depositCollateral`, `withdrawCollateral`, `closeVault`,
+and `liquidate`.
 
 ---
 
@@ -228,13 +243,13 @@ The test suite in `tests/math/` covers:
 | I3 | `vault.test.ts`, `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Dust repay rejection |
 | I4 | `minting.test.ts` | Vault cap exceeded |
 | I5 | `minting.test.ts` | Protocol ceiling at, above boundary |
-| I6 | `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Stale price on mint, withdraw, liquidate |
+| I6 | `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts`, `collateralx-liquidation.e2e.test.ts` | Stale price on mint, withdraw, liquidate |
 | I7 | (built into `validateOracle`) | |
-| I8 | `liquidation.test.ts` | Repay exceeds debt rejection |
-| I9 | `liquidation.test.ts` | Full liquidation caps at collateral |
-| I10 | `liquidation.test.ts` | Healthy vault rejected; 150 % accepted |
+| I8 | `collateralx-liquidation.e2e.test.ts` | Incorrect full-debt repayment rejected; debt/supply cleared on success |
+| I9 | `collateralx-liquidation.e2e.test.ts` | Liquidator reward, protocol fee, owner refund, and collateral totals reconcile |
+| I10 | `collateralx-liquidation.e2e.test.ts` | Healthy vault rejected; exact liquidation threshold accepted |
 | I11 | `edge-cases.test.ts` | Emergency pause blocks all ops |
 | I12 | `edge-cases.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Mint, repay, and withdraw pause behavior |
 | I13 | `vault.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Close with debt fails; close after repay succeeds |
-| I14 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Mint and repay supply/debt reconciliation |
-| I15 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts` | Deposit, withdraw, close collateral reconciliation |
+| I14 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts`, `collateralx-liquidation.e2e.test.ts` | Mint, repay, and liquidation supply/debt reconciliation |
+| I15 | `collateralx-deposit-mint.e2e.test.ts`, `collateralx-repay-withdraw-close.e2e.test.ts`, `collateralx-liquidation.e2e.test.ts` | Deposit, withdraw, close, and liquidation collateral reconciliation |

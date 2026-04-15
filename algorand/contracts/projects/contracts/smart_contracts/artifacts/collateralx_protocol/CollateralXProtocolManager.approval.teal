@@ -3,111 +3,116 @@
 
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
-    intcblock 0 1 8 72 10000 100000
-    bytecblock "v" "tdbt" "tcol" "sapp" "mcr" "dflo" 0x151f7c75 0xffffffffffffffff "init" "ofw" "vmcp" "pdc" "pflg" "oapp" "adm" "nvid" "vcnt" "lqr" "lpn" "lbn" "lapp" 0x2710 0x0f4240 0x8bec4da7
+    intcblock 0 1 8 10000 100000
+    bytecblock "tdbt" 0xffffffffffffffff "v" "tcol" "sapp" "mcr" "dflo" 0x151f7c75 "init" "lqr" "lpn" "lbn" "ofw" "vmcp" "pdc" "pflg" "oapp" "adm" "nvid" "vcnt" "pfee" "lapp" 0x2710 0x0f4240 0x8bec4da7 0x068101
     txn ApplicationID
     bnz main_after_if_else@2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:183
+    // smart_contracts/collateralx_protocol/contract.algo.ts:203
     // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
     bytec 8 // "init"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:184
+    // smart_contracts/collateralx_protocol/contract.algo.ts:204
     // nextVaultId = GlobalState<uint64>({ key: 'nvid', initialValue: Uint64(1) })
-    bytec 15 // "nvid"
+    bytec 18 // "nvid"
     intc_1 // 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:185
+    // smart_contracts/collateralx_protocol/contract.algo.ts:205
     // vaultCount = GlobalState<uint64>({ key: 'vcnt', initialValue: Uint64(0) })
-    bytec 16 // "vcnt"
+    bytec 19 // "vcnt"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
+    bytec_0 // "tdbt"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
+    bytec_3 // "tcol"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:208
+    // protocolFeeCollateralMicroAlgo = GlobalState<uint64>({ key: 'pfee', initialValue: Uint64(0) })
+    bytec 20 // "pfee"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
+    bytec 5 // "mcr"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:189
+    // smart_contracts/collateralx_protocol/contract.algo.ts:210
     // liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
-    bytec 17 // "lqr"
+    bytec 9 // "lqr"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:190
+    // smart_contracts/collateralx_protocol/contract.algo.ts:211
     // liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
-    bytec 18 // "lpn"
+    bytec 10 // "lpn"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:191
+    // smart_contracts/collateralx_protocol/contract.algo.ts:212
     // liquidationBonusBps = GlobalState<uint64>({ key: 'lbn', initialValue: Uint64(0) })
-    bytec 19 // "lbn"
+    bytec 11 // "lbn"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:192
+    // smart_contracts/collateralx_protocol/contract.algo.ts:213
     // oracleFreshnessWindowSeconds = GlobalState<uint64>({ key: 'ofw', initialValue: Uint64(0) })
-    bytec 9 // "ofw"
+    bytec 12 // "ofw"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:193
+    // smart_contracts/collateralx_protocol/contract.algo.ts:214
     // vaultMintCapMicroStable = GlobalState<uint64>({ key: 'vmcp', initialValue: Uint64(0) })
-    bytec 10 // "vmcp"
+    bytec 13 // "vmcp"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:194
+    // smart_contracts/collateralx_protocol/contract.algo.ts:215
     // protocolDebtCeilingMicroStable = GlobalState<uint64>({ key: 'pdc', initialValue: Uint64(0) })
-    bytec 11 // "pdc"
+    bytec 14 // "pdc"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
+    bytec 6 // "dflo"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:196
+    // smart_contracts/collateralx_protocol/contract.algo.ts:217
     // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
-    bytec 12 // "pflg"
+    bytec 15 // "pflg"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:197
+    // smart_contracts/collateralx_protocol/contract.algo.ts:218
     // oracleAppId = GlobalState<uint64>({ key: 'oapp', initialValue: Uint64(0) })
-    bytec 13 // "oapp"
+    bytec 16 // "oapp"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
+    bytec 4 // "sapp"
     intc_0 // 0
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:199
+    // smart_contracts/collateralx_protocol/contract.algo.ts:220
     // liquidationAppId = GlobalState<uint64>({ key: 'lapp', initialValue: Uint64(0) })
-    bytec 20 // "lapp"
+    bytec 21 // "lapp"
     intc_0 // 0
     app_global_put
 
 main_after_if_else@2:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:181
+    // smart_contracts/collateralx_protocol/contract.algo.ts:201
     // export class CollateralXProtocolManager extends Contract {
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
     txn ApplicationID
     bz main_create_NoOp@23
-    pushbytess 0x60141f2b 0x69a18a4c 0x98a75d47 0x8fb15de3 0xb2bdb7c6 0xbbf7ae2c 0x45ba15b4 0x7ebc7e51 0x08473a3b 0xf7cd8980 0x99ec4a05 0x71283b2d 0xb1b8e631 0xc599d666 0x173b4a34 0x00bb88e9 0x07b271ad // method "initializeProtocol(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)void", method "createVault()uint64", method "readVault(uint64)(uint64,address,uint64,uint64,uint64,uint64,uint64,uint64)", method "vaultExists(uint64)bool", method "readMaxMintable(uint64)uint64", method "readProtocolStatus()(address,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)", method "readProtocolParams()(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)", method "adminSetParams(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)void", method "adminSetIntegrations(uint64,uint64,uint64)void", method "adminSetPauseFlags(uint64)void", method "adminTransfer(address)void", method "depositCollateral(pay,uint64)void", method "mintStablecoin(uint64,uint64)void", method "repay(axfer,uint64)void", method "withdrawCollateral(uint64,uint64)void", method "closeVault(uint64)void", method "liquidate(axfer,uint64)void"
+    pushbytess 0x60141f2b 0x69a18a4c 0x98a75d47 0x8fb15de3 0xb2bdb7c6 0x5c97958a 0x45ba15b4 0x7ebc7e51 0x08473a3b 0xf7cd8980 0x99ec4a05 0x71283b2d 0xb1b8e631 0xc599d666 0x173b4a34 0x00bb88e9 0x07b271ad // method "initializeProtocol(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)void", method "createVault()uint64", method "readVault(uint64)(uint64,address,uint64,uint64,uint64,uint64,uint64,uint64)", method "vaultExists(uint64)bool", method "readMaxMintable(uint64)uint64", method "readProtocolStatus()(address,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)", method "readProtocolParams()(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)", method "adminSetParams(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)void", method "adminSetIntegrations(uint64,uint64,uint64)void", method "adminSetPauseFlags(uint64)void", method "adminTransfer(address)void", method "depositCollateral(pay,uint64)void", method "mintStablecoin(uint64,uint64)void", method "repay(axfer,uint64)void", method "withdrawCollateral(uint64,uint64)void", method "closeVault(uint64)void", method "liquidate(axfer,uint64)void"
     txna ApplicationArgs 0
     match initializeProtocol createVault readVault vaultExists readMaxMintable readProtocolStatus readProtocolParams adminSetParams adminSetIntegrations adminSetPauseFlags adminTransfer depositCollateral mintStablecoin repay withdrawCollateral closeVault liquidate
     err
 
 main_create_NoOp@23:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:181
+    // smart_contracts/collateralx_protocol/contract.algo.ts:201
     // export class CollateralXProtocolManager extends Contract {
     pushbytes 0xd324bea4 // method "createApplication(address)void"
     txna ApplicationArgs 0
@@ -117,7 +122,7 @@ main_create_NoOp@23:
 
 // smart_contracts/collateralx_shared/risk.algo.ts::isHealthyDebt(collateralMicroAlgo: uint64, debtMicroStable: uint64, pricePerAlgoMicroStable: uint64, minCollateralRatioBps: uint64) -> uint64:
 isHealthyDebt:
-    // smart_contracts/collateralx_shared/risk.algo.ts:47-52
+    // smart_contracts/collateralx_shared/risk.algo.ts:56-61
     // export function isHealthyDebt(
     //   collateralMicroAlgo: uint64,
     //   debtMicroStable: uint64,
@@ -125,43 +130,152 @@ isHealthyDebt:
     //   minCollateralRatioBps: uint64
     // ): boolean {
     proto 4 1
-    // smart_contracts/collateralx_shared/risk.algo.ts:53
+    // smart_contracts/collateralx_shared/risk.algo.ts:62
     // assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
     frame_dig -2
     assert // oracle price required
-    // smart_contracts/collateralx_shared/risk.algo.ts:54
+    // smart_contracts/collateralx_shared/risk.algo.ts:63
     // assert(minCollateralRatioBps >= BPS_DENOMINATOR, 'min ratio too low')
     frame_dig -1
-    intc 4 // 10000
+    intc_3 // 10000
     >=
     assert // min ratio too low
-    // smart_contracts/collateralx_shared/risk.algo.ts:55
+    // smart_contracts/collateralx_shared/risk.algo.ts:64
     // const left: biguint = BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
     frame_dig -4
     itob
     frame_dig -2
     itob
     b*
-    bytec 21 // 0x2710
+    bytec 22 // 0x2710
     b*
-    // smart_contracts/collateralx_shared/risk.algo.ts:56
+    // smart_contracts/collateralx_shared/risk.algo.ts:65
     // const right: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(minCollateralRatioBps)
     frame_dig -3
     itob
-    bytec 22 // 0x0f4240
+    bytec 23 // 0x0f4240
     b*
     frame_dig -1
     itob
     b*
-    // smart_contracts/collateralx_shared/risk.algo.ts:57
+    // smart_contracts/collateralx_shared/risk.algo.ts:66
     // return left >= right
     b>=
     retsub
 
 
+// smart_contracts/collateralx_shared/risk.algo.ts::debtToCollateralMicroAlgo(debtMicroStable: uint64, pricePerAlgoMicroStable: uint64, premiumOrFeeBps: uint64, roundUp: uint64) -> uint64:
+debtToCollateralMicroAlgo:
+    // smart_contracts/collateralx_shared/risk.algo.ts:86-91
+    // function debtToCollateralMicroAlgo(
+    //   debtMicroStable: uint64,
+    //   pricePerAlgoMicroStable: uint64,
+    //   premiumOrFeeBps: uint64,
+    //   roundUp: boolean
+    // ): uint64 {
+    proto 4 1
+    // smart_contracts/collateralx_shared/risk.algo.ts:92
+    // assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
+    frame_dig -3
+    assert // oracle price required
+    // smart_contracts/collateralx_shared/risk.algo.ts:93
+    // const numerator: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(premiumOrFeeBps)
+    frame_dig -4
+    itob
+    bytec 23 // 0x0f4240
+    b*
+    frame_dig -2
+    itob
+    b*
+    // smart_contracts/collateralx_shared/risk.algo.ts:94
+    // const denominator: biguint = BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
+    frame_dig -3
+    itob
+    bytec 22 // 0x2710
+    b*
+    swap
+    // smart_contracts/collateralx_shared/risk.algo.ts:95
+    // if (roundUp) {
+    frame_dig -1
+    bz debtToCollateralMicroAlgo_after_if_else@2
+    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // assert(denominator > BigUint(0), 'division by zero')
+    frame_dig 0
+    dup
+    pushbytes 0x
+    b>
+    assert // division by zero
+    // smart_contracts/collateralx_shared/risk.algo.ts:21
+    // const quotient: biguint = numerator / denominator
+    swap
+    dup
+    dig 2
+    b/
+    cover 2
+    // smart_contracts/collateralx_shared/risk.algo.ts:22
+    // if (numerator % denominator === BigUint(0)) {
+    swap
+    b%
+    pushbytes 0x
+    b==
+    bz debtToCollateralMicroAlgo_after_if_else@5
+    // smart_contracts/collateralx_shared/risk.algo.ts:15
+    // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
+    dup
+    bytec_1 // 0xffffffffffffffff
+    b<=
+    assert // uint64 overflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:16
+    // return op.btoi(Bytes(value))
+    btoi
+
+debtToCollateralMicroAlgo_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::bigDivCeil@6:
+    // smart_contracts/collateralx_shared/risk.algo.ts:96
+    // return bigDivCeil(numerator, denominator)
+    swap
+    retsub
+
+debtToCollateralMicroAlgo_after_if_else@5:
+    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // return bigToUint64(quotient + BigUint(1))
+    pushbytes 0x01
+    b+
+    // smart_contracts/collateralx_shared/risk.algo.ts:15
+    // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
+    dup
+    bytec_1 // 0xffffffffffffffff
+    b<=
+    assert // uint64 overflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:16
+    // return op.btoi(Bytes(value))
+    btoi
+    // smart_contracts/collateralx_shared/risk.algo.ts:96
+    // return bigDivCeil(numerator, denominator)
+    b debtToCollateralMicroAlgo_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::bigDivCeil@6
+
+debtToCollateralMicroAlgo_after_if_else@2:
+    // smart_contracts/collateralx_shared/risk.algo.ts:98
+    // return bigToUint64(numerator / denominator)
+    frame_dig 0
+    b/
+    // smart_contracts/collateralx_shared/risk.algo.ts:15
+    // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
+    dup
+    bytec_1 // 0xffffffffffffffff
+    b<=
+    assert // uint64 overflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:16
+    // return op.btoi(Bytes(value))
+    btoi
+    // smart_contracts/collateralx_shared/risk.algo.ts:98
+    // return bigToUint64(numerator / denominator)
+    swap
+    retsub
+
+
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.createApplication[routing]() -> void:
 createApplication:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:209
+    // smart_contracts/collateralx_protocol/contract.algo.ts:230
     // @abimethod({ onCreate: 'require' })
     txna ApplicationArgs 1
     dup
@@ -169,26 +283,26 @@ createApplication:
     pushint 32 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/collateralx_protocol/contract.algo.ts:211
+    // smart_contracts/collateralx_protocol/contract.algo.ts:232
     // assert(admin !== Global.zeroAddress, 'admin required')
     dup
     global ZeroAddress
     !=
     assert // admin required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:182
+    // smart_contracts/collateralx_protocol/contract.algo.ts:202
     // admin = GlobalState<Account>({ key: 'adm' })
-    bytec 14 // "adm"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:212
+    bytec 17 // "adm"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:233
     // this.admin.value = admin
     dig 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:213
+    // smart_contracts/collateralx_protocol/contract.algo.ts:234
     // emit('ProtocolAdminCreated', admin)
     pushbytes 0x3d8c7a3a // method "ProtocolAdminCreated(address)"
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:209
+    // smart_contracts/collateralx_protocol/contract.algo.ts:230
     // @abimethod({ onCreate: 'require' })
     intc_1 // 1
     return
@@ -196,7 +310,7 @@ createApplication:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.initializeProtocol[routing]() -> void:
 initializeProtocol:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:219-231
+    // smart_contracts/collateralx_protocol/contract.algo.ts:240-252
     // public initializeProtocol(
     //   minCollateralRatioBps: uint64,
     //   liquidationRatioBps: uint64,
@@ -287,22 +401,22 @@ initializeProtocol:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:232
+    // smart_contracts/collateralx_protocol/contract.algo.ts:253
     // this.assertAdmin()
     callsub assertAdmin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:233
+    // smart_contracts/collateralx_protocol/contract.algo.ts:254
     // assert(this.initialized.value === Uint64(0), 'already initialized')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:183
+    // smart_contracts/collateralx_protocol/contract.algo.ts:203
     // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
     bytec 8 // "init"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:233
+    // smart_contracts/collateralx_protocol/contract.algo.ts:254
     // assert(this.initialized.value === Uint64(0), 'already initialized')
     app_global_get_ex
     assert // check GlobalState exists
     !
     assert // already initialized
-    // smart_contracts/collateralx_protocol/contract.algo.ts:234-243
+    // smart_contracts/collateralx_protocol/contract.algo.ts:255-264
     // this.validateParams(
     //   minCollateralRatioBps,
     //   liquidationRatioBps,
@@ -322,114 +436,114 @@ initializeProtocol:
     dig 10
     dig 10
     callsub validateParams
-    // smart_contracts/collateralx_protocol/contract.algo.ts:244
+    // smart_contracts/collateralx_protocol/contract.algo.ts:265
     // assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:244
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:265
     // assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
     app_global_get_ex
     assert // check GlobalState exists
     dig 5
     <=
     assert // ceiling below debt
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:246
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:267
     // this.minCollateralRatioBps.value = minCollateralRatioBps
     uncover 11
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:189
+    // smart_contracts/collateralx_protocol/contract.algo.ts:210
     // liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
-    bytec 17 // "lqr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:247
+    bytec 9 // "lqr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:268
     // this.liquidationRatioBps.value = liquidationRatioBps
     uncover 10
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:190
+    // smart_contracts/collateralx_protocol/contract.algo.ts:211
     // liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
-    bytec 18 // "lpn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:248
+    bytec 10 // "lpn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:269
     // this.liquidationPenaltyBps.value = liquidationPenaltyBps
     uncover 9
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:191
+    // smart_contracts/collateralx_protocol/contract.algo.ts:212
     // liquidationBonusBps = GlobalState<uint64>({ key: 'lbn', initialValue: Uint64(0) })
-    bytec 19 // "lbn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:249
+    bytec 11 // "lbn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:270
     // this.liquidationBonusBps.value = liquidationBonusBps
     uncover 8
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:192
+    // smart_contracts/collateralx_protocol/contract.algo.ts:213
     // oracleFreshnessWindowSeconds = GlobalState<uint64>({ key: 'ofw', initialValue: Uint64(0) })
-    bytec 9 // "ofw"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:250
+    bytec 12 // "ofw"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:271
     // this.oracleFreshnessWindowSeconds.value = oracleFreshnessWindowSeconds
     uncover 7
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:193
+    // smart_contracts/collateralx_protocol/contract.algo.ts:214
     // vaultMintCapMicroStable = GlobalState<uint64>({ key: 'vmcp', initialValue: Uint64(0) })
-    bytec 10 // "vmcp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:251
+    bytec 13 // "vmcp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:272
     // this.vaultMintCapMicroStable.value = vaultMintCapMicroStable
     uncover 6
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:194
+    // smart_contracts/collateralx_protocol/contract.algo.ts:215
     // protocolDebtCeilingMicroStable = GlobalState<uint64>({ key: 'pdc', initialValue: Uint64(0) })
-    bytec 11 // "pdc"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:252
+    bytec 14 // "pdc"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:273
     // this.protocolDebtCeilingMicroStable.value = protocolDebtCeilingMicroStable
     uncover 5
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:253
+    bytec 6 // "dflo"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:274
     // this.minDebtFloorMicroStable.value = minDebtFloorMicroStable
     uncover 4
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:197
+    // smart_contracts/collateralx_protocol/contract.algo.ts:218
     // oracleAppId = GlobalState<uint64>({ key: 'oapp', initialValue: Uint64(0) })
-    bytec 13 // "oapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:254
+    bytec 16 // "oapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:275
     // this.oracleAppId.value = oracleAppId
     dig 3
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:255
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:276
     // this.stablecoinAppId.value = stablecoinAppId
     dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:199
+    // smart_contracts/collateralx_protocol/contract.algo.ts:220
     // liquidationAppId = GlobalState<uint64>({ key: 'lapp', initialValue: Uint64(0) })
-    bytec 20 // "lapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:256
+    bytec 21 // "lapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:277
     // this.liquidationAppId.value = liquidationAppId
     dig 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:183
+    // smart_contracts/collateralx_protocol/contract.algo.ts:203
     // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
     bytec 8 // "init"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:257
+    // smart_contracts/collateralx_protocol/contract.algo.ts:278
     // this.initialized.value = Uint64(1)
     intc_1 // 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:260
+    // smart_contracts/collateralx_protocol/contract.algo.ts:281
     // admin: this.admin.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:182
+    // smart_contracts/collateralx_protocol/contract.algo.ts:202
     // admin = GlobalState<Account>({ key: 'adm' })
-    bytec 14 // "adm"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:260
+    bytec 17 // "adm"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:281
     // admin: this.admin.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:259-264
+    // smart_contracts/collateralx_protocol/contract.algo.ts:280-285
     // emit<ProtocolInitializedEvent>({
     //   admin: this.admin.value,
     //   oracleAppId,
@@ -449,7 +563,7 @@ initializeProtocol:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:219-231
+    // smart_contracts/collateralx_protocol/contract.algo.ts:240-252
     // public initializeProtocol(
     //   minCollateralRatioBps: uint64,
     //   liquidationRatioBps: uint64,
@@ -469,43 +583,43 @@ initializeProtocol:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.createVault[routing]() -> void:
 createVault:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:272
+    // smart_contracts/collateralx_protocol/contract.algo.ts:293
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:273
+    // smart_contracts/collateralx_protocol/contract.algo.ts:294
     // this.assertNotPaused(PAUSE_CREATE_VAULT)
     pushint 32 // 32
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:275
+    // smart_contracts/collateralx_protocol/contract.algo.ts:296
     // const vaultId: uint64 = this.nextVaultId.value
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:184
+    // smart_contracts/collateralx_protocol/contract.algo.ts:204
     // nextVaultId = GlobalState<uint64>({ key: 'nvid', initialValue: Uint64(1) })
-    bytec 15 // "nvid"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:275
+    bytec 18 // "nvid"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:296
     // const vaultId: uint64 = this.nextVaultId.value
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:276
+    // smart_contracts/collateralx_protocol/contract.algo.ts:297
     // assert(!this.vaults(vaultId).exists, 'vault exists')
     dup
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:276
+    // smart_contracts/collateralx_protocol/contract.algo.ts:297
     // assert(!this.vaults(vaultId).exists, 'vault exists')
     dup
     box_len
     bury 1
     !
     assert // vault exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:278
+    // smart_contracts/collateralx_protocol/contract.algo.ts:299
     // const now: uint64 = Global.latestTimestamp
     global LatestTimestamp
-    // smart_contracts/collateralx_protocol/contract.algo.ts:279-288
+    // smart_contracts/collateralx_protocol/contract.algo.ts:300-309
     // const vault: VaultRecord = {
     //   id: vaultId,
     //   owner: Txn.sender,
@@ -517,10 +631,10 @@ createVault:
     //   version: VAULT_SCHEMA_VERSION,
     // }
     dig 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:281
+    // smart_contracts/collateralx_protocol/contract.algo.ts:302
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:279-288
+    // smart_contracts/collateralx_protocol/contract.algo.ts:300-309
     // const vault: VaultRecord = {
     //   id: vaultId,
     //   owner: Txn.sender,
@@ -532,10 +646,10 @@ createVault:
     //   version: VAULT_SCHEMA_VERSION,
     // }
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:282
+    // smart_contracts/collateralx_protocol/contract.algo.ts:303
     // collateralMicroAlgo: Uint64(0),
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:279-288
+    // smart_contracts/collateralx_protocol/contract.algo.ts:300-309
     // const vault: VaultRecord = {
     //   id: vaultId,
     //   owner: Txn.sender,
@@ -559,10 +673,10 @@ createVault:
     concat
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:286
+    // smart_contracts/collateralx_protocol/contract.algo.ts:307
     // status: VAULT_STATUS_ACTIVE,
     intc_1 // 1
-    // smart_contracts/collateralx_protocol/contract.algo.ts:279-288
+    // smart_contracts/collateralx_protocol/contract.algo.ts:300-309
     // const vault: VaultRecord = {
     //   id: vaultId,
     //   owner: Txn.sender,
@@ -579,57 +693,57 @@ createVault:
     concat
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:290
+    // smart_contracts/collateralx_protocol/contract.algo.ts:311
     // this.vaults(vaultId).value = clone(vault)
     uncover 3
     swap
     box_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:291
+    // smart_contracts/collateralx_protocol/contract.algo.ts:312
     // this.ownerVaults({ owner: Txn.sender, vaultId }).value = Uint64(1)
     txn Sender
     dig 3
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:202
+    // smart_contracts/collateralx_protocol/contract.algo.ts:223
     // ownerVaults = BoxMap<OwnerVaultIndexKey, uint64>({ keyPrefix: 'o' })
     pushbytes "o"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:291
+    // smart_contracts/collateralx_protocol/contract.algo.ts:312
     // this.ownerVaults({ owner: Txn.sender, vaultId }).value = Uint64(1)
     swap
     box_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:292
+    // smart_contracts/collateralx_protocol/contract.algo.ts:313
     // this.nextVaultId.value = vaultId + Uint64(1)
     uncover 2
     intc_1 // 1
     +
-    // smart_contracts/collateralx_protocol/contract.algo.ts:184
+    // smart_contracts/collateralx_protocol/contract.algo.ts:204
     // nextVaultId = GlobalState<uint64>({ key: 'nvid', initialValue: Uint64(1) })
-    bytec 15 // "nvid"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:292
+    bytec 18 // "nvid"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:313
     // this.nextVaultId.value = vaultId + Uint64(1)
     swap
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:293
+    // smart_contracts/collateralx_protocol/contract.algo.ts:314
     // this.vaultCount.value = this.vaultCount.value + Uint64(1)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:185
+    // smart_contracts/collateralx_protocol/contract.algo.ts:205
     // vaultCount = GlobalState<uint64>({ key: 'vcnt', initialValue: Uint64(0) })
-    bytec 16 // "vcnt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:293
+    bytec 19 // "vcnt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:314
     // this.vaultCount.value = this.vaultCount.value + Uint64(1)
     app_global_get_ex
     assert // check GlobalState exists
     intc_1 // 1
     +
-    // smart_contracts/collateralx_protocol/contract.algo.ts:185
+    // smart_contracts/collateralx_protocol/contract.algo.ts:205
     // vaultCount = GlobalState<uint64>({ key: 'vcnt', initialValue: Uint64(0) })
-    bytec 16 // "vcnt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:293
+    bytec 19 // "vcnt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:314
     // this.vaultCount.value = this.vaultCount.value + Uint64(1)
     swap
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:295
+    // smart_contracts/collateralx_protocol/contract.algo.ts:316
     // emit<VaultCreatedEvent>({ vaultId, owner: Txn.sender, createdAt: now })
     dig 1
     txn Sender
@@ -640,9 +754,9 @@ createVault:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:271
+    // smart_contracts/collateralx_protocol/contract.algo.ts:292
     // public createVault(): uint64 {
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -652,7 +766,7 @@ createVault:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readVault[routing]() -> void:
 readVault:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:300-301
+    // smart_contracts/collateralx_protocol/contract.algo.ts:321-322
     // @readonly
     // public readVault(vaultId: uint64): VaultRecord {
     txna ApplicationArgs 1
@@ -662,28 +776,28 @@ readVault:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:302
+    // smart_contracts/collateralx_protocol/contract.algo.ts:323
     // assert(this.vaults(vaultId).exists, 'vault missing')
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:302
+    // smart_contracts/collateralx_protocol/contract.algo.ts:323
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:303
+    // smart_contracts/collateralx_protocol/contract.algo.ts:324
     // return clone(this.vaults(vaultId).value)
     box_get
     pop
-    // smart_contracts/collateralx_protocol/contract.algo.ts:300-301
+    // smart_contracts/collateralx_protocol/contract.algo.ts:321-322
     // @readonly
     // public readVault(vaultId: uint64): VaultRecord {
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -693,7 +807,7 @@ readVault:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.vaultExists[routing]() -> void:
 vaultExists:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:307-308
+    // smart_contracts/collateralx_protocol/contract.algo.ts:328-329
     // @readonly
     // public vaultExists(vaultId: uint64): boolean {
     txna ApplicationArgs 1
@@ -703,26 +817,26 @@ vaultExists:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:309
+    // smart_contracts/collateralx_protocol/contract.algo.ts:330
     // return this.vaults(vaultId).exists
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:309
+    // smart_contracts/collateralx_protocol/contract.algo.ts:330
     // return this.vaults(vaultId).exists
     box_len
     bury 1
-    // smart_contracts/collateralx_protocol/contract.algo.ts:307-308
+    // smart_contracts/collateralx_protocol/contract.algo.ts:328-329
     // @readonly
     // public vaultExists(vaultId: uint64): boolean {
     pushbytes 0x00
     intc_0 // 0
     uncover 2
     setbit
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -732,7 +846,7 @@ vaultExists:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readMaxMintable[routing]() -> void:
 readMaxMintable:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:317-318
+    // smart_contracts/collateralx_protocol/contract.algo.ts:338-339
     // @readonly
     // public readMaxMintable(vaultId: uint64): uint64 {
     txna ApplicationArgs 1
@@ -742,34 +856,34 @@ readMaxMintable:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:319
+    // smart_contracts/collateralx_protocol/contract.algo.ts:340
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:320
+    // smart_contracts/collateralx_protocol/contract.algo.ts:341
     // assert(this.vaults(vaultId).exists, 'vault missing')
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:320
+    // smart_contracts/collateralx_protocol/contract.algo.ts:341
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:321
+    // smart_contracts/collateralx_protocol/contract.algo.ts:342
     // const vault = clone(this.vaults(vaultId).value)
     box_get
     pop
-    // smart_contracts/collateralx_protocol/contract.algo.ts:322
+    // smart_contracts/collateralx_protocol/contract.algo.ts:343
     // const oracle = this.readFreshOracle()
     callsub readFreshOracle
-    // smart_contracts/collateralx_protocol/contract.algo.ts:323
+    // smart_contracts/collateralx_protocol/contract.algo.ts:344
     // const stablecoin = this.readStablecoinSnapshot()
     callsub readStablecoinSnapshot
-    // smart_contracts/collateralx_protocol/contract.algo.ts:324
+    // smart_contracts/collateralx_protocol/contract.algo.ts:345
     // return this.calculateAvailableToMint(vault, oracle.pricePerAlgoMicroStable, stablecoin)
     swap
     intc_0 // 0
@@ -777,11 +891,11 @@ readMaxMintable:
     swap
     callsub calculateAvailableToMint
     popn 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:317-318
+    // smart_contracts/collateralx_protocol/contract.algo.ts:338-339
     // @readonly
     // public readMaxMintable(vaultId: uint64): uint64 {
     itob
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -791,107 +905,117 @@ readMaxMintable:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readProtocolStatus[routing]() -> void:
 readProtocolStatus:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:331
+    // smart_contracts/collateralx_protocol/contract.algo.ts:352
     // admin: this.admin.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:182
+    // smart_contracts/collateralx_protocol/contract.algo.ts:202
     // admin = GlobalState<Account>({ key: 'adm' })
-    bytec 14 // "adm"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:331
+    bytec 17 // "adm"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:352
     // admin: this.admin.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:332
+    // smart_contracts/collateralx_protocol/contract.algo.ts:353
     // initialized: this.initialized.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:183
+    // smart_contracts/collateralx_protocol/contract.algo.ts:203
     // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
     bytec 8 // "init"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:332
+    // smart_contracts/collateralx_protocol/contract.algo.ts:353
     // initialized: this.initialized.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:333
+    // smart_contracts/collateralx_protocol/contract.algo.ts:354
     // nextVaultId: this.nextVaultId.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:184
+    // smart_contracts/collateralx_protocol/contract.algo.ts:204
     // nextVaultId = GlobalState<uint64>({ key: 'nvid', initialValue: Uint64(1) })
-    bytec 15 // "nvid"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:333
+    bytec 18 // "nvid"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:354
     // nextVaultId: this.nextVaultId.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:334
+    // smart_contracts/collateralx_protocol/contract.algo.ts:355
     // vaultCount: this.vaultCount.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:185
+    // smart_contracts/collateralx_protocol/contract.algo.ts:205
     // vaultCount = GlobalState<uint64>({ key: 'vcnt', initialValue: Uint64(0) })
-    bytec 16 // "vcnt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:334
+    bytec 19 // "vcnt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:355
     // vaultCount: this.vaultCount.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:335
+    // smart_contracts/collateralx_protocol/contract.algo.ts:356
     // totalDebtMicroStable: this.totalDebtMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:335
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:356
     // totalDebtMicroStable: this.totalDebtMicroStable.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:336
+    // smart_contracts/collateralx_protocol/contract.algo.ts:357
     // totalCollateralMicroAlgo: this.totalCollateralMicroAlgo.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:336
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:357
     // totalCollateralMicroAlgo: this.totalCollateralMicroAlgo.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:337
+    // smart_contracts/collateralx_protocol/contract.algo.ts:358
+    // protocolFeeCollateralMicroAlgo: this.protocolFeeCollateralMicroAlgo.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:208
+    // protocolFeeCollateralMicroAlgo = GlobalState<uint64>({ key: 'pfee', initialValue: Uint64(0) })
+    bytec 20 // "pfee"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:358
+    // protocolFeeCollateralMicroAlgo: this.protocolFeeCollateralMicroAlgo.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_protocol/contract.algo.ts:359
     // pauseFlags: this.pauseFlags.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:196
+    // smart_contracts/collateralx_protocol/contract.algo.ts:217
     // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
-    bytec 12 // "pflg"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:337
+    bytec 15 // "pflg"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:359
     // pauseFlags: this.pauseFlags.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:338
+    // smart_contracts/collateralx_protocol/contract.algo.ts:360
     // oracleAppId: this.oracleAppId.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:197
+    // smart_contracts/collateralx_protocol/contract.algo.ts:218
     // oracleAppId = GlobalState<uint64>({ key: 'oapp', initialValue: Uint64(0) })
-    bytec 13 // "oapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:338
+    bytec 16 // "oapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:360
     // oracleAppId: this.oracleAppId.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:339
+    // smart_contracts/collateralx_protocol/contract.algo.ts:361
     // stablecoinAppId: this.stablecoinAppId.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:339
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:361
     // stablecoinAppId: this.stablecoinAppId.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:340
+    // smart_contracts/collateralx_protocol/contract.algo.ts:362
     // liquidationAppId: this.liquidationAppId.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:199
+    // smart_contracts/collateralx_protocol/contract.algo.ts:220
     // liquidationAppId = GlobalState<uint64>({ key: 'lapp', initialValue: Uint64(0) })
-    bytec 20 // "lapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:340
+    bytec 21 // "lapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:362
     // liquidationAppId: this.liquidationAppId.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:330-341
+    // smart_contracts/collateralx_protocol/contract.algo.ts:351-363
     // return {
     //   admin: this.admin.value,
     //   initialized: this.initialized.value,
@@ -899,15 +1023,19 @@ readProtocolStatus:
     //   vaultCount: this.vaultCount.value,
     //   totalDebtMicroStable: this.totalDebtMicroStable.value,
     //   totalCollateralMicroAlgo: this.totalCollateralMicroAlgo.value,
+    //   protocolFeeCollateralMicroAlgo: this.protocolFeeCollateralMicroAlgo.value,
     //   pauseFlags: this.pauseFlags.value,
     //   oracleAppId: this.oracleAppId.value,
     //   stablecoinAppId: this.stablecoinAppId.value,
     //   liquidationAppId: this.liquidationAppId.value,
     // }
-    uncover 8
-    itob
     uncover 9
+    itob
+    uncover 10
     swap
+    concat
+    uncover 9
+    itob
     concat
     uncover 8
     itob
@@ -933,10 +1061,10 @@ readProtocolStatus:
     swap
     itob
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:328-329
+    // smart_contracts/collateralx_protocol/contract.algo.ts:349-350
     // @readonly
     // public readProtocolStatus(): ProtocolStatusSnapshot {
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -946,87 +1074,87 @@ readProtocolStatus:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readProtocolParams[routing]() -> void:
 readProtocolParams:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:348
+    // smart_contracts/collateralx_protocol/contract.algo.ts:370
     // minCollateralRatioBps: this.minCollateralRatioBps.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:348
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:370
     // minCollateralRatioBps: this.minCollateralRatioBps.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:349
+    // smart_contracts/collateralx_protocol/contract.algo.ts:371
     // liquidationRatioBps: this.liquidationRatioBps.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:189
+    // smart_contracts/collateralx_protocol/contract.algo.ts:210
     // liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
-    bytec 17 // "lqr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:349
+    bytec 9 // "lqr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:371
     // liquidationRatioBps: this.liquidationRatioBps.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:350
+    // smart_contracts/collateralx_protocol/contract.algo.ts:372
     // liquidationPenaltyBps: this.liquidationPenaltyBps.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:190
+    // smart_contracts/collateralx_protocol/contract.algo.ts:211
     // liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
-    bytec 18 // "lpn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:350
+    bytec 10 // "lpn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:372
     // liquidationPenaltyBps: this.liquidationPenaltyBps.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:351
+    // smart_contracts/collateralx_protocol/contract.algo.ts:373
     // liquidationBonusBps: this.liquidationBonusBps.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:191
+    // smart_contracts/collateralx_protocol/contract.algo.ts:212
     // liquidationBonusBps = GlobalState<uint64>({ key: 'lbn', initialValue: Uint64(0) })
-    bytec 19 // "lbn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:351
+    bytec 11 // "lbn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:373
     // liquidationBonusBps: this.liquidationBonusBps.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:352
+    // smart_contracts/collateralx_protocol/contract.algo.ts:374
     // oracleFreshnessWindowSeconds: this.oracleFreshnessWindowSeconds.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:192
+    // smart_contracts/collateralx_protocol/contract.algo.ts:213
     // oracleFreshnessWindowSeconds = GlobalState<uint64>({ key: 'ofw', initialValue: Uint64(0) })
-    bytec 9 // "ofw"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:352
+    bytec 12 // "ofw"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:374
     // oracleFreshnessWindowSeconds: this.oracleFreshnessWindowSeconds.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:353
+    // smart_contracts/collateralx_protocol/contract.algo.ts:375
     // vaultMintCapMicroStable: this.vaultMintCapMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:193
+    // smart_contracts/collateralx_protocol/contract.algo.ts:214
     // vaultMintCapMicroStable = GlobalState<uint64>({ key: 'vmcp', initialValue: Uint64(0) })
-    bytec 10 // "vmcp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:353
+    bytec 13 // "vmcp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:375
     // vaultMintCapMicroStable: this.vaultMintCapMicroStable.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:354
+    // smart_contracts/collateralx_protocol/contract.algo.ts:376
     // protocolDebtCeilingMicroStable: this.protocolDebtCeilingMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:194
+    // smart_contracts/collateralx_protocol/contract.algo.ts:215
     // protocolDebtCeilingMicroStable = GlobalState<uint64>({ key: 'pdc', initialValue: Uint64(0) })
-    bytec 11 // "pdc"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:354
+    bytec 14 // "pdc"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:376
     // protocolDebtCeilingMicroStable: this.protocolDebtCeilingMicroStable.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:355
+    // smart_contracts/collateralx_protocol/contract.algo.ts:377
     // minDebtFloorMicroStable: this.minDebtFloorMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:355
+    bytec 6 // "dflo"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:377
     // minDebtFloorMicroStable: this.minDebtFloorMicroStable.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:347-356
+    // smart_contracts/collateralx_protocol/contract.algo.ts:369-378
     // return {
     //   minCollateralRatioBps: this.minCollateralRatioBps.value,
     //   liquidationRatioBps: this.liquidationRatioBps.value,
@@ -1060,10 +1188,10 @@ readProtocolParams:
     swap
     itob
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:345-346
+    // smart_contracts/collateralx_protocol/contract.algo.ts:367-368
     // @readonly
     // public readProtocolParams(): ProtocolParamsSnapshot {
-    bytec 6 // 0x151f7c75
+    bytec 7 // 0x151f7c75
     swap
     concat
     log
@@ -1073,7 +1201,7 @@ readProtocolParams:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.adminSetParams[routing]() -> void:
 adminSetParams:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:360-369
+    // smart_contracts/collateralx_protocol/contract.algo.ts:382-391
     // public adminSetParams(
     //   minCollateralRatioBps: uint64,
     //   liquidationRatioBps: uint64,
@@ -1140,13 +1268,13 @@ adminSetParams:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:370
+    // smart_contracts/collateralx_protocol/contract.algo.ts:392
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:371
+    // smart_contracts/collateralx_protocol/contract.algo.ts:393
     // this.assertAdmin()
     callsub assertAdmin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:372-381
+    // smart_contracts/collateralx_protocol/contract.algo.ts:394-403
     // this.validateParams(
     //   minCollateralRatioBps,
     //   liquidationRatioBps,
@@ -1166,79 +1294,79 @@ adminSetParams:
     dig 7
     dig 7
     callsub validateParams
-    // smart_contracts/collateralx_protocol/contract.algo.ts:382
+    // smart_contracts/collateralx_protocol/contract.algo.ts:404
     // assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:382
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:404
     // assert(this.totalDebtMicroStable.value <= protocolDebtCeilingMicroStable, 'ceiling below debt')
     app_global_get_ex
     assert // check GlobalState exists
     dig 2
     <=
     assert // ceiling below debt
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:384
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:406
     // this.minCollateralRatioBps.value = minCollateralRatioBps
     dig 8
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:189
+    // smart_contracts/collateralx_protocol/contract.algo.ts:210
     // liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
-    bytec 17 // "lqr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:385
+    bytec 9 // "lqr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:407
     // this.liquidationRatioBps.value = liquidationRatioBps
     dig 7
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:190
+    // smart_contracts/collateralx_protocol/contract.algo.ts:211
     // liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
-    bytec 18 // "lpn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:386
+    bytec 10 // "lpn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:408
     // this.liquidationPenaltyBps.value = liquidationPenaltyBps
     uncover 6
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:191
+    // smart_contracts/collateralx_protocol/contract.algo.ts:212
     // liquidationBonusBps = GlobalState<uint64>({ key: 'lbn', initialValue: Uint64(0) })
-    bytec 19 // "lbn"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:387
+    bytec 11 // "lbn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:409
     // this.liquidationBonusBps.value = liquidationBonusBps
     uncover 5
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:192
+    // smart_contracts/collateralx_protocol/contract.algo.ts:213
     // oracleFreshnessWindowSeconds = GlobalState<uint64>({ key: 'ofw', initialValue: Uint64(0) })
-    bytec 9 // "ofw"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:388
+    bytec 12 // "ofw"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:410
     // this.oracleFreshnessWindowSeconds.value = oracleFreshnessWindowSeconds
     uncover 4
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:193
+    // smart_contracts/collateralx_protocol/contract.algo.ts:214
     // vaultMintCapMicroStable = GlobalState<uint64>({ key: 'vmcp', initialValue: Uint64(0) })
-    bytec 10 // "vmcp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:389
+    bytec 13 // "vmcp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:411
     // this.vaultMintCapMicroStable.value = vaultMintCapMicroStable
     uncover 3
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:194
+    // smart_contracts/collateralx_protocol/contract.algo.ts:215
     // protocolDebtCeilingMicroStable = GlobalState<uint64>({ key: 'pdc', initialValue: Uint64(0) })
-    bytec 11 // "pdc"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:390
+    bytec 14 // "pdc"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:412
     // this.protocolDebtCeilingMicroStable.value = protocolDebtCeilingMicroStable
     dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:391
+    bytec 6 // "dflo"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:413
     // this.minDebtFloorMicroStable.value = minDebtFloorMicroStable
     swap
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:394
+    // smart_contracts/collateralx_protocol/contract.algo.ts:416
     // admin: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:393-398
+    // smart_contracts/collateralx_protocol/contract.algo.ts:415-420
     // emit<ProtocolParamsUpdatedEvent>({
     //   admin: Txn.sender,
     //   minCollateralRatioBps,
@@ -1258,7 +1386,7 @@ adminSetParams:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:360-369
+    // smart_contracts/collateralx_protocol/contract.algo.ts:382-391
     // public adminSetParams(
     //   minCollateralRatioBps: uint64,
     //   liquidationRatioBps: uint64,
@@ -1275,7 +1403,7 @@ adminSetParams:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.adminSetIntegrations[routing]() -> void:
 adminSetIntegrations:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:402-406
+    // smart_contracts/collateralx_protocol/contract.algo.ts:424-428
     // public adminSetIntegrations(
     //   oracleAppId: uint64,
     //   stablecoinAppId: uint64,
@@ -1302,37 +1430,37 @@ adminSetIntegrations:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:407
+    // smart_contracts/collateralx_protocol/contract.algo.ts:429
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:408
+    // smart_contracts/collateralx_protocol/contract.algo.ts:430
     // this.assertAdmin()
     callsub assertAdmin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:197
+    // smart_contracts/collateralx_protocol/contract.algo.ts:218
     // oracleAppId = GlobalState<uint64>({ key: 'oapp', initialValue: Uint64(0) })
-    bytec 13 // "oapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:409
+    bytec 16 // "oapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:431
     // this.oracleAppId.value = oracleAppId
     dig 3
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:410
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:432
     // this.stablecoinAppId.value = stablecoinAppId
     dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:199
+    // smart_contracts/collateralx_protocol/contract.algo.ts:220
     // liquidationAppId = GlobalState<uint64>({ key: 'lapp', initialValue: Uint64(0) })
-    bytec 20 // "lapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:411
+    bytec 21 // "lapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:433
     // this.liquidationAppId.value = liquidationAppId
     dig 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:413
+    // smart_contracts/collateralx_protocol/contract.algo.ts:435
     // admin: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:412-417
+    // smart_contracts/collateralx_protocol/contract.algo.ts:434-439
     // emit<ProtocolIntegrationsUpdatedEvent>({
     //   admin: Txn.sender,
     //   oracleAppId,
@@ -1352,7 +1480,7 @@ adminSetIntegrations:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:402-406
+    // smart_contracts/collateralx_protocol/contract.algo.ts:424-428
     // public adminSetIntegrations(
     //   oracleAppId: uint64,
     //   stablecoinAppId: uint64,
@@ -1364,7 +1492,7 @@ adminSetIntegrations:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.adminSetPauseFlags[routing]() -> void:
 adminSetPauseFlags:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:421
+    // smart_contracts/collateralx_protocol/contract.algo.ts:443
     // public adminSetPauseFlags(pauseFlags: uint64): void {
     txna ApplicationArgs 1
     dup
@@ -1373,20 +1501,20 @@ adminSetPauseFlags:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:422
+    // smart_contracts/collateralx_protocol/contract.algo.ts:444
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:423
+    // smart_contracts/collateralx_protocol/contract.algo.ts:445
     // this.assertAdmin()
     callsub assertAdmin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:196
+    // smart_contracts/collateralx_protocol/contract.algo.ts:217
     // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
-    bytec 12 // "pflg"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:424
+    bytec 15 // "pflg"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:446
     // this.pauseFlags.value = pauseFlags
     dig 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:425
+    // smart_contracts/collateralx_protocol/contract.algo.ts:447
     // emit<ProtocolPauseFlagsUpdatedEvent>({ admin: Txn.sender, pauseFlags })
     txn Sender
     swap
@@ -1396,7 +1524,7 @@ adminSetPauseFlags:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:421
+    // smart_contracts/collateralx_protocol/contract.algo.ts:443
     // public adminSetPauseFlags(pauseFlags: uint64): void {
     intc_1 // 1
     return
@@ -1404,7 +1532,7 @@ adminSetPauseFlags:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.adminTransfer[routing]() -> void:
 adminTransfer:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:429
+    // smart_contracts/collateralx_protocol/contract.algo.ts:451
     // public adminTransfer(newAdmin: Account): void {
     txna ApplicationArgs 1
     dup
@@ -1412,26 +1540,26 @@ adminTransfer:
     pushint 32 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/collateralx_protocol/contract.algo.ts:430
+    // smart_contracts/collateralx_protocol/contract.algo.ts:452
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:431
+    // smart_contracts/collateralx_protocol/contract.algo.ts:453
     // this.assertAdmin()
     callsub assertAdmin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:432
+    // smart_contracts/collateralx_protocol/contract.algo.ts:454
     // assert(newAdmin !== Global.zeroAddress, 'admin required')
     dup
     global ZeroAddress
     !=
     assert // admin required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:182
+    // smart_contracts/collateralx_protocol/contract.algo.ts:202
     // admin = GlobalState<Account>({ key: 'adm' })
-    bytec 14 // "adm"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:433
+    bytec 17 // "adm"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:455
     // this.admin.value = newAdmin
     dig 1
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:434
+    // smart_contracts/collateralx_protocol/contract.algo.ts:456
     // emit('ProtocolAdminTransferred', Txn.sender, newAdmin)
     txn Sender
     swap
@@ -1440,7 +1568,7 @@ adminTransfer:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:429
+    // smart_contracts/collateralx_protocol/contract.algo.ts:451
     // public adminTransfer(newAdmin: Account): void {
     intc_1 // 1
     return
@@ -1448,7 +1576,7 @@ adminTransfer:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.depositCollateral[routing]() -> void:
 depositCollateral:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:444
+    // smart_contracts/collateralx_protocol/contract.algo.ts:466
     // public depositCollateral(payment: gtxn.PaymentTxn, vaultId: uint64): void {
     txn GroupIndex
     intc_1 // 1
@@ -1465,104 +1593,104 @@ depositCollateral:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:445
+    // smart_contracts/collateralx_protocol/contract.algo.ts:467
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:669
+    // smart_contracts/collateralx_protocol/contract.algo.ts:767
     // assert(Global.groupSize === Uint64(2), 'deposit group size')
     global GroupSize
     pushint 2 // 2
     ==
     assert // deposit group size
-    // smart_contracts/collateralx_protocol/contract.algo.ts:670
+    // smart_contracts/collateralx_protocol/contract.algo.ts:768
     // assert(payment.groupIndex === Uint64(0), 'deposit payment index')
     dig 1
     gtxns GroupIndex
     !
     assert // deposit payment index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:671
+    // smart_contracts/collateralx_protocol/contract.algo.ts:769
     // assert(Txn.groupIndex === Uint64(1), 'deposit app call index')
     txn GroupIndex
     intc_1 // 1
     ==
     assert // deposit app call index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:447
+    // smart_contracts/collateralx_protocol/contract.algo.ts:469
     // this.assertNotPaused(PAUSE_DEPOSIT)
     intc_1 // 1
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:448
+    // smart_contracts/collateralx_protocol/contract.algo.ts:470
     // assert(this.vaults(vaultId).exists, 'vault missing')
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:448
+    // smart_contracts/collateralx_protocol/contract.algo.ts:470
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:449
+    // smart_contracts/collateralx_protocol/contract.algo.ts:471
     // const vault = clone(this.vaults(vaultId).value)
     dup
     box_get
     pop
-    // smart_contracts/collateralx_protocol/contract.algo.ts:450
+    // smart_contracts/collateralx_protocol/contract.algo.ts:472
     // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
     dup
-    intc_3 // 72
+    pushint 72 // 72
     extract_uint64
     intc_1 // 1
     ==
     assert // vault inactive
-    // smart_contracts/collateralx_protocol/contract.algo.ts:451
+    // smart_contracts/collateralx_protocol/contract.algo.ts:473
     // assert(vault.owner === Txn.sender, 'vault owner only')
     dup
     extract 8 32
     txn Sender
     ==
     assert // vault owner only
-    // smart_contracts/collateralx_protocol/contract.algo.ts:452
+    // smart_contracts/collateralx_protocol/contract.algo.ts:474
     // assert(payment.sender === Txn.sender, 'payment sender mismatch')
     dig 3
     gtxns Sender
     txn Sender
     ==
     assert // payment sender mismatch
-    // smart_contracts/collateralx_protocol/contract.algo.ts:453
+    // smart_contracts/collateralx_protocol/contract.algo.ts:475
     // assert(payment.receiver === Global.currentApplicationAddress, 'payment receiver mismatch')
     dig 3
     gtxns Receiver
     global CurrentApplicationAddress
     ==
     assert // payment receiver mismatch
-    // smart_contracts/collateralx_protocol/contract.algo.ts:454
+    // smart_contracts/collateralx_protocol/contract.algo.ts:476
     // assert(payment.rekeyTo === Global.zeroAddress, 'payment rekey forbidden')
     dig 3
     gtxns RekeyTo
     global ZeroAddress
     ==
     assert // payment rekey forbidden
-    // smart_contracts/collateralx_protocol/contract.algo.ts:455
+    // smart_contracts/collateralx_protocol/contract.algo.ts:477
     // assert(payment.closeRemainderTo === Global.zeroAddress, 'payment close forbidden')
     dig 3
     gtxns CloseRemainderTo
     global ZeroAddress
     ==
     assert // payment close forbidden
-    // smart_contracts/collateralx_protocol/contract.algo.ts:456
+    // smart_contracts/collateralx_protocol/contract.algo.ts:478
     // assert(payment.amount > Uint64(0), 'zero deposit')
     uncover 3
     gtxns Amount
     dup
     assert // zero deposit
-    // smart_contracts/collateralx_protocol/contract.algo.ts:458
+    // smart_contracts/collateralx_protocol/contract.algo.ts:480
     // const newCollateral = safeAdd(vault.collateralMicroAlgo, payment.amount)
     dig 1
     extract 40 8
-    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
     // return bigToUint64(BigUint(left) + BigUint(right))
     swap
     itob
@@ -1572,23 +1700,23 @@ depositCollateral:
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
     // return op.btoi(Bytes(value))
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:459
+    // smart_contracts/collateralx_protocol/contract.algo.ts:481
     // const newTotalCollateral = safeAdd(this.totalCollateralMicroAlgo.value, payment.amount)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:459
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:481
     // const newTotalCollateral = safeAdd(this.totalCollateralMicroAlgo.value, payment.amount)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
     // return bigToUint64(BigUint(left) + BigUint(right))
     itob
     dig 2
@@ -1596,40 +1724,40 @@ depositCollateral:
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
     // return op.btoi(Bytes(value))
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:460
+    // smart_contracts/collateralx_protocol/contract.algo.ts:482
     // vault.collateralMicroAlgo = newCollateral
     swap
     itob
     uncover 3
     dig 1
     replace2 40
-    // smart_contracts/collateralx_protocol/contract.algo.ts:461
+    // smart_contracts/collateralx_protocol/contract.algo.ts:483
     // vault.updatedAt = Global.latestTimestamp
     global LatestTimestamp
     itob
     replace2 64
-    // smart_contracts/collateralx_protocol/contract.algo.ts:462
+    // smart_contracts/collateralx_protocol/contract.algo.ts:484
     // this.vaults(vaultId).value = clone(vault)
     uncover 4
     swap
     box_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:463
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:485
     // this.totalCollateralMicroAlgo.value = newTotalCollateral
     dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:467
+    // smart_contracts/collateralx_protocol/contract.algo.ts:489
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:465-471
+    // smart_contracts/collateralx_protocol/contract.algo.ts:487-493
     // emit<CollateralDepositedEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -1651,7 +1779,7 @@ depositCollateral:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:444
+    // smart_contracts/collateralx_protocol/contract.algo.ts:466
     // public depositCollateral(payment: gtxn.PaymentTxn, vaultId: uint64): void {
     intc_1 // 1
     return
@@ -1659,7 +1787,7 @@ depositCollateral:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.mintStablecoin[routing]() -> void:
 mintStablecoin:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:481
+    // smart_contracts/collateralx_protocol/contract.algo.ts:503
     // public mintStablecoin(vaultId: uint64, amountMicroStable: uint64): void {
     txna ApplicationArgs 1
     dup
@@ -1676,70 +1804,70 @@ mintStablecoin:
     assert // invalid number of bytes for arc4.uint64
     dup
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:482
+    // smart_contracts/collateralx_protocol/contract.algo.ts:504
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:675
+    // smart_contracts/collateralx_protocol/contract.algo.ts:773
     // assert(Global.groupSize === Uint64(1), 'mint group size')
     global GroupSize
     intc_1 // 1
     ==
     assert // mint group size
-    // smart_contracts/collateralx_protocol/contract.algo.ts:676
+    // smart_contracts/collateralx_protocol/contract.algo.ts:774
     // assert(Txn.groupIndex === Uint64(0), 'mint app call index')
     txn GroupIndex
     !
     assert // mint app call index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:484
+    // smart_contracts/collateralx_protocol/contract.algo.ts:506
     // this.assertNotPaused(PAUSE_MINT)
     pushint 2 // 2
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:485
+    // smart_contracts/collateralx_protocol/contract.algo.ts:507
     // assert(this.vaults(vaultId).exists, 'vault missing')
     uncover 2
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:485
+    // smart_contracts/collateralx_protocol/contract.algo.ts:507
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:486
+    // smart_contracts/collateralx_protocol/contract.algo.ts:508
     // assert(amountMicroStable > Uint64(0), 'zero mint')
     dig 2
     assert // zero mint
-    // smart_contracts/collateralx_protocol/contract.algo.ts:487
+    // smart_contracts/collateralx_protocol/contract.algo.ts:509
     // const vault = clone(this.vaults(vaultId).value)
     dup
     box_get
     pop
-    // smart_contracts/collateralx_protocol/contract.algo.ts:488
+    // smart_contracts/collateralx_protocol/contract.algo.ts:510
     // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
     dup
-    intc_3 // 72
+    pushint 72 // 72
     extract_uint64
     intc_1 // 1
     ==
     assert // vault inactive
-    // smart_contracts/collateralx_protocol/contract.algo.ts:489
+    // smart_contracts/collateralx_protocol/contract.algo.ts:511
     // assert(vault.owner === Txn.sender, 'vault owner only')
     dup
     extract 8 32
     txn Sender
     ==
     assert // vault owner only
-    // smart_contracts/collateralx_protocol/contract.algo.ts:491
+    // smart_contracts/collateralx_protocol/contract.algo.ts:513
     // const oracle = this.readFreshOracle()
     callsub readFreshOracle
-    // smart_contracts/collateralx_protocol/contract.algo.ts:492
+    // smart_contracts/collateralx_protocol/contract.algo.ts:514
     // const stablecoin = this.readStablecoinSnapshot()
     callsub readStablecoinSnapshot
-    // smart_contracts/collateralx_protocol/contract.algo.ts:493
+    // smart_contracts/collateralx_protocol/contract.algo.ts:515
     // const availableToMint = this.calculateAvailableToMint(vault, oracle.pricePerAlgoMicroStable, stablecoin)
     swap
     intc_0 // 0
@@ -1748,17 +1876,17 @@ mintStablecoin:
     dig 1
     uncover 3
     callsub calculateAvailableToMint
-    // smart_contracts/collateralx_protocol/contract.algo.ts:494
+    // smart_contracts/collateralx_protocol/contract.algo.ts:516
     // assert(amountMicroStable <= availableToMint, 'mint exceeds safe amount')
     dig 6
     uncover 3
     <=
     assert // mint exceeds safe amount
-    // smart_contracts/collateralx_protocol/contract.algo.ts:496
+    // smart_contracts/collateralx_protocol/contract.algo.ts:518
     // const newVaultDebt = safeAdd(vault.debtMicroStable, amountMicroStable)
     dig 1
     extract 48 8
-    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
     // return bigToUint64(BigUint(left) + BigUint(right))
     uncover 6
     itob
@@ -1768,23 +1896,23 @@ mintStablecoin:
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
     // return op.btoi(Bytes(value))
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:497
+    // smart_contracts/collateralx_protocol/contract.algo.ts:519
     // const newTotalDebt = safeAdd(this.totalDebtMicroStable.value, amountMicroStable)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:497
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:519
     // const newTotalDebt = safeAdd(this.totalDebtMicroStable.value, amountMicroStable)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
     // return bigToUint64(BigUint(left) + BigUint(right))
     itob
     dig 2
@@ -1792,35 +1920,35 @@ mintStablecoin:
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
     // return op.btoi(Bytes(value))
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:498
+    // smart_contracts/collateralx_protocol/contract.algo.ts:520
     // assert(newVaultDebt >= this.minDebtFloorMicroStable.value, 'debt below floor')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:498
+    bytec 6 // "dflo"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:520
     // assert(newVaultDebt >= this.minDebtFloorMicroStable.value, 'debt below floor')
     app_global_get_ex
     assert // check GlobalState exists
     dig 2
     <=
     assert // debt below floor
-    // smart_contracts/collateralx_protocol/contract.algo.ts:499
+    // smart_contracts/collateralx_protocol/contract.algo.ts:521
     // assert(isHealthyDebt(vault.collateralMicroAlgo, newVaultDebt, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value), 'vault unhealthy')
     dig 4
     pushint 40 // 40
     extract_uint64
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:499
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:521
     // assert(isHealthyDebt(vault.collateralMicroAlgo, newVaultDebt, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value), 'vault unhealthy')
     app_global_get_ex
     assert // check GlobalState exists
@@ -1830,22 +1958,22 @@ mintStablecoin:
     uncover 3
     callsub isHealthyDebt
     assert // vault unhealthy
-    // smart_contracts/collateralx_protocol/contract.algo.ts:501
+    // smart_contracts/collateralx_protocol/contract.algo.ts:523
     // this.callStablecoinMint(vault, amountMicroStable, stablecoin.stableAssetId)
     uncover 3
     intc_0 // 0
     extract_uint64
-    // smart_contracts/collateralx_protocol/contract.algo.ts:759
+    // smart_contracts/collateralx_protocol/contract.algo.ts:878
     // const stablecoinApp = Application(this.stablecoinAppId.value)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:759
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:878
     // const stablecoinApp = Application(this.stablecoinAppId.value)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:761-774
+    // smart_contracts/collateralx_protocol/contract.algo.ts:880-893
     // itxn
     //   .applicationCall({
     //     appId: stablecoinApp,
@@ -1861,15 +1989,15 @@ mintStablecoin:
     //   })
     //   .submit()
     itxn_begin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:767
+    // smart_contracts/collateralx_protocol/contract.algo.ts:886
     // new Arc4Uint<64>(vault.id).bytes,
     dig 5
     extract 0 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:768
+    // smart_contracts/collateralx_protocol/contract.algo.ts:887
     // new Arc4Address(vault.owner).bytes,
     dig 6
     extract 8 32
-    // smart_contracts/collateralx_protocol/contract.algo.ts:771
+    // smart_contracts/collateralx_protocol/contract.algo.ts:890
     // accounts: [vault.owner, stablecoinApp.address],
     dig 2
     app_params_get AppAddress
@@ -1879,7 +2007,7 @@ mintStablecoin:
     dig 1
     itxn_field Accounts
     itxn_field Accounts
-    // smart_contracts/collateralx_protocol/contract.algo.ts:766
+    // smart_contracts/collateralx_protocol/contract.algo.ts:885
     // methodSelector('mintForVault(uint64,address,uint64)void'),
     pushbytes 0x10f76476 // method "mintForVault(uint64,address,uint64)void"
     itxn_field ApplicationArgs
@@ -1889,7 +2017,7 @@ mintStablecoin:
     uncover 7
     itxn_field ApplicationArgs
     itxn_field ApplicationID
-    // smart_contracts/collateralx_protocol/contract.algo.ts:761-773
+    // smart_contracts/collateralx_protocol/contract.algo.ts:880-892
     // itxn
     //   .applicationCall({
     //     appId: stablecoinApp,
@@ -1905,11 +2033,11 @@ mintStablecoin:
     //   })
     pushint 6 // 6
     itxn_field TypeEnum
-    // smart_contracts/collateralx_protocol/contract.algo.ts:764
+    // smart_contracts/collateralx_protocol/contract.algo.ts:883
     // fee: Uint64(0),
     intc_0 // 0
     itxn_field Fee
-    // smart_contracts/collateralx_protocol/contract.algo.ts:761-774
+    // smart_contracts/collateralx_protocol/contract.algo.ts:880-893
     // itxn
     //   .applicationCall({
     //     appId: stablecoinApp,
@@ -1925,34 +2053,34 @@ mintStablecoin:
     //   })
     //   .submit()
     itxn_submit
-    // smart_contracts/collateralx_protocol/contract.algo.ts:503
+    // smart_contracts/collateralx_protocol/contract.algo.ts:525
     // vault.debtMicroStable = newVaultDebt
     swap
     itob
     uncover 3
     dig 1
     replace2 48
-    // smart_contracts/collateralx_protocol/contract.algo.ts:504
+    // smart_contracts/collateralx_protocol/contract.algo.ts:526
     // vault.updatedAt = Global.latestTimestamp
     global LatestTimestamp
     itob
     replace2 64
-    // smart_contracts/collateralx_protocol/contract.algo.ts:505
+    // smart_contracts/collateralx_protocol/contract.algo.ts:527
     // this.vaults(vaultId).value = clone(vault)
     uncover 4
     swap
     box_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:506
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:528
     // this.totalDebtMicroStable.value = newTotalDebt
     dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:510
+    // smart_contracts/collateralx_protocol/contract.algo.ts:532
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:508-514
+    // smart_contracts/collateralx_protocol/contract.algo.ts:530-536
     // emit<StablecoinMintedEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -1974,7 +2102,7 @@ mintStablecoin:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:481
+    // smart_contracts/collateralx_protocol/contract.algo.ts:503
     // public mintStablecoin(vaultId: uint64, amountMicroStable: uint64): void {
     intc_1 // 1
     return
@@ -1982,7 +2110,7 @@ mintStablecoin:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.repay[routing]() -> void:
 repay:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:524
+    // smart_contracts/collateralx_protocol/contract.algo.ts:546
     // public repay(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     txn GroupIndex
     intc_1 // 1
@@ -1994,82 +2122,82 @@ repay:
     assert // transaction type is axfer
     txna ApplicationArgs 1
     dup
-    cover 2
-    dup
     len
     intc_2 // 8
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:525
+    dup
+    cover 2
+    // smart_contracts/collateralx_protocol/contract.algo.ts:547
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:690
+    // smart_contracts/collateralx_protocol/contract.algo.ts:788
     // assert(Global.groupSize === Uint64(2), 'repay group size')
     global GroupSize
     pushint 2 // 2
     ==
     assert // repay group size
-    // smart_contracts/collateralx_protocol/contract.algo.ts:691
+    // smart_contracts/collateralx_protocol/contract.algo.ts:789
     // assert(repayment.groupIndex === Uint64(0), 'repay transfer index')
     dig 1
     gtxns GroupIndex
     !
     assert // repay transfer index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:692
+    // smart_contracts/collateralx_protocol/contract.algo.ts:790
     // assert(Txn.groupIndex === Uint64(1), 'repay app call index')
     txn GroupIndex
     intc_1 // 1
     ==
     assert // repay app call index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:527
+    // smart_contracts/collateralx_protocol/contract.algo.ts:549
     // this.assertNotPaused(PAUSE_REPAY)
     pushint 4 // 4
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:528
+    // smart_contracts/collateralx_protocol/contract.algo.ts:550
     // assert(this.vaults(vaultId).exists, 'vault missing')
     itob
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:528
+    // smart_contracts/collateralx_protocol/contract.algo.ts:550
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:529
+    // smart_contracts/collateralx_protocol/contract.algo.ts:551
     // const stablecoin = this.readStablecoinSnapshot()
     callsub readStablecoinSnapshot
-    // smart_contracts/collateralx_protocol/contract.algo.ts:696
+    // smart_contracts/collateralx_protocol/contract.algo.ts:800
     // const stablecoinApp = Application(this.stablecoinAppId.value)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:696
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:800
     // const stablecoinApp = Application(this.stablecoinAppId.value)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:697
+    // smart_contracts/collateralx_protocol/contract.algo.ts:801
     // const stableAsset = Asset(stablecoin.stableAssetId)
     swap
     intc_0 // 0
     extract_uint64
-    // smart_contracts/collateralx_protocol/contract.algo.ts:698
+    // smart_contracts/collateralx_protocol/contract.algo.ts:802
     // assert(repayment.sender === Txn.sender, 'repay sender mismatch')
     dig 3
     gtxns Sender
     txn Sender
     ==
     assert // repay sender mismatch
-    // smart_contracts/collateralx_protocol/contract.algo.ts:699
+    // smart_contracts/collateralx_protocol/contract.algo.ts:803
     // assert(repayment.assetReceiver === stablecoinApp.address, 'repay receiver mismatch')
     dig 3
     gtxns AssetReceiver
@@ -2078,27 +2206,27 @@ repay:
     assert // application exists
     ==
     assert // repay receiver mismatch
-    // smart_contracts/collateralx_protocol/contract.algo.ts:700
+    // smart_contracts/collateralx_protocol/contract.algo.ts:804
     // assert(repayment.xferAsset === stableAsset, 'repay asset mismatch')
     dig 2
     gtxns XferAsset
     ==
     assert // repay asset mismatch
-    // smart_contracts/collateralx_protocol/contract.algo.ts:701
+    // smart_contracts/collateralx_protocol/contract.algo.ts:805
     // assert(repayment.rekeyTo === Global.zeroAddress, 'repay rekey forbidden')
     dig 1
     gtxns RekeyTo
     global ZeroAddress
     ==
     assert // repay rekey forbidden
-    // smart_contracts/collateralx_protocol/contract.algo.ts:702
+    // smart_contracts/collateralx_protocol/contract.algo.ts:806
     // assert(repayment.assetCloseTo === Global.zeroAddress, 'repay close forbidden')
     dig 1
     gtxns AssetCloseTo
     global ZeroAddress
     ==
     assert // repay close forbidden
-    // smart_contracts/collateralx_protocol/contract.algo.ts:703
+    // smart_contracts/collateralx_protocol/contract.algo.ts:807
     // assert(repayment.assetAmount > Uint64(0), 'zero repay')
     swap
     gtxns AssetAmount
@@ -2106,7 +2234,7 @@ repay:
     cover 2
     dup
     assert // zero repay
-    // smart_contracts/collateralx_protocol/contract.algo.ts:532
+    // smart_contracts/collateralx_protocol/contract.algo.ts:554
     // const vault = clone(this.vaults(vaultId).value)
     swap
     box_get
@@ -2115,52 +2243,52 @@ repay:
     cover 2
     cover 3
     assert // Box must have value
-    // smart_contracts/collateralx_protocol/contract.algo.ts:533
+    // smart_contracts/collateralx_protocol/contract.algo.ts:555
     // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
     dup
-    intc_3 // 72
+    pushint 72 // 72
     extract_uint64
     intc_1 // 1
     ==
     assert // vault inactive
-    // smart_contracts/collateralx_protocol/contract.algo.ts:534
+    // smart_contracts/collateralx_protocol/contract.algo.ts:556
     // assert(vault.owner === Txn.sender, 'vault owner only')
     dup
     extract 8 32
     txn Sender
     ==
     assert // vault owner only
-    // smart_contracts/collateralx_protocol/contract.algo.ts:535
+    // smart_contracts/collateralx_protocol/contract.algo.ts:557
     // assert(repayment.assetAmount <= vault.debtMicroStable, 'repay exceeds debt')
     pushint 48 // 48
     extract_uint64
     dup2
     <=
     assert // repay exceeds debt
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 2
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     swap
     -
     dup
-    // smart_contracts/collateralx_protocol/contract.algo.ts:538
+    // smart_contracts/collateralx_protocol/contract.algo.ts:560
     // assert(!isDustDebt(newVaultDebt, this.minDebtFloorMicroStable.value), 'debt below floor')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:195
+    // smart_contracts/collateralx_protocol/contract.algo.ts:216
     // minDebtFloorMicroStable = GlobalState<uint64>({ key: 'dflo', initialValue: Uint64(0) })
-    bytec 5 // "dflo"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:538
+    bytec 6 // "dflo"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:560
     // assert(!isDustDebt(newVaultDebt, this.minDebtFloorMicroStable.value), 'debt below floor')
     app_global_get_ex
     swap
     cover 2
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:29
+    // smart_contracts/collateralx_shared/risk.algo.ts:38
     // return debtMicroStable > Uint64(0) && debtMicroStable < minDebtFloorMicroStable
     bz repay_bool_false@8
     dup2
@@ -2169,21 +2297,21 @@ repay:
     intc_1 // 1
 
 repay_bool_merge@9:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:538
+    // smart_contracts/collateralx_protocol/contract.algo.ts:560
     // assert(!isDustDebt(newVaultDebt, this.minDebtFloorMicroStable.value), 'debt below floor')
     !
     assert // debt below floor
-    // smart_contracts/collateralx_protocol/contract.algo.ts:539
+    // smart_contracts/collateralx_protocol/contract.algo.ts:561
     // const newTotalDebt = safeSub(this.totalDebtMicroStable.value, repayment.assetAmount)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:539
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:561
     // const newTotalDebt = safeSub(this.totalDebtMicroStable.value, repayment.assetAmount)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 5
@@ -2191,102 +2319,40 @@ repay_bool_merge@9:
     cover 3
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     dig 1
     -
-    // smart_contracts/collateralx_protocol/contract.algo.ts:778
-    // const stablecoinApp = Application(this.stablecoinAppId.value)
-    intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
-    // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:778
-    // const stablecoinApp = Application(this.stablecoinAppId.value)
-    app_global_get_ex
-    assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:779-789
-    // itxn
-    //   .applicationCall({
-    //     appId: stablecoinApp,
-    //     fee: Uint64(0),
-    //     appArgs: [
-    //       methodSelector('burnForVault(uint64,uint64)void'),
-    //       new Arc4Uint<64>(vaultId).bytes,
-    //       new Arc4Uint<64>(amountMicroStable).bytes,
-    //     ],
-    //   })
-    //   .submit()
-    itxn_begin
-    // smart_contracts/collateralx_protocol/contract.algo.ts:786
-    // new Arc4Uint<64>(amountMicroStable).bytes,
-    uncover 2
-    itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:784
-    // methodSelector('burnForVault(uint64,uint64)void'),
-    pushbytes 0x4d06c049 // method "burnForVault(uint64,uint64)void"
-    itxn_field ApplicationArgs
-    dig 9
-    itxn_field ApplicationArgs
-    dup
-    itxn_field ApplicationArgs
-    swap
-    itxn_field ApplicationID
-    // smart_contracts/collateralx_protocol/contract.algo.ts:779-788
-    // itxn
-    //   .applicationCall({
-    //     appId: stablecoinApp,
-    //     fee: Uint64(0),
-    //     appArgs: [
-    //       methodSelector('burnForVault(uint64,uint64)void'),
-    //       new Arc4Uint<64>(vaultId).bytes,
-    //       new Arc4Uint<64>(amountMicroStable).bytes,
-    //     ],
-    //   })
-    pushint 6 // 6
-    itxn_field TypeEnum
-    // smart_contracts/collateralx_protocol/contract.algo.ts:782
-    // fee: Uint64(0),
-    intc_0 // 0
-    itxn_field Fee
-    // smart_contracts/collateralx_protocol/contract.algo.ts:779-789
-    // itxn
-    //   .applicationCall({
-    //     appId: stablecoinApp,
-    //     fee: Uint64(0),
-    //     appArgs: [
-    //       methodSelector('burnForVault(uint64,uint64)void'),
-    //       new Arc4Uint<64>(vaultId).bytes,
-    //       new Arc4Uint<64>(amountMicroStable).bytes,
-    //     ],
-    //   })
-    //   .submit()
-    itxn_submit
-    // smart_contracts/collateralx_protocol/contract.algo.ts:543
+    // smart_contracts/collateralx_protocol/contract.algo.ts:563
+    // this.callStablecoinBurn(vaultId, repayment.assetAmount)
+    dig 8
+    dig 2
+    callsub callStablecoinBurn
+    // smart_contracts/collateralx_protocol/contract.algo.ts:565
     // vault.debtMicroStable = newVaultDebt
     dig 3
     itob
     dig 5
     dig 1
     replace2 48
-    // smart_contracts/collateralx_protocol/contract.algo.ts:544
+    // smart_contracts/collateralx_protocol/contract.algo.ts:566
     // vault.updatedAt = Global.latestTimestamp
     global LatestTimestamp
     itob
     replace2 64
-    // smart_contracts/collateralx_protocol/contract.algo.ts:545
+    // smart_contracts/collateralx_protocol/contract.algo.ts:567
     // this.vaults(vaultId).value = clone(vault)
     dig 8
     swap
     box_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:546
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:568
     // this.totalDebtMicroStable.value = newTotalDebt
-    dig 3
+    dig 2
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:548-554
+    // smart_contracts/collateralx_protocol/contract.algo.ts:570-576
     // emit<StablecoinRepaidEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2295,10 +2361,10 @@ repay_bool_merge@9:
     //   totalDebtMicroStable: newTotalDebt,
     // })
     dig 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:550
+    // smart_contracts/collateralx_protocol/contract.algo.ts:572
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:548-554
+    // smart_contracts/collateralx_protocol/contract.algo.ts:570-576
     // emit<StablecoinRepaidEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2307,7 +2373,8 @@ repay_bool_merge@9:
     //   totalDebtMicroStable: newTotalDebt,
     // })
     concat
-    uncover 2
+    uncover 3
+    itob
     concat
     swap
     concat
@@ -2318,7 +2385,7 @@ repay_bool_merge@9:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:524
+    // smart_contracts/collateralx_protocol/contract.algo.ts:546
     // public repay(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     intc_1 // 1
     return
@@ -2334,7 +2401,7 @@ withdrawCollateral:
     dup
     pushbytes ""
     dup
-    // smart_contracts/collateralx_protocol/contract.algo.ts:561
+    // smart_contracts/collateralx_protocol/contract.algo.ts:583
     // public withdrawCollateral(vaultId: uint64, amountMicroAlgo: uint64): void {
     txna ApplicationArgs 1
     dup
@@ -2352,69 +2419,69 @@ withdrawCollateral:
     btoi
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:562
+    // smart_contracts/collateralx_protocol/contract.algo.ts:584
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:680
+    // smart_contracts/collateralx_protocol/contract.algo.ts:778
     // assert(Global.groupSize === Uint64(1), 'withdraw group size')
     global GroupSize
     intc_1 // 1
     ==
     assert // withdraw group size
-    // smart_contracts/collateralx_protocol/contract.algo.ts:681
+    // smart_contracts/collateralx_protocol/contract.algo.ts:779
     // assert(Txn.groupIndex === Uint64(0), 'withdraw app call index')
     txn GroupIndex
     !
     assert // withdraw app call index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:564
+    // smart_contracts/collateralx_protocol/contract.algo.ts:586
     // this.assertNotPaused(PAUSE_WITHDRAW)
     intc_2 // 8
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:565
+    // smart_contracts/collateralx_protocol/contract.algo.ts:587
     // assert(this.vaults(vaultId).exists, 'vault missing')
     swap
     itob
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:565
+    // smart_contracts/collateralx_protocol/contract.algo.ts:587
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:566
+    // smart_contracts/collateralx_protocol/contract.algo.ts:588
     // assert(amountMicroAlgo > Uint64(0), 'zero withdraw')
     dig 1
     assert // zero withdraw
-    // smart_contracts/collateralx_protocol/contract.algo.ts:567
+    // smart_contracts/collateralx_protocol/contract.algo.ts:589
     // const vault = clone(this.vaults(vaultId).value)
     box_get
     pop
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:568
+    // smart_contracts/collateralx_protocol/contract.algo.ts:590
     // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
     dup
-    intc_3 // 72
+    pushint 72 // 72
     extract_uint64
     intc_1 // 1
     ==
     assert // vault inactive
-    // smart_contracts/collateralx_protocol/contract.algo.ts:569
+    // smart_contracts/collateralx_protocol/contract.algo.ts:591
     // assert(vault.owner === Txn.sender, 'vault owner only')
     dup
     extract 8 32
     txn Sender
     ==
     assert // vault owner only
-    // smart_contracts/collateralx_protocol/contract.algo.ts:570
+    // smart_contracts/collateralx_protocol/contract.algo.ts:592
     // assert(amountMicroAlgo <= vault.collateralMicroAlgo, 'withdraw exceeds collateral')
     dup
     pushint 40 // 40
@@ -2423,35 +2490,35 @@ withdrawCollateral:
     dig 1
     <=
     assert // withdraw exceeds collateral
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 3
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     uncover 2
     -
     swap
-    // smart_contracts/collateralx_protocol/contract.algo.ts:573
+    // smart_contracts/collateralx_protocol/contract.algo.ts:595
     // if (vault.debtMicroStable > Uint64(0)) {
     pushint 48 // 48
     extract_uint64
     dup
     bz withdrawCollateral_after_if_else@3
-    // smart_contracts/collateralx_protocol/contract.algo.ts:574
+    // smart_contracts/collateralx_protocol/contract.algo.ts:596
     // const oracle = this.readFreshOracle()
     callsub readFreshOracle
-    // smart_contracts/collateralx_protocol/contract.algo.ts:576
+    // smart_contracts/collateralx_protocol/contract.algo.ts:598
     // isHealthyDebt(newCollateral, vault.debtMicroStable, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value),
     intc_0 // 0
     extract_uint64
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:576
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:598
     // isHealthyDebt(newCollateral, vault.debtMicroStable, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value),
     app_global_get_ex
     assert // check GlobalState exists
@@ -2460,7 +2527,7 @@ withdrawCollateral:
     uncover 3
     uncover 3
     callsub isHealthyDebt
-    // smart_contracts/collateralx_protocol/contract.algo.ts:575-578
+    // smart_contracts/collateralx_protocol/contract.algo.ts:597-600
     // assert(
     //   isHealthyDebt(newCollateral, vault.debtMicroStable, oracle.pricePerAlgoMicroStable, this.minCollateralRatioBps.value),
     //   'withdraw unhealthy'
@@ -2468,17 +2535,17 @@ withdrawCollateral:
     assert // withdraw unhealthy
 
 withdrawCollateral_after_if_else@3:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:581
+    // smart_contracts/collateralx_protocol/contract.algo.ts:603
     // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, amountMicroAlgo)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:581
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:603
     // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, amountMicroAlgo)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 7
@@ -2486,13 +2553,13 @@ withdrawCollateral_after_if_else@3:
     cover 3
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     swap
     -
     dup
     bury 9
-    // smart_contracts/collateralx_protocol/contract.algo.ts:582
+    // smart_contracts/collateralx_protocol/contract.algo.ts:604
     // vault.collateralMicroAlgo = newCollateral
     dig 2
     dup
@@ -2503,20 +2570,20 @@ withdrawCollateral_after_if_else@3:
     dig 5
     swap
     replace2 40
-    // smart_contracts/collateralx_protocol/contract.algo.ts:583
+    // smart_contracts/collateralx_protocol/contract.algo.ts:605
     // vault.updatedAt = Global.latestTimestamp
     global LatestTimestamp
     itob
     replace2 64
     bury 5
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:584
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:606
     // this.totalCollateralMicroAlgo.value = newTotalCollateral
     swap
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:586
+    // smart_contracts/collateralx_protocol/contract.algo.ts:608
     // const shouldClose = newCollateral === Uint64(0) && vault.debtMicroStable === Uint64(0)
     bnz withdrawCollateral_bool_false@6
     dig 2
@@ -2527,18 +2594,18 @@ withdrawCollateral_after_if_else@3:
     bury 7
 
 withdrawCollateral_bool_merge@7:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:587
+    // smart_contracts/collateralx_protocol/contract.algo.ts:609
     // if (shouldClose) {
     dig 6
     bz withdrawCollateral_else_body@9
-    // smart_contracts/collateralx_protocol/contract.algo.ts:588
+    // smart_contracts/collateralx_protocol/contract.algo.ts:610
     // this.deleteVaultBoxes(vault)
     dig 2
     callsub deleteVaultBoxes
     bury 3
 
 withdrawCollateral_after_if_else@10:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:593
+    // smart_contracts/collateralx_protocol/contract.algo.ts:615
     // this.payCollateral(vault.owner, amountMicroAlgo)
     dig 2
     extract 8 32
@@ -2546,7 +2613,7 @@ withdrawCollateral_after_if_else@10:
     dup
     cover 2
     callsub payCollateral
-    // smart_contracts/collateralx_protocol/contract.algo.ts:595-601
+    // smart_contracts/collateralx_protocol/contract.algo.ts:617-623
     // emit<CollateralWithdrawnEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2555,10 +2622,10 @@ withdrawCollateral_after_if_else@10:
     //   totalCollateralMicroAlgo: newTotalCollateral,
     // })
     dig 5
-    // smart_contracts/collateralx_protocol/contract.algo.ts:597
+    // smart_contracts/collateralx_protocol/contract.algo.ts:619
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:595-601
+    // smart_contracts/collateralx_protocol/contract.algo.ts:617-623
     // emit<CollateralWithdrawnEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2581,17 +2648,17 @@ withdrawCollateral_after_if_else@10:
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:603
+    // smart_contracts/collateralx_protocol/contract.algo.ts:625
     // if (shouldClose) {
     dig 6
     bz withdrawCollateral_after_if_else@12
-    // smart_contracts/collateralx_protocol/contract.algo.ts:606
+    // smart_contracts/collateralx_protocol/contract.algo.ts:628
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:608
+    // smart_contracts/collateralx_protocol/contract.algo.ts:630
     // closedAt: Global.latestTimestamp,
     global LatestTimestamp
-    // smart_contracts/collateralx_protocol/contract.algo.ts:604-609
+    // smart_contracts/collateralx_protocol/contract.algo.ts:626-631
     // emit<VaultClosedEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2606,19 +2673,19 @@ withdrawCollateral_after_if_else@10:
     swap
     itob
     concat
-    bytec 23 // method "VaultClosedEvent(uint64,address,uint64,uint64)"
+    bytec 24 // method "VaultClosedEvent(uint64,address,uint64,uint64)"
     swap
     concat
     log
 
 withdrawCollateral_after_if_else@12:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:561
+    // smart_contracts/collateralx_protocol/contract.algo.ts:583
     // public withdrawCollateral(vaultId: uint64, amountMicroAlgo: uint64): void {
     intc_1 // 1
     return
 
 withdrawCollateral_else_body@9:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:590
+    // smart_contracts/collateralx_protocol/contract.algo.ts:612
     // this.vaults(vaultId).value = clone(vault)
     dig 3
     dig 3
@@ -2633,7 +2700,7 @@ withdrawCollateral_bool_false@6:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.closeVault[routing]() -> void:
 closeVault:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:617
+    // smart_contracts/collateralx_protocol/contract.algo.ts:639
     // public closeVault(vaultId: uint64): void {
     txna ApplicationArgs 1
     dup
@@ -2642,108 +2709,108 @@ closeVault:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:618
+    // smart_contracts/collateralx_protocol/contract.algo.ts:640
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:685
+    // smart_contracts/collateralx_protocol/contract.algo.ts:783
     // assert(Global.groupSize === Uint64(1), 'close group size')
     global GroupSize
     intc_1 // 1
     ==
     assert // close group size
-    // smart_contracts/collateralx_protocol/contract.algo.ts:686
+    // smart_contracts/collateralx_protocol/contract.algo.ts:784
     // assert(Txn.groupIndex === Uint64(0), 'close app call index')
     txn GroupIndex
     !
     assert // close app call index
-    // smart_contracts/collateralx_protocol/contract.algo.ts:620
+    // smart_contracts/collateralx_protocol/contract.algo.ts:642
     // this.assertNotPaused(PAUSE_WITHDRAW)
     intc_2 // 8
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:621
+    // smart_contracts/collateralx_protocol/contract.algo.ts:643
     // assert(this.vaults(vaultId).exists, 'vault missing')
     itob
     dup
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:621
+    // smart_contracts/collateralx_protocol/contract.algo.ts:643
     // assert(this.vaults(vaultId).exists, 'vault missing')
     dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:622
+    // smart_contracts/collateralx_protocol/contract.algo.ts:644
     // const vault = clone(this.vaults(vaultId).value)
     box_get
     pop
-    // smart_contracts/collateralx_protocol/contract.algo.ts:623
+    // smart_contracts/collateralx_protocol/contract.algo.ts:645
     // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
     dup
-    intc_3 // 72
+    pushint 72 // 72
     extract_uint64
     intc_1 // 1
     ==
     assert // vault inactive
-    // smart_contracts/collateralx_protocol/contract.algo.ts:624
+    // smart_contracts/collateralx_protocol/contract.algo.ts:646
     // assert(vault.owner === Txn.sender, 'vault owner only')
     dup
     extract 8 32
     txn Sender
     ==
     assert // vault owner only
-    // smart_contracts/collateralx_protocol/contract.algo.ts:625
+    // smart_contracts/collateralx_protocol/contract.algo.ts:647
     // assert(vault.debtMicroStable === Uint64(0), 'debt not zero')
     dup
     pushint 48 // 48
     extract_uint64
     !
     assert // debt not zero
-    // smart_contracts/collateralx_protocol/contract.algo.ts:627
+    // smart_contracts/collateralx_protocol/contract.algo.ts:649
     // const returnedCollateral = vault.collateralMicroAlgo
     dup
     pushint 40 // 40
     extract_uint64
     dup
     cover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:628
+    // smart_contracts/collateralx_protocol/contract.algo.ts:650
     // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, returnedCollateral)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:628
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:650
     // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, returnedCollateral)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 2
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     dig 1
     -
-    // smart_contracts/collateralx_protocol/contract.algo.ts:187
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
     // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
-    bytec_2 // "tcol"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:629
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:651
     // this.totalCollateralMicroAlgo.value = newTotalCollateral
     swap
     app_global_put
-    // smart_contracts/collateralx_protocol/contract.algo.ts:630
+    // smart_contracts/collateralx_protocol/contract.algo.ts:652
     // this.deleteVaultBoxes(vault)
     swap
     callsub deleteVaultBoxes
     swap
-    // smart_contracts/collateralx_protocol/contract.algo.ts:632
+    // smart_contracts/collateralx_protocol/contract.algo.ts:654
     // if (returnedCollateral > Uint64(0)) {
     bz closeVault_after_if_else@3
-    // smart_contracts/collateralx_protocol/contract.algo.ts:633
+    // smart_contracts/collateralx_protocol/contract.algo.ts:655
     // this.payCollateral(vault.owner, returnedCollateral)
     dup
     extract 8 32
@@ -2751,13 +2818,13 @@ closeVault:
     callsub payCollateral
 
 closeVault_after_if_else@3:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:638
+    // smart_contracts/collateralx_protocol/contract.algo.ts:660
     // owner: Txn.sender,
     txn Sender
-    // smart_contracts/collateralx_protocol/contract.algo.ts:640
+    // smart_contracts/collateralx_protocol/contract.algo.ts:662
     // closedAt: Global.latestTimestamp,
     global LatestTimestamp
-    // smart_contracts/collateralx_protocol/contract.algo.ts:636-641
+    // smart_contracts/collateralx_protocol/contract.algo.ts:658-663
     // emit<VaultClosedEvent>({
     //   vaultId,
     //   owner: Txn.sender,
@@ -2773,11 +2840,11 @@ closeVault_after_if_else@3:
     swap
     itob
     concat
-    bytec 23 // method "VaultClosedEvent(uint64,address,uint64,uint64)"
+    bytec 24 // method "VaultClosedEvent(uint64,address,uint64,uint64)"
     swap
     concat
     log
-    // smart_contracts/collateralx_protocol/contract.algo.ts:617
+    // smart_contracts/collateralx_protocol/contract.algo.ts:639
     // public closeVault(vaultId: uint64): void {
     intc_1 // 1
     return
@@ -2785,12 +2852,16 @@ closeVault_after_if_else@3:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.liquidate[routing]() -> void:
 liquidate:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:645
+    intc_0 // 0
+    dupn 3
+    pushbytes ""
+    dupn 10
+    // smart_contracts/collateralx_protocol/contract.algo.ts:678
     // public liquidate(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     txn GroupIndex
     intc_1 // 1
     -
-    dup
+    dupn 2
     gtxns TypeEnum
     pushint 4 // axfer
     ==
@@ -2802,44 +2873,569 @@ liquidate:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/collateralx_protocol/contract.algo.ts:646
+    swap
+    // smart_contracts/collateralx_protocol/contract.algo.ts:679
     // this.assertReady()
     callsub assertReady
-    // smart_contracts/collateralx_protocol/contract.algo.ts:647
+    // smart_contracts/collateralx_protocol/contract.algo.ts:794
+    // assert(Global.groupSize === Uint64(2), 'liquidation group size')
+    global GroupSize
+    pushint 2 // 2
+    ==
+    assert // liquidation group size
+    // smart_contracts/collateralx_protocol/contract.algo.ts:795
+    // assert(repayment.groupIndex === Uint64(0), 'liquidation transfer index')
+    gtxns GroupIndex
+    !
+    assert // liquidation transfer index
+    // smart_contracts/collateralx_protocol/contract.algo.ts:796
+    // assert(Txn.groupIndex === Uint64(1), 'liquidation app call index')
+    txn GroupIndex
+    intc_1 // 1
+    ==
+    assert // liquidation app call index
+
+liquidate_while_top@9:
+    pushint 2010 // 2010
+    global OpcodeBudget
+    >
+    bz liquidate_after_while@14
+    itxn_begin
+    pushint 6 // appl
+    itxn_field TypeEnum
+    pushint 5 // DeleteApplication
+    itxn_field OnCompletion
+    bytec 25 // 0x068101
+    itxn_field ApprovalProgram
+    bytec 25 // 0x068101
+    itxn_field ClearStateProgram
+    intc_0 // 0
+    itxn_field Fee
+    itxn_submit
+    b liquidate_while_top@9
+
+liquidate_after_while@14:
+    // smart_contracts/collateralx_protocol/contract.algo.ts:682
     // this.assertNotPaused(PAUSE_LIQUIDATE)
     pushint 16 // 16
     callsub assertNotPaused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:648
+    // smart_contracts/collateralx_protocol/contract.algo.ts:683
     // assert(this.vaults(vaultId).exists, 'vault missing')
+    dup
     itob
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    dup
+    bury 18
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:648
+    // smart_contracts/collateralx_protocol/contract.algo.ts:683
     // assert(this.vaults(vaultId).exists, 'vault missing')
+    dup
     box_len
     bury 1
     assert // vault missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:649
-    // assert(repayment.assetAmount > Uint64(0), 'zero liquidation')
+    // smart_contracts/collateralx_protocol/contract.algo.ts:684
+    // const stablecoin = this.readStablecoinSnapshot()
+    callsub readStablecoinSnapshot
+    // smart_contracts/collateralx_protocol/contract.algo.ts:685
+    // const vault = clone(this.vaults(vaultId).value)
+    swap
+    box_get
+    swap
+    dup
+    cover 2
+    bury 17
+    assert // Box must have value
+    // smart_contracts/collateralx_protocol/contract.algo.ts:686
+    // assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    dup
+    pushint 72 // 72
+    extract_uint64
+    intc_1 // 1
+    ==
+    assert // vault inactive
+    // smart_contracts/collateralx_protocol/contract.algo.ts:687
+    // assert(vault.debtMicroStable > Uint64(0), 'no debt')
+    dup
+    pushint 48 // 48
+    extract_uint64
+    dup
+    bury 6
+    dup
+    assert // no debt
+    // smart_contracts/collateralx_protocol/contract.algo.ts:815
+    // const stablecoinApp = Application(this.stablecoinAppId.value)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
+    // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:815
+    // const stablecoinApp = Application(this.stablecoinAppId.value)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_protocol/contract.algo.ts:816
+    // const stableAsset = Asset(stablecoin.stableAssetId)
+    uncover 3
+    intc_0 // 0
+    extract_uint64
+    // smart_contracts/collateralx_protocol/contract.algo.ts:817
+    // assert(repayment.sender === Txn.sender, 'liquidation sender mismatch')
+    dig 5
+    dup
+    gtxns Sender
+    txn Sender
+    ==
+    assert // liquidation sender mismatch
+    // smart_contracts/collateralx_protocol/contract.algo.ts:818
+    // assert(repayment.assetReceiver === stablecoinApp.address, 'liquidation receiver mismatch')
+    dup
+    gtxns AssetReceiver
+    uncover 3
+    app_params_get AppAddress
+    assert // application exists
+    ==
+    assert // liquidation receiver mismatch
+    // smart_contracts/collateralx_protocol/contract.algo.ts:819
+    // assert(repayment.xferAsset === stableAsset, 'liquidation asset mismatch')
+    dup
+    gtxns XferAsset
+    uncover 2
+    ==
+    assert // liquidation asset mismatch
+    // smart_contracts/collateralx_protocol/contract.algo.ts:820
+    // assert(repayment.rekeyTo === Global.zeroAddress, 'liquidation rekey forbidden')
+    dup
+    gtxns RekeyTo
+    global ZeroAddress
+    ==
+    assert // liquidation rekey forbidden
+    // smart_contracts/collateralx_protocol/contract.algo.ts:821
+    // assert(repayment.assetCloseTo === Global.zeroAddress, 'liquidation close forbidden')
+    dup
+    gtxns AssetCloseTo
+    global ZeroAddress
+    ==
+    assert // liquidation close forbidden
+    // smart_contracts/collateralx_protocol/contract.algo.ts:822
+    // assert(repayment.assetAmount === vaultDebtMicroStable, 'liquidation repay amount')
     gtxns AssetAmount
-    assert // zero liquidation
-    // smart_contracts/collateralx_protocol/contract.algo.ts:650
-    // err('liquidation module disabled')
-    err // liquidation module disabled
+    dig 1
+    ==
+    assert // liquidation repay amount
+    // smart_contracts/collateralx_protocol/contract.algo.ts:690
+    // const oracle = this.readFreshOracle()
+    callsub readFreshOracle
+    dup
+    bury 19
+    // smart_contracts/collateralx_protocol/contract.algo.ts:693
+    // vault.collateralMicroAlgo,
+    uncover 2
+    pushint 40 // 40
+    extract_uint64
+    bury 15
+    // smart_contracts/collateralx_protocol/contract.algo.ts:695
+    // oracle.pricePerAlgoMicroStable,
+    intc_0 // 0
+    extract_uint64
+    dup
+    bury 9
+    // smart_contracts/collateralx_protocol/contract.algo.ts:696
+    // this.liquidationRatioBps.value
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:210
+    // liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
+    bytec 9 // "lqr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:696
+    // this.liquidationRatioBps.value
+    app_global_get_ex
+    swap
+    dup
+    cover 2
+    bury 16
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_shared/risk.algo.ts:75
+    // assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
+    swap
+    assert // oracle price required
+    // smart_contracts/collateralx_shared/risk.algo.ts:76
+    // assert(liquidationRatioBps >= BPS_DENOMINATOR, 'liquidation ratio too low')
+    intc_3 // 10000
+    >=
+    assert // liquidation ratio too low
+    // smart_contracts/collateralx_shared/risk.algo.ts:77
+    // if (debtMicroStable === Uint64(0)) {
+    bnz liquidate_after_if_else@20
+    // smart_contracts/collateralx_shared/risk.algo.ts:78
+    // return false
+    intc_0 // 0
+
+liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::isLiquidatableDebt@21:
+    // smart_contracts/collateralx_protocol/contract.algo.ts:691-699
+    // assert(
+    //   isLiquidatableDebt(
+    //     vault.collateralMicroAlgo,
+    //     vault.debtMicroStable,
+    //     oracle.pricePerAlgoMicroStable,
+    //     this.liquidationRatioBps.value
+    //   ),
+    //   'vault healthy'
+    // )
+    assert // vault healthy
+    // smart_contracts/collateralx_protocol/contract.algo.ts:701
+    // const liquidatorPremiumBps = safeAdd(BPS_DENOMINATOR, this.liquidationBonusBps.value)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:212
+    // liquidationBonusBps = GlobalState<uint64>({ key: 'lbn', initialValue: Uint64(0) })
+    bytec 11 // "lbn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:701
+    // const liquidatorPremiumBps = safeAdd(BPS_DENOMINATOR, this.liquidationBonusBps.value)
+    app_global_get_ex
+    assert // check GlobalState exists
+    intc_3 // 10000
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
+    // return bigToUint64(BigUint(left) + BigUint(right))
+    itob
+    swap
+    itob
+    b+
+    // smart_contracts/collateralx_shared/risk.algo.ts:15
+    // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
+    dup
+    bytec_1 // 0xffffffffffffffff
+    b<=
+    assert // uint64 overflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:16
+    // return op.btoi(Bytes(value))
+    btoi
+    // smart_contracts/collateralx_shared/risk.algo.ts:114
+    // return debtToCollateralMicroAlgo(debtMicroStable, pricePerAlgoMicroStable, premiumOrFeeBps, true)
+    dig 3
+    dup
+    cover 2
+    dig 9
+    dup
+    cover 4
+    uncover 2
+    intc_1 // 1
+    callsub debtToCollateralMicroAlgo
+    dup
+    cover 3
+    bury 8
+    // smart_contracts/collateralx_protocol/contract.algo.ts:710
+    // this.liquidationPenaltyBps.value
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:211
+    // liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
+    bytec 10 // "lpn"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:710
+    // this.liquidationPenaltyBps.value
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_shared/risk.algo.ts:106
+    // return debtToCollateralMicroAlgo(debtMicroStable, pricePerAlgoMicroStable, premiumOrFeeBps, false)
+    swap
+    cover 2
+    intc_0 // 0
+    callsub debtToCollateralMicroAlgo
+    bury 5
+    // smart_contracts/collateralx_shared/risk.algo.ts:125
+    // if (left <= right) {
+    dig 13
+    >=
+    bz liquidate_after_if_else@26
+    dig 12
+    bury 11
+
+liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@27:
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
+    // assert(left >= right, 'uint64 underflow')
+    dig 12
+    dup
+    dig 12
+    dup
+    cover 3
+    >=
+    assert // uint64 underflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
+    // return left - right
+    swap
+    -
+    dup
+    bury 7
+    // smart_contracts/collateralx_shared/risk.algo.ts:125
+    // if (left <= right) {
+    dig 4
+    <=
+    bz liquidate_after_if_else@32
+    dig 5
+
+liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@33:
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
+    // assert(left >= right, 'uint64 underflow')
+    dig 6
+    dup
+    dig 2
+    >=
+    assert // uint64 underflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
+    // return left - right
+    dig 1
+    -
+    bury 9
+    // smart_contracts/collateralx_protocol/contract.algo.ts:718
+    // const newTotalDebt = safeSub(this.totalDebtMicroStable.value, vault.debtMicroStable)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
+    // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:718
+    // const newTotalDebt = safeSub(this.totalDebtMicroStable.value, vault.debtMicroStable)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
+    // assert(left >= right, 'uint64 underflow')
+    dup
+    dig 5
+    dup
+    cover 3
+    >=
+    assert // uint64 underflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
+    // return left - right
+    dig 1
+    -
+    dup
+    cover 3
+    bury 12
+    // smart_contracts/collateralx_protocol/contract.algo.ts:719
+    // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, vault.collateralMicroAlgo)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
+    // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:719
+    // const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, vault.collateralMicroAlgo)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
+    // assert(left >= right, 'uint64 underflow')
+    dup
+    dig 17
+    dup
+    cover 3
+    >=
+    assert // uint64 underflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
+    // return left - right
+    swap
+    -
+    dup
+    bury 14
+    // smart_contracts/collateralx_protocol/contract.algo.ts:720
+    // const newProtocolFees = safeAdd(this.protocolFeeCollateralMicroAlgo.value, protocolFeeCollateral)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:208
+    // protocolFeeCollateralMicroAlgo = GlobalState<uint64>({ key: 'pfee', initialValue: Uint64(0) })
+    bytec 20 // "pfee"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:720
+    // const newProtocolFees = safeAdd(this.protocolFeeCollateralMicroAlgo.value, protocolFeeCollateral)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
+    // return bigToUint64(BigUint(left) + BigUint(right))
+    itob
+    uncover 3
+    itob
+    dup
+    bury 20
+    b+
+    // smart_contracts/collateralx_shared/risk.algo.ts:15
+    // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
+    dup
+    bytec_1 // 0xffffffffffffffff
+    b<=
+    assert // uint64 overflow
+    // smart_contracts/collateralx_shared/risk.algo.ts:16
+    // return op.btoi(Bytes(value))
+    btoi
+    // smart_contracts/collateralx_protocol/contract.algo.ts:722
+    // this.callStablecoinBurn(vault.id, vault.debtMicroStable)
+    dig 17
+    dup
+    cover 2
+    intc_0 // 0
+    extract_uint64
+    uncover 4
+    callsub callStablecoinBurn
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
+    // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:724
+    // this.totalDebtMicroStable.value = newTotalDebt
+    uncover 4
+    app_global_put
+    // smart_contracts/collateralx_protocol/contract.algo.ts:207
+    // totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
+    bytec_3 // "tcol"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:725
+    // this.totalCollateralMicroAlgo.value = newTotalCollateral
+    uncover 3
+    app_global_put
+    // smart_contracts/collateralx_protocol/contract.algo.ts:208
+    // protocolFeeCollateralMicroAlgo = GlobalState<uint64>({ key: 'pfee', initialValue: Uint64(0) })
+    bytec 20 // "pfee"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:726
+    // this.protocolFeeCollateralMicroAlgo.value = newProtocolFees
+    swap
+    app_global_put
+    // smart_contracts/collateralx_protocol/contract.algo.ts:727
+    // this.deleteVaultBoxes(vault)
+    callsub deleteVaultBoxes
+    bury 14
+    // smart_contracts/collateralx_protocol/contract.algo.ts:729
+    // if (liquidatorCollateral > Uint64(0)) {
+    dig 10
+    bz liquidate_after_if_else@3
+    // smart_contracts/collateralx_protocol/contract.algo.ts:730
+    // this.payCollateral(Txn.sender, liquidatorCollateral)
+    txn Sender
+    dig 11
+    callsub payCollateral
+
+liquidate_after_if_else@3:
+    // smart_contracts/collateralx_protocol/contract.algo.ts:732
+    // if (ownerRefundCollateral > Uint64(0)) {
+    dig 7
+    bz liquidate_after_if_else@5
+    // smart_contracts/collateralx_protocol/contract.algo.ts:733
+    // this.payCollateral(vault.owner, ownerRefundCollateral)
+    dig 13
+    extract 8 32
+    dig 8
+    callsub payCollateral
+
+liquidate_after_if_else@5:
+    // smart_contracts/collateralx_protocol/contract.algo.ts:738
+    // owner: vault.owner,
+    dig 13
+    dup
+    extract 8 32
+    // smart_contracts/collateralx_protocol/contract.algo.ts:739
+    // liquidator: Txn.sender,
+    txn Sender
+    // smart_contracts/collateralx_protocol/contract.algo.ts:740
+    // repaidDebtMicroStable: vault.debtMicroStable,
+    uncover 2
+    extract 48 8
+    // smart_contracts/collateralx_protocol/contract.algo.ts:745
+    // oracleUpdatedRound: oracle.updatedRound,
+    dig 18
+    extract 16 8
+    // smart_contracts/collateralx_protocol/contract.algo.ts:736-748
+    // emit<VaultLiquidatedEvent>({
+    //   vaultId,
+    //   owner: vault.owner,
+    //   liquidator: Txn.sender,
+    //   repaidDebtMicroStable: vault.debtMicroStable,
+    //   liquidatorCollateralMicroAlgo: liquidatorCollateral,
+    //   protocolFeeCollateralMicroAlgo: protocolFeeCollateral,
+    //   ownerRefundCollateralMicroAlgo: ownerRefundCollateral,
+    //   pricePerAlgoMicroStable: oracle.pricePerAlgoMicroStable,
+    //   oracleUpdatedRound: oracle.updatedRound,
+    //   totalDebtMicroStable: newTotalDebt,
+    //   totalCollateralMicroAlgo: newTotalCollateral,
+    // })
+    dig 20
+    uncover 4
+    concat
+    uncover 3
+    concat
+    uncover 2
+    concat
+    dig 12
+    itob
+    concat
+    dig 16
+    concat
+    dig 9
+    itob
+    concat
+    dig 8
+    itob
+    concat
+    swap
+    concat
+    dig 9
+    itob
+    concat
+    dig 10
+    itob
+    concat
+    pushbytes 0x5032d2db // method "VaultLiquidatedEvent(uint64,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)"
+    swap
+    concat
+    log
+    // smart_contracts/collateralx_protocol/contract.algo.ts:678
+    // public liquidate(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
+    intc_1 // 1
+    return
+
+liquidate_after_if_else@32:
+    dig 3
+    // smart_contracts/collateralx_protocol/contract.algo.ts:715
+    // const protocolFeeCollateral = minUint64(remainingAfterLiquidator, targetProtocolFeeCollateral)
+    b liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@33
+
+liquidate_after_if_else@26:
+    dig 4
+    bury 11
+    // smart_contracts/collateralx_protocol/contract.algo.ts:713
+    // const liquidatorCollateral = minUint64(vault.collateralMicroAlgo, targetLiquidatorCollateral)
+    b liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@27
+
+liquidate_after_if_else@20:
+    // smart_contracts/collateralx_shared/risk.algo.ts:81
+    // const collateralSide: biguint = BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
+    dig 12
+    itob
+    dig 7
+    itob
+    b*
+    bytec 22 // 0x2710
+    b*
+    // smart_contracts/collateralx_shared/risk.algo.ts:82
+    // const debtSide: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(liquidationRatioBps)
+    dig 3
+    itob
+    bytec 23 // 0x0f4240
+    b*
+    dig 13
+    itob
+    b*
+    // smart_contracts/collateralx_shared/risk.algo.ts:83
+    // return collateralSide <= debtSide
+    b<=
+    // smart_contracts/collateralx_protocol/contract.algo.ts:692-697
+    // isLiquidatableDebt(
+    //   vault.collateralMicroAlgo,
+    //   vault.debtMicroStable,
+    //   oracle.pricePerAlgoMicroStable,
+    //   this.liquidationRatioBps.value
+    // ),
+    b liquidate_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::isLiquidatableDebt@21
 
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.assertReady() -> void:
 assertReady:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:654
+    // smart_contracts/collateralx_protocol/contract.algo.ts:752
     // assert(this.initialized.value === Uint64(1), 'protocol not initialized')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:183
+    // smart_contracts/collateralx_protocol/contract.algo.ts:203
     // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
     bytec 8 // "init"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:654
+    // smart_contracts/collateralx_protocol/contract.algo.ts:752
     // assert(this.initialized.value === Uint64(1), 'protocol not initialized')
     app_global_get_ex
     assert // check GlobalState exists
@@ -2851,14 +3447,14 @@ assertReady:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.assertAdmin() -> void:
 assertAdmin:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:658
+    // smart_contracts/collateralx_protocol/contract.algo.ts:756
     // assert(Txn.sender === this.admin.value, 'admin only')
     txn Sender
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:182
+    // smart_contracts/collateralx_protocol/contract.algo.ts:202
     // admin = GlobalState<Account>({ key: 'adm' })
-    bytec 14 // "adm"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:658
+    bytec 17 // "adm"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:756
     // assert(Txn.sender === this.admin.value, 'admin only')
     app_global_get_ex
     assert // check GlobalState exists
@@ -2869,33 +3465,33 @@ assertAdmin:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.assertNotPaused(actionFlag: uint64) -> void:
 assertNotPaused:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:661
+    // smart_contracts/collateralx_protocol/contract.algo.ts:759
     // private assertNotPaused(actionFlag: uint64): void {
     proto 1 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:662
+    // smart_contracts/collateralx_protocol/contract.algo.ts:760
     // const emergencyActive: uint64 = this.pauseFlags.value & PAUSE_EMERGENCY
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:196
+    // smart_contracts/collateralx_protocol/contract.algo.ts:217
     // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
-    bytec 12 // "pflg"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:662
+    bytec 15 // "pflg"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:760
     // const emergencyActive: uint64 = this.pauseFlags.value & PAUSE_EMERGENCY
     app_global_get_ex
     assert // check GlobalState exists
     dup
     pushint 64 // 64
     &
-    // smart_contracts/collateralx_protocol/contract.algo.ts:663
+    // smart_contracts/collateralx_protocol/contract.algo.ts:761
     // const actionActive: uint64 = this.pauseFlags.value & actionFlag
     swap
     frame_dig -1
     &
-    // smart_contracts/collateralx_protocol/contract.algo.ts:664
+    // smart_contracts/collateralx_protocol/contract.algo.ts:762
     // assert(emergencyActive === Uint64(0), 'emergency paused')
     swap
     !
     assert // emergency paused
-    // smart_contracts/collateralx_protocol/contract.algo.ts:665
+    // smart_contracts/collateralx_protocol/contract.algo.ts:763
     // assert(actionActive === Uint64(0), 'action paused')
     !
     assert // action paused
@@ -2904,25 +3500,25 @@ assertNotPaused:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readFreshOracle() -> bytes:
 readFreshOracle:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:707
+    // smart_contracts/collateralx_protocol/contract.algo.ts:826
     // assert(this.oracleAppId.value > Uint64(0), 'oracle app required')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:197
+    // smart_contracts/collateralx_protocol/contract.algo.ts:218
     // oracleAppId = GlobalState<uint64>({ key: 'oapp', initialValue: Uint64(0) })
-    bytec 13 // "oapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:707
+    bytec 16 // "oapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:826
     // assert(this.oracleAppId.value > Uint64(0), 'oracle app required')
     app_global_get_ex
     assert // check GlobalState exists
     dup
     assert // oracle app required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:709
+    // smart_contracts/collateralx_protocol/contract.algo.ts:828
     // const oracle = readFreshOracleAdapter(oracleApp, this.oracleFreshnessWindowSeconds.value)
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:192
+    // smart_contracts/collateralx_protocol/contract.algo.ts:213
     // oracleFreshnessWindowSeconds = GlobalState<uint64>({ key: 'ofw', initialValue: Uint64(0) })
-    bytec 9 // "ofw"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:709
+    bytec 12 // "ofw"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:828
     // const oracle = readFreshOracleAdapter(oracleApp, this.oracleFreshnessWindowSeconds.value)
     app_global_get_ex
     assert // check GlobalState exists
@@ -2949,7 +3545,7 @@ readFreshOracle:
     // smart_contracts/collateralx_shared/oracle_adapter.algo.ts:44
     // const [pauseFlags, pauseFlagsExist] = op.AppGlobal.getExUint64(oracleApp, Bytes(ORACLE_PAUSE_FLAGS_KEY))
     uncover 9
-    bytec 12 // "pflg"
+    bytec 15 // "pflg"
     app_global_get_ex
     // smart_contracts/collateralx_shared/oracle_adapter.algo.ts:46
     // assert(priceExists, 'oracle price missing')
@@ -3043,23 +3639,23 @@ readFreshOracle:
     swap
     itob
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:712
+    // smart_contracts/collateralx_protocol/contract.algo.ts:831
     // pricePerAlgoMicroStable: oracle.pricePerAlgoMicroStable,
     dup
     extract 0 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:713
+    // smart_contracts/collateralx_protocol/contract.algo.ts:832
     // updatedAt: oracle.updatedAt,
     dig 1
     extract 8 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:714
+    // smart_contracts/collateralx_protocol/contract.algo.ts:833
     // updatedRound: oracle.updatedRound,
     dig 2
     extract 16 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:715
+    // smart_contracts/collateralx_protocol/contract.algo.ts:834
     // maxAgeSeconds: oracle.maxAgeSeconds,
     uncover 3
     extract 24 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:711-716
+    // smart_contracts/collateralx_protocol/contract.algo.ts:830-835
     // return {
     //   pricePerAlgoMicroStable: oracle.pricePerAlgoMicroStable,
     //   updatedAt: oracle.updatedAt,
@@ -3078,53 +3674,53 @@ readFreshOracle:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.readStablecoinSnapshot() -> bytes:
 readStablecoinSnapshot:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:720
+    // smart_contracts/collateralx_protocol/contract.algo.ts:839
     // assert(this.stablecoinAppId.value > Uint64(0), 'stablecoin app required')
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:198
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
     // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
-    bytec_3 // "sapp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:720
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:839
     // assert(this.stablecoinAppId.value > Uint64(0), 'stablecoin app required')
     app_global_get_ex
     assert // check GlobalState exists
     dup
     assert // stablecoin app required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:723
+    // smart_contracts/collateralx_protocol/contract.algo.ts:842
     // const [stableAssetId, stableAssetExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('asa'))
     dup
     pushbytes "asa"
     app_global_get_ex
-    // smart_contracts/collateralx_protocol/contract.algo.ts:724
+    // smart_contracts/collateralx_protocol/contract.algo.ts:843
     // const [issuedSupply, issuedSupplyExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('supply'))
     dig 2
     pushbytes "supply"
     app_global_get_ex
-    // smart_contracts/collateralx_protocol/contract.algo.ts:725
+    // smart_contracts/collateralx_protocol/contract.algo.ts:844
     // const [supplyCeiling, supplyCeilingExists] = op.AppGlobal.getExUint64(stablecoinApp, Bytes('ceil'))
     uncover 4
     pushbytes "ceil"
     app_global_get_ex
-    // smart_contracts/collateralx_protocol/contract.algo.ts:727
+    // smart_contracts/collateralx_protocol/contract.algo.ts:846
     // assert(stableAssetExists, 'stable asset missing')
     uncover 4
     assert // stable asset missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:728
+    // smart_contracts/collateralx_protocol/contract.algo.ts:847
     // assert(issuedSupplyExists, 'stable supply missing')
     uncover 2
     assert // stable supply missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:729
+    // smart_contracts/collateralx_protocol/contract.algo.ts:848
     // assert(supplyCeilingExists, 'stable ceiling missing')
     assert // stable ceiling missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:730
+    // smart_contracts/collateralx_protocol/contract.algo.ts:849
     // assert(stableAssetId > Uint64(0), 'stable asset required')
     dig 2
     assert // stable asset required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:731
+    // smart_contracts/collateralx_protocol/contract.algo.ts:850
     // assert(supplyCeiling > Uint64(0), 'stable ceiling required')
     dup
     assert // stable ceiling required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:733-737
+    // smart_contracts/collateralx_protocol/contract.algo.ts:852-856
     // return {
     //   stableAssetId,
     //   issuedSupplyMicroStable: issuedSupply,
@@ -3143,7 +3739,7 @@ readStablecoinSnapshot:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.calculateAvailableToMint(vault: bytes, pricePerAlgoMicroStable: uint64, stablecoin: bytes) -> uint64, bytes, bytes:
 calculateAvailableToMint:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:740-744
+    // smart_contracts/collateralx_protocol/contract.algo.ts:859-863
     // private calculateAvailableToMint(
     //   vault: VaultRecord,
     //   pricePerAlgoMicroStable: uint64,
@@ -3152,108 +3748,108 @@ calculateAvailableToMint:
     proto 3 3
     pushbytes ""
     dupn 5
-    // smart_contracts/collateralx_protocol/contract.algo.ts:746
+    // smart_contracts/collateralx_protocol/contract.algo.ts:865
     // vault.collateralMicroAlgo,
     frame_dig -3
     extract 40 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:747
+    // smart_contracts/collateralx_protocol/contract.algo.ts:866
     // vault.debtMicroStable,
     frame_dig -3
     pushint 48 // 48
     extract_uint64
     dup
     uncover 2
-    // smart_contracts/collateralx_protocol/contract.algo.ts:749
+    // smart_contracts/collateralx_protocol/contract.algo.ts:868
     // this.minCollateralRatioBps.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:188
+    // smart_contracts/collateralx_protocol/contract.algo.ts:209
     // minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
-    bytec 4 // "mcr"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:749
+    bytec 5 // "mcr"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:868
     // this.minCollateralRatioBps.value,
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:750
+    // smart_contracts/collateralx_protocol/contract.algo.ts:869
     // this.vaultMintCapMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:193
+    // smart_contracts/collateralx_protocol/contract.algo.ts:214
     // vaultMintCapMicroStable = GlobalState<uint64>({ key: 'vmcp', initialValue: Uint64(0) })
-    bytec 10 // "vmcp"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:750
+    bytec 13 // "vmcp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:869
     // this.vaultMintCapMicroStable.value,
     app_global_get_ex
     swap
     cover 4
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:751
+    // smart_contracts/collateralx_protocol/contract.algo.ts:870
     // this.totalDebtMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:186
+    // smart_contracts/collateralx_protocol/contract.algo.ts:206
     // totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
-    bytec_1 // "tdbt"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:751
+    bytec_0 // "tdbt"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:870
     // this.totalDebtMicroStable.value,
     app_global_get_ex
     swap
     cover 4
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:752
+    // smart_contracts/collateralx_protocol/contract.algo.ts:871
     // this.protocolDebtCeilingMicroStable.value,
     intc_0 // 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:194
+    // smart_contracts/collateralx_protocol/contract.algo.ts:215
     // protocolDebtCeilingMicroStable = GlobalState<uint64>({ key: 'pdc', initialValue: Uint64(0) })
-    bytec 11 // "pdc"
-    // smart_contracts/collateralx_protocol/contract.algo.ts:752
+    bytec 14 // "pdc"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:871
     // this.protocolDebtCeilingMicroStable.value,
     app_global_get_ex
     swap
     cover 4
     assert // check GlobalState exists
-    // smart_contracts/collateralx_protocol/contract.algo.ts:753
+    // smart_contracts/collateralx_protocol/contract.algo.ts:872
     // stablecoin.issuedSupplyMicroStable,
     frame_dig -1
     intc_2 // 8
     extract_uint64
     cover 3
-    // smart_contracts/collateralx_protocol/contract.algo.ts:754
+    // smart_contracts/collateralx_protocol/contract.algo.ts:873
     // stablecoin.supplyCeilingMicroStable
     frame_dig -1
     pushint 16 // 16
     extract_uint64
     cover 3
-    // smart_contracts/collateralx_shared/risk.algo.ts:42
+    // smart_contracts/collateralx_shared/risk.algo.ts:51
     // assert(minCollateralRatioBps >= BPS_DENOMINATOR, 'min ratio too low')
     dup
-    intc 4 // 10000
+    intc_3 // 10000
     >=
     assert // min ratio too low
-    // smart_contracts/collateralx_shared/risk.algo.ts:33
+    // smart_contracts/collateralx_shared/risk.algo.ts:42
     // assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
     frame_dig -2
     assert // oracle price required
-    // smart_contracts/collateralx_shared/risk.algo.ts:34
+    // smart_contracts/collateralx_shared/risk.algo.ts:43
     // return bigToUint64((BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable)) / BigUint(MICRO_UNIT))
     frame_dig -2
     itob
     uncover 2
     b*
-    bytec 22 // 0x0f4240
+    bytec 23 // 0x0f4240
     b/
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
     // return op.btoi(Bytes(value))
     btoi
-    // smart_contracts/collateralx_shared/risk.algo.ts:43
+    // smart_contracts/collateralx_shared/risk.algo.ts:52
     // const collateralValue = BigUint(collateralValueMicroStable(collateralMicroAlgo, pricePerAlgoMicroStable))
     itob
-    // smart_contracts/collateralx_shared/risk.algo.ts:44
+    // smart_contracts/collateralx_shared/risk.algo.ts:53
     // return bigToUint64((collateralValue * BigUint(BPS_DENOMINATOR)) / BigUint(minCollateralRatioBps))
-    bytec 21 // 0x2710
+    bytec 22 // 0x2710
     b*
     swap
     itob
@@ -3261,7 +3857,7 @@ calculateAvailableToMint:
     // smart_contracts/collateralx_shared/risk.algo.ts:15
     // assert(value <= BigUint(Uint64.MAX_VALUE), 'uint64 overflow')
     dup
-    bytec 7 // 0xffffffffffffffff
+    bytec_1 // 0xffffffffffffffff
     b<=
     assert // uint64 overflow
     // smart_contracts/collateralx_shared/risk.algo.ts:16
@@ -3269,53 +3865,53 @@ calculateAvailableToMint:
     btoi
     dup
     cover 2
-    // smart_contracts/collateralx_shared/risk.algo.ts:61
+    // smart_contracts/collateralx_shared/risk.algo.ts:118
     // if (used >= cap) {
     >=
     bz calculateAvailableToMint_after_if_else@7
-    // smart_contracts/collateralx_shared/risk.algo.ts:62
+    // smart_contracts/collateralx_shared/risk.algo.ts:119
     // return Uint64(0)
     intc_0 // 0
     frame_bury 0
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@8:
-    // smart_contracts/collateralx_shared/risk.algo.ts:61
+    // smart_contracts/collateralx_shared/risk.algo.ts:118
     // if (used >= cap) {
     frame_dig 6
     frame_dig 7
     >=
     bz calculateAvailableToMint_after_if_else@11
-    // smart_contracts/collateralx_shared/risk.algo.ts:62
+    // smart_contracts/collateralx_shared/risk.algo.ts:119
     // return Uint64(0)
     intc_0 // 0
     frame_bury 5
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@12:
-    // smart_contracts/collateralx_shared/risk.algo.ts:61
+    // smart_contracts/collateralx_shared/risk.algo.ts:118
     // if (used >= cap) {
     frame_dig 8
     frame_dig 9
     >=
     bz calculateAvailableToMint_after_if_else@15
-    // smart_contracts/collateralx_shared/risk.algo.ts:62
+    // smart_contracts/collateralx_shared/risk.algo.ts:119
     // return Uint64(0)
     intc_0 // 0
     frame_bury 2
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@16:
-    // smart_contracts/collateralx_shared/risk.algo.ts:61
+    // smart_contracts/collateralx_shared/risk.algo.ts:118
     // if (used >= cap) {
     frame_dig 10
     frame_dig 11
     >=
     bz calculateAvailableToMint_after_if_else@19
-    // smart_contracts/collateralx_shared/risk.algo.ts:62
+    // smart_contracts/collateralx_shared/risk.algo.ts:119
     // return Uint64(0)
     intc_0 // 0
     frame_bury 4
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@20:
-    // smart_contracts/collateralx_shared/risk.algo.ts:68
+    // smart_contracts/collateralx_shared/risk.algo.ts:125
     // if (left <= right) {
     frame_dig 0
     frame_dig 5
@@ -3325,7 +3921,7 @@ calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.a
     frame_bury 1
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@24:
-    // smart_contracts/collateralx_shared/risk.algo.ts:68
+    // smart_contracts/collateralx_shared/risk.algo.ts:125
     // if (left <= right) {
     frame_dig 2
     frame_dig 4
@@ -3335,7 +3931,7 @@ calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.a
     frame_bury 3
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@28:
-    // smart_contracts/collateralx_shared/risk.algo.ts:68
+    // smart_contracts/collateralx_shared/risk.algo.ts:125
     // if (left <= right) {
     frame_dig 1
     frame_dig 3
@@ -3344,7 +3940,7 @@ calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.a
     frame_dig 1
 
 calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@32:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:745-755
+    // smart_contracts/collateralx_protocol/contract.algo.ts:864-874
     // return availableToMintMicroStable(
     //   vault.collateralMicroAlgo,
     //   vault.debtMicroStable,
@@ -3365,65 +3961,65 @@ calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.a
 
 calculateAvailableToMint_after_if_else@31:
     frame_dig 3
-    // smart_contracts/collateralx_shared/risk.algo.ts:93
+    // smart_contracts/collateralx_shared/risk.algo.ts:150
     // return minUint64(minUint64(collateralCapacity, vaultCapacity), minUint64(protocolCapacity, stablecoinCapacity))
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@32
 
 calculateAvailableToMint_after_if_else@27:
     frame_dig 4
     frame_bury 3
-    // smart_contracts/collateralx_shared/risk.algo.ts:93
+    // smart_contracts/collateralx_shared/risk.algo.ts:150
     // return minUint64(minUint64(collateralCapacity, vaultCapacity), minUint64(protocolCapacity, stablecoinCapacity))
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@28
 
 calculateAvailableToMint_after_if_else@23:
     frame_dig 5
     frame_bury 1
-    // smart_contracts/collateralx_shared/risk.algo.ts:93
+    // smart_contracts/collateralx_shared/risk.algo.ts:150
     // return minUint64(minUint64(collateralCapacity, vaultCapacity), minUint64(protocolCapacity, stablecoinCapacity))
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::minUint64@24
 
 calculateAvailableToMint_after_if_else@19:
-    // smart_contracts/collateralx_shared/risk.algo.ts:64
+    // smart_contracts/collateralx_shared/risk.algo.ts:121
     // return cap - used
     frame_dig 11
     frame_dig 10
     -
     frame_bury 4
-    // smart_contracts/collateralx_shared/risk.algo.ts:91
+    // smart_contracts/collateralx_shared/risk.algo.ts:148
     // const stablecoinCapacity = remainingCapacity(supplyCeilingMicroStable, issuedSupplyMicroStable)
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@20
 
 calculateAvailableToMint_after_if_else@15:
-    // smart_contracts/collateralx_shared/risk.algo.ts:64
+    // smart_contracts/collateralx_shared/risk.algo.ts:121
     // return cap - used
     frame_dig 9
     frame_dig 8
     -
     frame_bury 2
-    // smart_contracts/collateralx_shared/risk.algo.ts:90
+    // smart_contracts/collateralx_shared/risk.algo.ts:147
     // const protocolCapacity = remainingCapacity(protocolDebtCeilingMicroStable, totalDebtMicroStable)
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@16
 
 calculateAvailableToMint_after_if_else@11:
-    // smart_contracts/collateralx_shared/risk.algo.ts:64
+    // smart_contracts/collateralx_shared/risk.algo.ts:121
     // return cap - used
     frame_dig 7
     frame_dig 6
     -
     frame_bury 5
-    // smart_contracts/collateralx_shared/risk.algo.ts:89
+    // smart_contracts/collateralx_shared/risk.algo.ts:146
     // const vaultCapacity = remainingCapacity(vaultMintCapMicroStable, existingDebtMicroStable)
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@12
 
 calculateAvailableToMint_after_if_else@7:
-    // smart_contracts/collateralx_shared/risk.algo.ts:64
+    // smart_contracts/collateralx_shared/risk.algo.ts:121
     // return cap - used
     frame_dig 12
     frame_dig 6
     -
     frame_bury 0
-    // smart_contracts/collateralx_shared/risk.algo.ts:85-88
+    // smart_contracts/collateralx_shared/risk.algo.ts:142-145
     // const collateralCapacity = remainingCapacity(
     //   maxDebtForCollateral(collateralMicroAlgo, pricePerAlgoMicroStable, minCollateralRatioBps),
     //   existingDebtMicroStable
@@ -3431,12 +4027,89 @@ calculateAvailableToMint_after_if_else@7:
     b calculateAvailableToMint_after_inlined_smart_contracts/collateralx_shared/risk.algo.ts::remainingCapacity@8
 
 
+// smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.callStablecoinBurn(vaultId: uint64, amountMicroStable: uint64) -> void:
+callStablecoinBurn:
+    // smart_contracts/collateralx_protocol/contract.algo.ts:896
+    // private callStablecoinBurn(vaultId: uint64, amountMicroStable: uint64): void {
+    proto 2 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:897
+    // const stablecoinApp = Application(this.stablecoinAppId.value)
+    intc_0 // 0
+    // smart_contracts/collateralx_protocol/contract.algo.ts:219
+    // stablecoinAppId = GlobalState<uint64>({ key: 'sapp', initialValue: Uint64(0) })
+    bytec 4 // "sapp"
+    // smart_contracts/collateralx_protocol/contract.algo.ts:897
+    // const stablecoinApp = Application(this.stablecoinAppId.value)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_protocol/contract.algo.ts:898-908
+    // itxn
+    //   .applicationCall({
+    //     appId: stablecoinApp,
+    //     fee: Uint64(0),
+    //     appArgs: [
+    //       methodSelector('burnForVault(uint64,uint64)void'),
+    //       new Arc4Uint<64>(vaultId).bytes,
+    //       new Arc4Uint<64>(amountMicroStable).bytes,
+    //     ],
+    //   })
+    //   .submit()
+    itxn_begin
+    // smart_contracts/collateralx_protocol/contract.algo.ts:904
+    // new Arc4Uint<64>(vaultId).bytes,
+    frame_dig -2
+    itob
+    // smart_contracts/collateralx_protocol/contract.algo.ts:905
+    // new Arc4Uint<64>(amountMicroStable).bytes,
+    frame_dig -1
+    itob
+    // smart_contracts/collateralx_protocol/contract.algo.ts:903
+    // methodSelector('burnForVault(uint64,uint64)void'),
+    pushbytes 0x4d06c049 // method "burnForVault(uint64,uint64)void"
+    itxn_field ApplicationArgs
+    swap
+    itxn_field ApplicationArgs
+    itxn_field ApplicationArgs
+    itxn_field ApplicationID
+    // smart_contracts/collateralx_protocol/contract.algo.ts:898-907
+    // itxn
+    //   .applicationCall({
+    //     appId: stablecoinApp,
+    //     fee: Uint64(0),
+    //     appArgs: [
+    //       methodSelector('burnForVault(uint64,uint64)void'),
+    //       new Arc4Uint<64>(vaultId).bytes,
+    //       new Arc4Uint<64>(amountMicroStable).bytes,
+    //     ],
+    //   })
+    pushint 6 // 6
+    itxn_field TypeEnum
+    // smart_contracts/collateralx_protocol/contract.algo.ts:901
+    // fee: Uint64(0),
+    intc_0 // 0
+    itxn_field Fee
+    // smart_contracts/collateralx_protocol/contract.algo.ts:898-908
+    // itxn
+    //   .applicationCall({
+    //     appId: stablecoinApp,
+    //     fee: Uint64(0),
+    //     appArgs: [
+    //       methodSelector('burnForVault(uint64,uint64)void'),
+    //       new Arc4Uint<64>(vaultId).bytes,
+    //       new Arc4Uint<64>(amountMicroStable).bytes,
+    //     ],
+    //   })
+    //   .submit()
+    itxn_submit
+    retsub
+
+
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.payCollateral(receiver: bytes, amountMicroAlgo: uint64) -> void:
 payCollateral:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:792
+    // smart_contracts/collateralx_protocol/contract.algo.ts:911
     // private payCollateral(receiver: Account, amountMicroAlgo: uint64): void {
     proto 2 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:793-799
+    // smart_contracts/collateralx_protocol/contract.algo.ts:912-918
     // itxn
     //   .payment({
     //     receiver,
@@ -3449,7 +4122,7 @@ payCollateral:
     itxn_field Amount
     frame_dig -2
     itxn_field Receiver
-    // smart_contracts/collateralx_protocol/contract.algo.ts:793-798
+    // smart_contracts/collateralx_protocol/contract.algo.ts:912-917
     // itxn
     //   .payment({
     //     receiver,
@@ -3458,11 +4131,11 @@ payCollateral:
     //   })
     intc_1 // 1
     itxn_field TypeEnum
-    // smart_contracts/collateralx_protocol/contract.algo.ts:797
+    // smart_contracts/collateralx_protocol/contract.algo.ts:916
     // fee: Uint64(0),
     intc_0 // 0
     itxn_field Fee
-    // smart_contracts/collateralx_protocol/contract.algo.ts:793-799
+    // smart_contracts/collateralx_protocol/contract.algo.ts:912-918
     // itxn
     //   .payment({
     //     receiver,
@@ -3476,34 +4149,34 @@ payCollateral:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.deleteVaultBoxes(vault: bytes) -> bytes:
 deleteVaultBoxes:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:802
+    // smart_contracts/collateralx_protocol/contract.algo.ts:921
     // private deleteVaultBoxes(vault: VaultRecord): void {
     proto 1 1
-    // smart_contracts/collateralx_protocol/contract.algo.ts:803
+    // smart_contracts/collateralx_protocol/contract.algo.ts:922
     // assert(this.vaults(vault.id).delete(), 'vault cleanup missing')
     frame_dig -1
     extract 0 8
-    // smart_contracts/collateralx_protocol/contract.algo.ts:201
+    // smart_contracts/collateralx_protocol/contract.algo.ts:222
     // vaults = BoxMap<uint64, VaultRecord>({ keyPrefix: 'v' })
-    bytec_0 // "v"
+    bytec_2 // "v"
     dig 1
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:803
+    // smart_contracts/collateralx_protocol/contract.algo.ts:922
     // assert(this.vaults(vault.id).delete(), 'vault cleanup missing')
     box_del
     assert // vault cleanup missing
-    // smart_contracts/collateralx_protocol/contract.algo.ts:804
+    // smart_contracts/collateralx_protocol/contract.algo.ts:923
     // assert(this.ownerVaults({ owner: vault.owner, vaultId: vault.id }).delete(), 'owner index cleanup missing')
     frame_dig -1
     extract 8 32
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:202
+    // smart_contracts/collateralx_protocol/contract.algo.ts:223
     // ownerVaults = BoxMap<OwnerVaultIndexKey, uint64>({ keyPrefix: 'o' })
     pushbytes "o"
     swap
     concat
-    // smart_contracts/collateralx_protocol/contract.algo.ts:804
+    // smart_contracts/collateralx_protocol/contract.algo.ts:923
     // assert(this.ownerVaults({ owner: vault.owner, vaultId: vault.id }).delete(), 'owner index cleanup missing')
     box_del
     assert // owner index cleanup missing
@@ -3513,7 +4186,7 @@ deleteVaultBoxes:
 
 // smart_contracts/collateralx_protocol/contract.algo.ts::CollateralXProtocolManager.validateParams(minCollateralRatioBps: uint64, liquidationRatioBps: uint64, liquidationPenaltyBps: uint64, liquidationBonusBps: uint64, oracleFreshnessWindowSeconds: uint64, vaultMintCapMicroStable: uint64, protocolDebtCeilingMicroStable: uint64, minDebtFloorMicroStable: uint64) -> void:
 validateParams:
-    // smart_contracts/collateralx_protocol/contract.algo.ts:807-816
+    // smart_contracts/collateralx_protocol/contract.algo.ts:926-935
     // private validateParams(
     //   minCollateralRatioBps: uint64,
     //   liquidationRatioBps: uint64,
@@ -3525,51 +4198,51 @@ validateParams:
     //   minDebtFloorMicroStable: uint64
     // ): void {
     proto 8 0
-    // smart_contracts/collateralx_protocol/contract.algo.ts:817
+    // smart_contracts/collateralx_protocol/contract.algo.ts:936
     // assert(minCollateralRatioBps >= BPS_DENOMINATOR, 'min ratio too low')
     frame_dig -8
-    intc 4 // 10000
+    intc_3 // 10000
     >=
     assert // min ratio too low
-    // smart_contracts/collateralx_protocol/contract.algo.ts:818
+    // smart_contracts/collateralx_protocol/contract.algo.ts:937
     // assert(liquidationRatioBps >= BPS_DENOMINATOR, 'liquidation ratio too low')
     frame_dig -7
-    intc 4 // 10000
+    intc_3 // 10000
     >=
     assert // liquidation ratio too low
-    // smart_contracts/collateralx_protocol/contract.algo.ts:819
+    // smart_contracts/collateralx_protocol/contract.algo.ts:938
     // assert(liquidationRatioBps <= minCollateralRatioBps, 'liquidation ratio above min')
     frame_dig -7
     frame_dig -8
     <=
     assert // liquidation ratio above min
-    // smart_contracts/collateralx_protocol/contract.algo.ts:820
+    // smart_contracts/collateralx_protocol/contract.algo.ts:939
     // assert(liquidationPenaltyBps <= MAX_BPS, 'penalty too high')
     frame_dig -6
-    intc 5 // 100000
+    intc 4 // 100000
     <=
     assert // penalty too high
-    // smart_contracts/collateralx_protocol/contract.algo.ts:821
+    // smart_contracts/collateralx_protocol/contract.algo.ts:940
     // assert(liquidationBonusBps <= MAX_BPS, 'bonus too high')
     frame_dig -5
-    intc 5 // 100000
+    intc 4 // 100000
     <=
     assert // bonus too high
-    // smart_contracts/collateralx_protocol/contract.algo.ts:822
+    // smart_contracts/collateralx_protocol/contract.algo.ts:941
     // assert(oracleFreshnessWindowSeconds > Uint64(0), 'oracle window required')
     frame_dig -4
     assert // oracle window required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:823
+    // smart_contracts/collateralx_protocol/contract.algo.ts:942
     // assert(vaultMintCapMicroStable > Uint64(0), 'vault cap required')
     frame_dig -3
     assert // vault cap required
-    // smart_contracts/collateralx_protocol/contract.algo.ts:824
+    // smart_contracts/collateralx_protocol/contract.algo.ts:943
     // assert(protocolDebtCeilingMicroStable >= vaultMintCapMicroStable, 'ceiling below vault cap')
     frame_dig -2
     frame_dig -3
     >=
     assert // ceiling below vault cap
-    // smart_contracts/collateralx_protocol/contract.algo.ts:825
+    // smart_contracts/collateralx_protocol/contract.algo.ts:944
     // assert(minDebtFloorMicroStable <= vaultMintCapMicroStable, 'debt floor too high')
     frame_dig -1
     frame_dig -3

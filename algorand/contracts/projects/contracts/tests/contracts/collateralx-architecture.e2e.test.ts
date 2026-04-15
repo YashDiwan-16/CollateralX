@@ -836,5 +836,41 @@ describe("CollateralX liquidation executor", () => {
     await client.send.adminSetPauseFlags({ args: { pauseFlags: LIQUIDATION_EXECUTE_PAUSE_FLAG } })
     state = await client.readLiquidationExecutorState()
     expect(state.pauseFlags).toBe(BigInt(LIQUIDATION_EXECUTE_PAUSE_FLAG))
+
+    await expect(
+      client.send.authorizeLiquidation({
+        sender: other.addr,
+        args: {
+          vaultId: 1,
+          repaymentMicroStable: 1_000_000,
+        },
+      })
+    ).rejects.toThrow()
+
+    await client.send.adminSetPauseFlags({ args: { pauseFlags: 0 } })
+    await expect(
+      client.send.authorizeLiquidation({
+        args: {
+          vaultId: 1,
+          repaymentMicroStable: 1_000_000,
+        },
+      })
+    ).rejects.toThrow()
+    await expect(
+      client.send.authorizeLiquidation({
+        sender: other.addr,
+        args: {
+          vaultId: 0,
+          repaymentMicroStable: 1_000_000,
+        },
+      })
+    ).rejects.toThrow()
+    await client.send.authorizeLiquidation({
+      sender: other.addr,
+      args: {
+        vaultId: 1,
+        repaymentMicroStable: 1_000_000,
+      },
+    })
   }, TEST_TIMEOUT)
 })

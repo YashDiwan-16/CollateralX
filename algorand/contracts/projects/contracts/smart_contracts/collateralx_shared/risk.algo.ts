@@ -16,6 +16,15 @@ function bigToUint64(value: biguint): uint64 {
   return op.btoi(Bytes(value))
 }
 
+function bigDivCeil(numerator: biguint, denominator: biguint): uint64 {
+  assert(denominator > BigUint(0), 'division by zero')
+  const quotient: biguint = numerator / denominator
+  if (numerator % denominator === BigUint(0)) {
+    return bigToUint64(quotient)
+  }
+  return bigToUint64(quotient + BigUint(1))
+}
+
 export function safeAdd(left: uint64, right: uint64): uint64 {
   return bigToUint64(BigUint(left) + BigUint(right))
 }
@@ -55,6 +64,54 @@ export function isHealthyDebt(
   const left: biguint = BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
   const right: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(minCollateralRatioBps)
   return left >= right
+}
+
+export function isLiquidatableDebt(
+  collateralMicroAlgo: uint64,
+  debtMicroStable: uint64,
+  pricePerAlgoMicroStable: uint64,
+  liquidationRatioBps: uint64
+): boolean {
+  assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
+  assert(liquidationRatioBps >= BPS_DENOMINATOR, 'liquidation ratio too low')
+  if (debtMicroStable === Uint64(0)) {
+    return false
+  }
+
+  const collateralSide: biguint = BigUint(collateralMicroAlgo) * BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
+  const debtSide: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(liquidationRatioBps)
+  return collateralSide <= debtSide
+}
+
+function debtToCollateralMicroAlgo(
+  debtMicroStable: uint64,
+  pricePerAlgoMicroStable: uint64,
+  premiumOrFeeBps: uint64,
+  roundUp: boolean
+): uint64 {
+  assert(pricePerAlgoMicroStable > Uint64(0), 'oracle price required')
+  const numerator: biguint = BigUint(debtMicroStable) * BigUint(MICRO_UNIT) * BigUint(premiumOrFeeBps)
+  const denominator: biguint = BigUint(pricePerAlgoMicroStable) * BigUint(BPS_DENOMINATOR)
+  if (roundUp) {
+    return bigDivCeil(numerator, denominator)
+  }
+  return bigToUint64(numerator / denominator)
+}
+
+export function debtToCollateralMicroAlgoFloor(
+  debtMicroStable: uint64,
+  pricePerAlgoMicroStable: uint64,
+  premiumOrFeeBps: uint64
+): uint64 {
+  return debtToCollateralMicroAlgo(debtMicroStable, pricePerAlgoMicroStable, premiumOrFeeBps, false)
+}
+
+export function debtToCollateralMicroAlgoCeil(
+  debtMicroStable: uint64,
+  pricePerAlgoMicroStable: uint64,
+  premiumOrFeeBps: uint64
+): uint64 {
+  return debtToCollateralMicroAlgo(debtMicroStable, pricePerAlgoMicroStable, premiumOrFeeBps, true)
 }
 
 export function remainingCapacity(cap: uint64, used: uint64): uint64 {

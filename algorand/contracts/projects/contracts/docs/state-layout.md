@@ -13,7 +13,7 @@ CollateralX is split into four Algorand TypeScript applications:
 | `CollateralXProtocolManager` | Owns protocol configuration, aggregate counters, and per-vault records. |
 | `CollateralXOracleAdapter` | Stores the canonical ALGO/USD oracle sample consumed by protocol actions. |
 | `CollateralXStablecoinController` | Owns stablecoin asset-control configuration and future mint/burn authorization. |
-| `CollateralXLiquidationExecutor` | Owns liquidation execution configuration and future keeper-facing liquidation calls. |
+| `CollateralXLiquidationExecutor` | Owns optional keeper policy configuration; v1 liquidation execution is in the protocol manager. |
 
 The protocol manager is the source of truth for vault data. The other contracts
 are intentionally small adapters/controllers so future versions can replace the
@@ -36,6 +36,7 @@ state.
 | `vcnt` | `uint64` | Total vaults ever created. Global counter for analytics and keeper pagination. |
 | `tdbt` | `uint64` | Aggregate stablecoin debt in micro-units. Global because protocol ceiling checks need O(1) reads. |
 | `tcol` | `uint64` | Aggregate collateral in microALGO. Global because dashboard and risk checks need O(1) reads. |
+| `pfee` | `uint64` | Retained protocol fee collateral in microALGO from liquidations. Tracked separately because it no longer backs active vaults. |
 | `mcr` | `uint64` | Minimum collateral ratio in basis points. Global protocol parameter. |
 | `lqr` | `uint64` | Liquidation threshold in basis points. Global protocol parameter. |
 | `lpn` | `uint64` | Liquidation penalty in basis points. Global protocol parameter. |
@@ -123,7 +124,7 @@ opt in before receiving or operating a vault.
 | `debtMicroStable` | `uint64` | Stablecoin debt, in micro stable units. |
 | `createdAt` | `uint64` | Creation timestamp from `Global.latestTimestamp`. |
 | `updatedAt` | `uint64` | Last state-changing timestamp. |
-| `status` | `uint64` | Lifecycle code: `1 = active`, `2 = closing`, `3 = closed`, `4 = liquidating`. |
+| `status` | `uint64` | Lifecycle code. v1 stores only `1 = active`; close and liquidation delete boxes instead of storing terminal records. |
 | `version` | `uint64` | Record schema version. Starts at `1`. |
 
 ### Owner Vault Index BoxMap
@@ -395,6 +396,54 @@ sequenceDiagram
   Protocol-->>User: emit VaultClosedEvent
 ```
 
+### Liquidate Vault
+
+`liquidate(axfer,uint64)void` requires exactly two outer transactions and uses
+the same stablecoin retirement primitive as repayment:
+
+| Group Index | Transaction | Required Fields |
+| ---: | --- | --- |
+| `0` | Asset transfer | `sender = liquidator`, `assetReceiver = stablecoin controller app address`, `xferAsset = stablecoin ASA`, `assetAmount = full vault debt`, no `rekeyTo`, no `assetCloseTo`. |
+| `1` | App call | `sender = liquidator`, method `liquidate`, vault box, owner-index box, oracle app reference, stablecoin app reference, stablecoin ASA reference, liquidator and owner account references. |
+
+The protocol reads a fresh oracle sample through the shared adapter, rejects
+healthy vaults, calls `burnForVault(vaultId, debt)` on the stablecoin
+controller, deletes both active vault boxes, and distributes collateral.
+
+```mermaid
+sequenceDiagram
+  participant Liquidator
+  participant Owner
+  participant Protocol as Protocol Manager
+  participant Oracle as Oracle Adapter
+  participant Stable as Stablecoin Controller
+  participant VaultBox as Vault Box
+  participant OwnerIndex as Owner Index Box
+
+  Liquidator->>Stable: group[0] axfer full cxUSD debt to controller reserve
+  Liquidator->>Protocol: group[1] liquidate(axfer, vaultId)
+  Protocol->>VaultBox: read v + vaultId
+  Protocol->>Protocol: verify transfer shape and full debt amount
+  Protocol->>Oracle: read fresh ALGO/USD sample
+  Protocol->>Protocol: verify collateral ratio <= liquidation ratio
+  Protocol->>Stable: inner app call burnForVault(vaultId, debt)
+  Protocol->>VaultBox: delete v + vaultId
+  Protocol->>OwnerIndex: delete o + owner + vaultId
+  Protocol->>Liquidator: inner payment of debt value plus bonus, capped by collateral
+  Protocol->>Owner: optional inner payment of surplus collateral
+  Protocol->>Protocol: retain protocol fee collateral and increment pfee
+  Protocol-->>Liquidator: emit VaultLiquidatedEvent
+```
+
+Accounting after liquidation:
+
+| Counter | Update |
+| --- | --- |
+| `tdbt` | Decremented by the full vault debt. |
+| `tcol` | Decremented by the full vault collateral because no active vault remains. |
+| `pfee` | Incremented by retained protocol fee collateral. |
+| Stablecoin `supply` | Decremented by the full vault debt through `burnForVault`. |
+
 ### Keeper And Frontend Discovery
 
 Frontends should call `readProtocolStatus()` first to discover current app ids,
@@ -412,6 +461,7 @@ Keepers and indexers should watch ARC-28 logs:
 | `StablecoinRepaidEvent` | Update debt totals and reconcile retired stablecoin supply. |
 | `CollateralWithdrawnEvent` | Update collateral totals and vault-level risk caches. |
 | `VaultClosedEvent` | Remove closed vaults from active keeper/watch lists. |
+| `VaultLiquidatedEvent` | Remove liquidated vaults, reconcile debt/collateral totals, display liquidator reward and owner refund. |
 | `ProtocolPauseFlagsUpdatedEvent` | Suspend keeper actions for paused flows. |
 
 Box scans remain the canonical recovery path if an indexer misses logs. The

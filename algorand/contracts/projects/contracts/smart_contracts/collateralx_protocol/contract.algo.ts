@@ -7,12 +7,13 @@ import {
   Contract,
   Global,
   GlobalState,
+  OpUpFeeSource,
   Txn,
   Uint64,
   assert,
   clone,
   emit,
-  err,
+  ensureBudget,
   gtxn,
   itxn,
   op,
@@ -28,8 +29,12 @@ import {
 import {
   BPS_DENOMINATOR,
   availableToMintMicroStable,
+  debtToCollateralMicroAlgoCeil,
+  debtToCollateralMicroAlgoFloor,
   isDustDebt,
   isHealthyDebt,
+  isLiquidatableDebt,
+  minUint64,
   safeAdd,
   safeSub,
 } from '../collateralx_shared/risk.algo'
@@ -65,6 +70,7 @@ export type ProtocolStatusSnapshot = {
   vaultCount: uint64
   totalDebtMicroStable: uint64
   totalCollateralMicroAlgo: uint64
+  protocolFeeCollateralMicroAlgo: uint64
   pauseFlags: uint64
   oracleAppId: uint64
   stablecoinAppId: uint64
@@ -158,6 +164,20 @@ type VaultClosedEvent = {
   closedAt: uint64
 }
 
+type VaultLiquidatedEvent = {
+  vaultId: uint64
+  owner: Account
+  liquidator: Account
+  repaidDebtMicroStable: uint64
+  liquidatorCollateralMicroAlgo: uint64
+  protocolFeeCollateralMicroAlgo: uint64
+  ownerRefundCollateralMicroAlgo: uint64
+  pricePerAlgoMicroStable: uint64
+  oracleUpdatedRound: uint64
+  totalDebtMicroStable: uint64
+  totalCollateralMicroAlgo: uint64
+}
+
 type OracleSnapshot = {
   pricePerAlgoMicroStable: uint64
   updatedAt: uint64
@@ -185,6 +205,7 @@ export class CollateralXProtocolManager extends Contract {
   vaultCount = GlobalState<uint64>({ key: 'vcnt', initialValue: Uint64(0) })
   totalDebtMicroStable = GlobalState<uint64>({ key: 'tdbt', initialValue: Uint64(0) })
   totalCollateralMicroAlgo = GlobalState<uint64>({ key: 'tcol', initialValue: Uint64(0) })
+  protocolFeeCollateralMicroAlgo = GlobalState<uint64>({ key: 'pfee', initialValue: Uint64(0) })
   minCollateralRatioBps = GlobalState<uint64>({ key: 'mcr', initialValue: Uint64(0) })
   liquidationRatioBps = GlobalState<uint64>({ key: 'lqr', initialValue: Uint64(0) })
   liquidationPenaltyBps = GlobalState<uint64>({ key: 'lpn', initialValue: Uint64(0) })
@@ -334,6 +355,7 @@ export class CollateralXProtocolManager extends Contract {
       vaultCount: this.vaultCount.value,
       totalDebtMicroStable: this.totalDebtMicroStable.value,
       totalCollateralMicroAlgo: this.totalCollateralMicroAlgo.value,
+      protocolFeeCollateralMicroAlgo: this.protocolFeeCollateralMicroAlgo.value,
       pauseFlags: this.pauseFlags.value,
       oracleAppId: this.oracleAppId.value,
       stablecoinAppId: this.stablecoinAppId.value,
@@ -641,13 +663,89 @@ export class CollateralXProtocolManager extends Contract {
     })
   }
 
-  /** Liquidation entry point reserved for keeper/executor integration. */
+  /**
+   * Fully liquidates an unhealthy vault.
+   *
+   * Required group shape:
+   * - tx 0: stablecoin ASA transfer from liquidator to stablecoin controller
+   * - tx 1: this app call with the asset-transfer transaction argument
+   *
+   * Full liquidation is intentionally atomic: the liquidator must repay exactly
+   * the vault debt, the protocol retires that debt, deletes the vault boxes,
+   * pays the configured collateral reward, records protocol fees, and returns
+   * any surplus collateral to the original vault owner.
+   */
   public liquidate(repayment: gtxn.AssetTransferTxn, vaultId: uint64): void {
     this.assertReady()
+    this.assertLiquidationGroup(repayment)
+    ensureBudget(Uint64(2_000), OpUpFeeSource.GroupCredit)
     this.assertNotPaused(PAUSE_LIQUIDATE)
     assert(this.vaults(vaultId).exists, 'vault missing')
-    assert(repayment.assetAmount > Uint64(0), 'zero liquidation')
-    err('liquidation module disabled')
+    const stablecoin = this.readStablecoinSnapshot()
+    const vault = clone(this.vaults(vaultId).value)
+    assert(vault.status === VAULT_STATUS_ACTIVE, 'vault inactive')
+    assert(vault.debtMicroStable > Uint64(0), 'no debt')
+    this.assertLiquidationTransfer(repayment, stablecoin, vault.debtMicroStable)
+
+    const oracle = this.readFreshOracle()
+    assert(
+      isLiquidatableDebt(
+        vault.collateralMicroAlgo,
+        vault.debtMicroStable,
+        oracle.pricePerAlgoMicroStable,
+        this.liquidationRatioBps.value
+      ),
+      'vault healthy'
+    )
+
+    const liquidatorPremiumBps = safeAdd(BPS_DENOMINATOR, this.liquidationBonusBps.value)
+    const targetLiquidatorCollateral = debtToCollateralMicroAlgoCeil(
+      vault.debtMicroStable,
+      oracle.pricePerAlgoMicroStable,
+      liquidatorPremiumBps
+    )
+    const targetProtocolFeeCollateral = debtToCollateralMicroAlgoFloor(
+      vault.debtMicroStable,
+      oracle.pricePerAlgoMicroStable,
+      this.liquidationPenaltyBps.value
+    )
+
+    const liquidatorCollateral = minUint64(vault.collateralMicroAlgo, targetLiquidatorCollateral)
+    const remainingAfterLiquidator = safeSub(vault.collateralMicroAlgo, liquidatorCollateral)
+    const protocolFeeCollateral = minUint64(remainingAfterLiquidator, targetProtocolFeeCollateral)
+    const ownerRefundCollateral = safeSub(remainingAfterLiquidator, protocolFeeCollateral)
+
+    const newTotalDebt = safeSub(this.totalDebtMicroStable.value, vault.debtMicroStable)
+    const newTotalCollateral = safeSub(this.totalCollateralMicroAlgo.value, vault.collateralMicroAlgo)
+    const newProtocolFees = safeAdd(this.protocolFeeCollateralMicroAlgo.value, protocolFeeCollateral)
+
+    this.callStablecoinBurn(vault.id, vault.debtMicroStable)
+
+    this.totalDebtMicroStable.value = newTotalDebt
+    this.totalCollateralMicroAlgo.value = newTotalCollateral
+    this.protocolFeeCollateralMicroAlgo.value = newProtocolFees
+    this.deleteVaultBoxes(vault)
+
+    if (liquidatorCollateral > Uint64(0)) {
+      this.payCollateral(Txn.sender, liquidatorCollateral)
+    }
+    if (ownerRefundCollateral > Uint64(0)) {
+      this.payCollateral(vault.owner, ownerRefundCollateral)
+    }
+
+    emit<VaultLiquidatedEvent>({
+      vaultId,
+      owner: vault.owner,
+      liquidator: Txn.sender,
+      repaidDebtMicroStable: vault.debtMicroStable,
+      liquidatorCollateralMicroAlgo: liquidatorCollateral,
+      protocolFeeCollateralMicroAlgo: protocolFeeCollateral,
+      ownerRefundCollateralMicroAlgo: ownerRefundCollateral,
+      pricePerAlgoMicroStable: oracle.pricePerAlgoMicroStable,
+      oracleUpdatedRound: oracle.updatedRound,
+      totalDebtMicroStable: newTotalDebt,
+      totalCollateralMicroAlgo: newTotalCollateral,
+    })
   }
 
   private assertReady(): void {
@@ -692,6 +790,12 @@ export class CollateralXProtocolManager extends Contract {
     assert(Txn.groupIndex === Uint64(1), 'repay app call index')
   }
 
+  private assertLiquidationGroup(repayment: gtxn.AssetTransferTxn): void {
+    assert(Global.groupSize === Uint64(2), 'liquidation group size')
+    assert(repayment.groupIndex === Uint64(0), 'liquidation transfer index')
+    assert(Txn.groupIndex === Uint64(1), 'liquidation app call index')
+  }
+
   private assertRepaymentTransfer(repayment: gtxn.AssetTransferTxn, stablecoin: StablecoinSnapshot): void {
     const stablecoinApp = Application(this.stablecoinAppId.value)
     const stableAsset = Asset(stablecoin.stableAssetId)
@@ -701,6 +805,21 @@ export class CollateralXProtocolManager extends Contract {
     assert(repayment.rekeyTo === Global.zeroAddress, 'repay rekey forbidden')
     assert(repayment.assetCloseTo === Global.zeroAddress, 'repay close forbidden')
     assert(repayment.assetAmount > Uint64(0), 'zero repay')
+  }
+
+  private assertLiquidationTransfer(
+    repayment: gtxn.AssetTransferTxn,
+    stablecoin: StablecoinSnapshot,
+    vaultDebtMicroStable: uint64
+  ): void {
+    const stablecoinApp = Application(this.stablecoinAppId.value)
+    const stableAsset = Asset(stablecoin.stableAssetId)
+    assert(repayment.sender === Txn.sender, 'liquidation sender mismatch')
+    assert(repayment.assetReceiver === stablecoinApp.address, 'liquidation receiver mismatch')
+    assert(repayment.xferAsset === stableAsset, 'liquidation asset mismatch')
+    assert(repayment.rekeyTo === Global.zeroAddress, 'liquidation rekey forbidden')
+    assert(repayment.assetCloseTo === Global.zeroAddress, 'liquidation close forbidden')
+    assert(repayment.assetAmount === vaultDebtMicroStable, 'liquidation repay amount')
   }
 
   private readFreshOracle(): OracleSnapshot {

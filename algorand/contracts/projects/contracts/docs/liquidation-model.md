@@ -2,148 +2,176 @@
 
 ## Overview
 
-CollateralX uses an overcollateralized design: every algoUSD in circulation is
-backed by at least 150 % of its value in ALGO.  When a vault's collateral ratio
-falls to or below 150 %, any address can trigger a liquidation by repaying part
-(or all) of the vault's debt in exchange for a discounted portion of the
-collateral.
+CollateralX v1 uses full liquidation only. When a vault's collateral ratio is at
+or below the configured liquidation threshold, any address may repay the full
+vault debt in cxUSD and receive ALGO collateral from the vault according to the
+configured bonus. A configured protocol penalty is retained by the protocol app
+as fee collateral and tracked in global state.
 
----
+This keeps the MVP liquidation path small and auditable:
+
+1. No partial close factor.
+2. No residual debt.
+3. No dust after liquidation.
+4. One vault box cleanup path.
+5. One stablecoin retirement amount: exactly the vault debt.
 
 ## Units
 
 | Symbol | Meaning |
-|--------|---------|
-| μAlgo | micro-ALGO (1 ALGO = 1 000 000 μAlgo) |
-| μStable | micro-algoUSD (1 algoUSD = 1 000 000 μStable) |
-| μUsd | micro-USD (1 USD = 1 000 000 μUsd); oracle price is expressed as μUsd per ALGO |
-| bps | basis points (10 000 bps = 100 %) |
+| --- | --- |
+| `microALGO` | ALGO collateral base unit, `1 ALGO = 1_000_000 microALGO`. |
+| `microStable` | cxUSD stablecoin base unit, `1 cxUSD = 1_000_000 microStable`. |
+| `price` | Oracle price in microUSD per ALGO. |
+| `bps` | Basis points, `10_000 = 100%`. |
 
-All arithmetic uses bigint; no floating-point is ever used.
+cxUSD is treated as USD-denominated for v1 risk math, so `debtMicroStable` is
+also the debt value in microUSD.
 
----
+## Eligibility
 
-## Collateral Value
+A vault is liquidatable when all conditions hold:
 
-```
-collateral_μUsd = collateral_μAlgo × price_μUsd_per_ALGO / 1_000_000
-```
+| Check | Reason |
+| --- | --- |
+| Vault box exists and `status = active`. | Prevents repeat liquidation or stale IDs. |
+| `debtMicroStable > 0`. | Debt-free vaults must be closed or withdrawn by the owner. |
+| Oracle sample is fresh through the shared adapter. | Prevents liquidation against stale or paused prices. |
+| `collateral * price * 10_000 <= debt * 1_000_000 * liquidationRatioBps`. | Cross-multiplied ratio check with no division-rounding edge. |
+| Stablecoin transfer amount equals exactly `debtMicroStable`. | Enforces full liquidation only. |
 
-Both `collateral_μAlgo` and `price_μUsd_per_ALGO` are in micro-units, so
-dividing by 1 000 000 cancels one micro-prefix and yields μUsd.
+The threshold is inclusive. A vault exactly at `liquidationRatioBps` is eligible.
+A vault above the threshold is healthy for liquidation purposes and the call
+fails with `vault healthy`.
 
----
+## Grouped Transaction Model
 
-## Collateral Ratio
+`liquidate(axfer,uint64)void` requires exactly two outer transactions:
 
-```
-ratio_bps = (collateral_μUsd / debt_μStable) × 10_000
-```
+| Index | Transaction | Required Fields |
+| ---: | --- | --- |
+| `0` | Stablecoin ASA transfer | `sender = liquidator`, `assetReceiver = stablecoin controller app address`, `xferAsset = cxUSD ASA`, `assetAmount = vault debt`, no rekey, no asset close-out. |
+| `1` | Protocol app call | `sender = same liquidator`, method `liquidate`, vault and owner-index box references, oracle and stablecoin app references, stablecoin ASA reference. |
 
-`collateral_μUsd` and `debt_μStable` share the same micro-scale (1 unit of each
-= $10⁻⁶), so no conversion is required before dividing.
+The protocol then performs up to three inner transactions:
 
-A ratio of 15 000 bps equals 150 %.
+| Inner Action | Purpose |
+| --- | --- |
+| App call to `burnForVault(vaultId, debt)` | Decrements stablecoin issued supply after the outer ASA transfer has returned cxUSD to the controller reserve. |
+| Payment to liquidator | Pays debt value plus configured liquidation bonus, capped by vault collateral. |
+| Optional payment to vault owner | Returns surplus collateral after liquidator reward and protocol fee. |
 
----
+The caller must provide enough outer fee budget for these inner transactions.
+The reference tests use a conservative `20_000 microALGO` app-call fee budget to
+cover opcode-budget op-up calls plus the burn and collateral-payment inners.
 
-## Liquidation Price
+## Collateral Distribution
 
-The ALGO spot price at which the vault's ratio would hit exactly the liquidation
-threshold:
+Full liquidation computes three collateral buckets:
 
-```
-liq_price_μUsd = (debt_μStable × liq_ratio_bps × 1_000_000)
-                 / (collateral_μAlgo × 10_000)
-```
+```text
+liquidatorTarget =
+  ceil(debtMicroStable * 1_000_000 * (10_000 + liquidationBonusBps)
+       / (price * 10_000))
 
-When the oracle price falls to or below `liq_price_μUsd`, the vault is
-liquidatable.
+protocolFeeTarget =
+  floor(debtMicroStable * 1_000_000 * liquidationPenaltyBps
+        / (price * 10_000))
 
----
-
-## Liquidation Eligibility
-
-A vault is liquidatable when both conditions hold:
-
-1. `debt_μStable > 0`
-2. `ratio_bps ≤ liquidation_ratio_bps`  (default: 15 000 bps = 150 %)
-
-A vault with zero collateral and non-zero debt is always liquidatable.
-
----
-
-## Liquidation Collateral Seizure
-
-The liquidator repays `repay_μStable` of the vault debt and receives discounted
-collateral in return. Three values are computed:
-
-### Step 1 — Convert repay to USD
-
-```
-repay_μUsd = repay_μStable × price_μUsd / 1_000_000
+liquidatorCollateral = min(vaultCollateral, liquidatorTarget)
+remainingAfterLiquidator = vaultCollateral - liquidatorCollateral
+protocolFeeCollateral = min(remainingAfterLiquidator, protocolFeeTarget)
+ownerRefundCollateral = remainingAfterLiquidator - protocolFeeCollateral
 ```
 
-### Step 2 — Total collateral to seize (includes liquidator bonus)
+The rounding intentionally favors protocol safety:
 
-```
-total_seized_μUsd = repay_μUsd × (10_000 + bonus_bps) / 10_000
-```
+| Value | Rounding | Reason |
+| --- | --- | --- |
+| Liquidator reward | Ceiling | Ensures the liquidator is not shorted by integer truncation. |
+| Protocol fee | Floor | Ensures the protocol does not over-claim fee collateral. |
+| Eligibility ratio | Cross multiplication | Avoids division-rounding ambiguity at the threshold. |
 
-Default `bonus_bps` = 500 (5 %).
+If collateral is insufficient to cover the target liquidator reward and fee, the
+liquidator receives as much collateral as exists and the protocol fee is capped
+at the remaining collateral. This prevents underflow and keeps liquidation
+available even for deeply undercollateralized vaults, although rational
+liquidators will only execute when the received collateral is worth the cost.
 
-### Step 3 — Protocol fee (penalty)
+## Accounting Effects
 
-```
-penalty_μUsd = repay_μUsd × penalty_bps / 10_000
-```
+After a successful liquidation:
 
-Default `penalty_bps` = 1 000 (10 %).
-
-### Step 4 — Convert back to ALGO
-
-```
-total_seized_μAlgo = ceil(total_seized_μUsd × 1_000_000 / price_μUsd)
-penalty_μAlgo      = floor(penalty_μUsd × 1_000_000 / price_μUsd)
-liquidator_μAlgo   = total_seized_μAlgo − penalty_μAlgo
-```
-
-`ceil` is used for the seizure so the vault is never under-charged; `floor` is
-used for the penalty so the protocol never over-claims.
-
-### Step 5 — Cap at vault collateral
-
-If `total_seized_μAlgo > vault.collateral_μAlgo`, the seized amount is capped:
-
-```
-actual_seized = min(total_seized_μAlgo, vault.collateral_μAlgo)
-actual_penalty = min(penalty_μAlgo, actual_seized)
-liquidator_gets = actual_seized − actual_penalty
+```text
+vault box deleted
+owner index box deleted
+totalDebtMicroStable' = totalDebtMicroStable - vaultDebt
+totalCollateralMicroAlgo' = totalCollateralMicroAlgo - vaultCollateral
+protocolFeeCollateralMicroAlgo' =
+  protocolFeeCollateralMicroAlgo + protocolFeeCollateral
+stablecoinIssuedSupply' = stablecoinIssuedSupply - vaultDebt
 ```
 
----
+`totalCollateralMicroAlgo` tracks only active vault collateral. Protocol fee
+collateral is intentionally tracked separately in `pfee` because it is retained
+by the app account but no longer backs an active vault.
 
 ## Example
 
-**Setup**: 140 ALGO collateral, $100 debt, price = $1.00, ratio = 140 %
-(liquidatable).  Liquidator repays $50.
+Parameters:
 
-| Quantity | Calculation | Value |
-|----------|-------------|-------|
-| repay_μUsd | 50 × 1 000 000 / 1 000 000 | 50 000 000 |
-| total_seized_μUsd | 50 000 000 × 10 500 / 10 000 | 52 500 000 |
-| penalty_μUsd | 50 000 000 × 1 000 / 10 000 | 5 000 000 |
-| total_seized_μAlgo | ceil(52 500 000 × 1 000 000 / 1 000 000) | 52 500 000 |
-| penalty_μAlgo | floor(5 000 000 × 1 000 000 / 1 000 000) | 5 000 000 |
-| liquidator_gets | 52 500 000 − 5 000 000 | 47 500 000 μAlgo (47.5 ALGO) |
+| Value | Amount |
+| --- | ---: |
+| Vault collateral | `150 ALGO` |
+| Vault debt | `100 cxUSD` |
+| Oracle price | `$0.80 / ALGO` |
+| Liquidation ratio | `125%` |
+| Liquidation bonus | `3%` |
+| Protocol penalty | `5%` |
 
-After liquidation the vault holds 87.5 ALGO collateral and $50 debt.
+Health:
 
----
+```text
+collateral value = 150 * 0.80 = 120 cxUSD
+ratio = 120 / 100 = 120%
+```
 
-## Rounding Policy
+The vault is below the `125%` threshold and is eligible.
 
-All values that favour the **protocol** (collateral seized) are rounded up
-(`mulDivUp`), ensuring the vault is never under-charged.  All values that
-favour the **user** (max mintable, protocol penalty) are rounded down (`mulDiv`
-floor division), ensuring the system never promises more than it can deliver.
+Distribution:
+
+```text
+liquidatorTarget = ceil(100 / 0.80 * 1.03) = 128.75 ALGO
+protocolFeeTarget = floor(100 / 0.80 * 0.05) = 6.25 ALGO
+ownerRefund = 150 - 128.75 - 6.25 = 15 ALGO
+```
+
+The liquidator repays `100 cxUSD`, receives `128.75 ALGO`, the protocol retains
+`6.25 ALGO` as fee collateral, and the original vault owner receives the
+remaining `15 ALGO`.
+
+## Incentive Note
+
+The v1 incentive is sufficient for an MVP because it gives liquidators a simple
+positive spread when a vault still has enough collateral: they repay debt at par
+and receive the debt value plus `liquidationBonusBps` in ALGO. The protocol fee
+is taken only after the liquidator reward is reserved, so the fee does not turn
+a normally collateralized liquidation into a guaranteed loss for the liquidator.
+
+This design does not attempt to solve bad-debt auctions, Dutch auctions, or
+multi-oracle MEV. Deeply underwater vaults may be unattractive because the
+collateral cap can make the payout less than the repaid debt. For v1 that is an
+accepted risk in exchange for a small, inspectable liquidation surface.
+
+## Keeper And UI Discovery
+
+Keepers discover candidates by scanning live `v` vault boxes, reading protocol
+params via `readProtocolParams()`, reading the current oracle sample, and
+applying the same cross-multiplied eligibility check off-chain. Immediately
+before submitting, a keeper should re-read `readProtocolStatus()` to verify
+pause flags and integration ids.
+
+UIs should watch `VaultLiquidatedEvent`, `VaultClosedEvent`, and active box
+deletions to remove liquidated vaults from active views. The liquidation event
+includes liquidator, owner, debt repaid, liquidator collateral, protocol fee,
+owner refund, oracle price, oracle round, and post-action aggregate counters.

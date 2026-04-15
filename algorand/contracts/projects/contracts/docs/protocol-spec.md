@@ -22,7 +22,7 @@ for the current Algorand contracts. It should be read together with
 | `CollateralXProtocolManager` | Canonical vault storage, protocol configuration, aggregate debt/collateral counters, user actions. |
 | `CollateralXOracleAdapter` | Current ALGO/USD oracle sample, sample timestamp/round, trusted updater, max age, source tag, and read/update pause flags. |
 | `CollateralXStablecoinController` | Stablecoin ASA reserve controller, issued-supply accounting, protocol-gated mint/retire methods. |
-| `CollateralXLiquidationExecutor` | Liquidation configuration shell for the later keeper phase. |
+| `CollateralXLiquidationExecutor` | Optional keeper policy shell; v1 liquidation execution is implemented in the protocol manager. |
 
 ## State Placement
 
@@ -33,7 +33,7 @@ every economic action needs them in O(1) reads:
 | --- | --- |
 | `adm`, `init`, `pflg` | Access control, initialization, and pause checks are required by all privileged or user-facing calls. |
 | `nvid`, `vcnt` | Deterministic vault id allocation and created-vault reconciliation. |
-| `tdbt`, `tcol` | Aggregate accounting used for debt ceiling enforcement and dashboard reads. |
+| `tdbt`, `tcol`, `pfee` | Aggregate accounting used for debt ceiling enforcement, active collateral reads, and retained liquidation fees. |
 | `mcr`, `lqr`, `lpn`, `lbn`, `ofw`, `vmcp`, `pdc`, `dflo` | Risk parameters required by mint, repay, withdraw, and liquidation flows. |
 | `oapp`, `sapp`, `lapp` | Replaceable integration pointers for oracle, stablecoin controller, and liquidation executor. |
 
@@ -211,6 +211,62 @@ Primary rejection messages:
 | `vault cleanup missing` | Vault box was not supplied or could not be deleted. |
 | `owner index cleanup missing` | Owner-index box was not supplied or could not be deleted. |
 
+### Liquidate Vault
+
+`liquidate(axfer,uint64)void` is a full-liquidation-only path. It requires a
+two-transaction group:
+
+| Index | Transaction |
+| ---: | --- |
+| `0` | Stablecoin ASA transfer from liquidator to stablecoin controller app address. |
+| `1` | Protocol app call with the asset transfer as ARC-4 transaction argument. |
+
+The protocol validates:
+
+| Check | Error |
+| --- | --- |
+| Group size is exactly `2` | `liquidation group size` |
+| ASA transfer is group index `0` | `liquidation transfer index` |
+| App call is group index `1` | `liquidation app call index` |
+| Transfer sender is the app caller | `liquidation sender mismatch` |
+| Transfer receiver is stablecoin controller app address | `liquidation receiver mismatch` |
+| Transfer asset is configured stablecoin ASA | `liquidation asset mismatch` |
+| No rekey or asset close-out | `liquidation rekey forbidden`, `liquidation close forbidden` |
+| Transfer amount equals the vault's full debt | `liquidation repay amount` |
+| Oracle sample is fresh | `oracle stale` |
+| Vault ratio is at or below `lqr` | `vault healthy` |
+
+Eligibility uses cross multiplication rather than division:
+
+```text
+collateralMicroAlgo * oraclePrice * 10_000
+  <= debtMicroStable * 1_000_000 * liquidationRatioBps
+```
+
+On success, the protocol calls `burnForVault(vaultId, debt)` on the stablecoin
+controller, deletes the vault and owner-index boxes, decrements `tdbt` by the
+full debt, decrements `tcol` by the full vault collateral, pays the liquidator,
+retains protocol fee collateral in `pfee`, returns any surplus collateral to the
+vault owner, and emits `VaultLiquidatedEvent`.
+
+Because liquidation does fresh oracle reads, stablecoin retirement, op-up budget
+support, and up to two collateral payments, callers should supply a conservative
+outer app-call fee budget. The integration tests use `20_000 microALGO`.
+
+Liquidator payout and protocol fee calculations are documented in
+`docs/liquidation-model.md`. The short version is:
+
+```text
+liquidatorCollateral =
+  min(vaultCollateral, ceil(debt * 1_000_000 * (10_000 + lbn) / (price * 10_000)))
+
+protocolFeeCollateral =
+  min(vaultCollateral - liquidatorCollateral,
+      floor(debt * 1_000_000 * lpn / (price * 10_000)))
+
+ownerRefundCollateral = vaultCollateral - liquidatorCollateral - protocolFeeCollateral
+```
+
 ## Pause Flags
 
 Protocol manager pause flags:
@@ -226,8 +282,8 @@ Protocol manager pause flags:
 | `64` | Emergency pause for all user operations |
 
 The stablecoin controller has independent mint and burn pause flags. A protocol
-repay can therefore fail either because protocol repayment is paused or because
-controller retirement is paused.
+repay or liquidation can therefore fail either because the protocol action is
+paused or because controller retirement is paused.
 
 ## Discovery
 
@@ -244,10 +300,13 @@ Frontends should:
 Keepers should:
 
 1. Watch `VaultCreatedEvent`, `StablecoinMintedEvent`,
-   `StablecoinRepaidEvent`, `CollateralWithdrawnEvent`, and `VaultClosedEvent`.
+   `StablecoinRepaidEvent`, `CollateralWithdrawnEvent`, `VaultClosedEvent`, and
+   `VaultLiquidatedEvent`.
 2. Reconcile current active vaults by scanning `v` boxes.
 3. Treat `vcnt` as total created and live vault boxes as currently open.
 4. Stop keeper actions affected by `ProtocolPauseFlagsUpdatedEvent`.
+5. Build liquidation candidates from box state, but re-check oracle freshness,
+   pause flags, and current vault state immediately before submitting a group.
 
 ## Upgrade Considerations
 

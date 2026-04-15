@@ -7,8 +7,6 @@ import {
   Uint64,
   assert,
   emit,
-  err,
-  gtxn,
   readonly,
   type uint64,
 } from '@algorandfoundation/algorand-typescript'
@@ -30,12 +28,20 @@ type LiquidationExecutorInitializedEvent = {
   keeper: Account
 }
 
+type LiquidationAuthorizationEvent = {
+  keeper: Account
+  vaultId: uint64
+  repaymentMicroStable: uint64
+  protocolManagerAppId: uint64
+}
+
 /**
- * Liquidation executor skeleton.
+ * Liquidation executor policy registry.
  *
- * Safety-critical assumption: liquidation math and collateral movement remain
- * in the protocol manager until this executor is wired through audited
- * contract-to-contract calls. This app currently records executor policy only.
+ * Safety-critical assumption: v1 liquidation settlement is implemented by
+ * CollateralXProtocolManager.liquidate so repayment validation, debt burn, and
+ * collateral payouts are atomic in one app. This optional app only records and
+ * enforces keeper policy for future routing without touching funds.
  */
 export class CollateralXLiquidationExecutor extends Contract {
   admin = GlobalState<Account>({ key: 'adm' })
@@ -92,14 +98,26 @@ export class CollateralXLiquidationExecutor extends Contract {
     emit('LiquidationPauseFlagsUpdated', Txn.sender, pauseFlags)
   }
 
-  /** Keeper or permissionless liquidation entry point reserved for liquidation integration. */
-  public executeLiquidation(vaultId: uint64, repayment: gtxn.AssetTransferTxn): void {
+  /**
+   * Keeper policy check for off-chain routing.
+   *
+   * This method intentionally does not move collateral or retire debt. v1
+   * settlement must call `CollateralXProtocolManager.liquidate` directly so the
+   * manager can inspect the exact grouped repayment transfer and mutate vault
+   * boxes atomically.
+   */
+  public authorizeLiquidation(vaultId: uint64, repaymentMicroStable: uint64): void {
     this.assertReady()
     this.assertNotPaused(PAUSE_EXECUTION)
     this.assertKeeperIfConfigured()
     assert(vaultId > Uint64(0), 'vault id required')
-    assert(repayment.assetAmount > Uint64(0), 'zero repayment')
-    err('liquidation execution disabled')
+    assert(repaymentMicroStable > Uint64(0), 'zero repayment')
+    emit<LiquidationAuthorizationEvent>({
+      keeper: Txn.sender,
+      vaultId,
+      repaymentMicroStable,
+      protocolManagerAppId: this.protocolManagerAppId.value,
+    })
   }
 
   private assertReady(): void {

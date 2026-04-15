@@ -619,7 +619,7 @@ mintForVault:
     // const newIssuedSupply = safeAdd(this.issuedSupplyMicroStable.value, amountMicroStable)
     app_global_get_ex
     assert // check GlobalState exists
-    // smart_contracts/collateralx_shared/risk.algo.ts:20
+    // smart_contracts/collateralx_shared/risk.algo.ts:29
     // return bigToUint64(BigUint(left) + BigUint(right))
     itob
     dig 2
@@ -798,13 +798,13 @@ burnForVault:
     dup2
     <=
     assert // burn exceeds issued
-    // smart_contracts/collateralx_shared/risk.algo.ts:24
+    // smart_contracts/collateralx_shared/risk.algo.ts:33
     // assert(left >= right, 'uint64 underflow')
     dup
     dig 2
     >=
     assert // uint64 underflow
-    // smart_contracts/collateralx_shared/risk.algo.ts:25
+    // smart_contracts/collateralx_shared/risk.algo.ts:34
     // return left - right
     dig 1
     -
