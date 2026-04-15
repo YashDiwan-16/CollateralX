@@ -21,6 +21,6 @@
       "ESNext"
     ],
   },
-  "include": ["smart_contracts/**/*.ts"],
+  "include": ["smart_contracts/**/*.ts", "src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules", "dist", "coverage"]
 }
