@@ -2,13 +2,13 @@
 /*
 
 # Keep project source directories
-!contracts/
+!algorand/
 !frontend/
+!docs/
 
 # Keep root-level project files
 !CLAUDE.md
 !AGENTS.md
-!algo_stablecoin_protocol_wireframe.html
 !.gitignore
 
 # Tool-generated config dirs (vibekit, cursor, codex, etc.)

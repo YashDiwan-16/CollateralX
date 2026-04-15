@@ -6,13 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 CollateralX/
-├── algo_stablecoin_protocol_wireframe.html   # Single-file UI wireframe (reference design, 8 screens)
-├── contracts/                                 # AlgoKit workspace (Algorand smart contracts)
-│   └── projects/                             # Smart contract sub-projects (currently empty)
-└── frontend/                                 # Next.js 16 web app
+├── docs/
+│   └── algo_stablecoin_protocol_wireframe.html   # Reference UI wireframe (8 screens)
+├── algorand/                                      # AlgoKit workspace (Algorand smart contracts)
+│   └── contracts/projects/contracts/             # Active smart contract project
+│       └── smart_contracts/
+│           ├── hello_world/                       # Starter contract (replace with protocol contracts)
+│           │   ├── contract.algo.ts               # Contract source
+│           │   └── deploy-config.ts               # Deployment logic
+│           └── index.ts                           # Auto-discovers & runs all deploy-config.ts files
+└── frontend/                                      # Next.js 16 web app
 ```
 
-`contracts/` and `frontend/` are independent sub-projects with their own toolchains. There is no top-level package.json.
+`algorand/` and `frontend/` are independent sub-projects with their own toolchains. No top-level `package.json`.
 
 ---
 
@@ -21,7 +27,7 @@ CollateralX/
 ### Stack
 - **Next.js 16** (App Router) · **React 19** · **TypeScript 5** · **Tailwind CSS v4**
 - Package manager: `pnpm` (workspace declared via `pnpm-workspace.yaml`)
-- ESLint 9 flat config (`eslint.config.mjs`) — uses `eslint-config-next/core-web-vitals` + `eslint-config-next/typescript`
+- ESLint 9 flat config (`eslint.config.mjs`) — `eslint-config-next/core-web-vitals` + `eslint-config-next/typescript`
 
 ### Commands
 ```bash
@@ -42,64 +48,79 @@ No test runner is configured yet.
 - Tailwind CSS v4 no longer uses `tailwind.config.js`; all theme customization goes inside `@theme` blocks in CSS (see `app/globals.css`)
 
 ### App Router & conventions
-- All routes live under `frontend/app/`. Root layout (`app/layout.tsx`) loads Geist fonts (via `next/font/google`) and wraps everything in `<body className="min-h-full flex flex-col">`.
-- Theme tokens (`--background`, `--foreground`, `--font-sans`, `--font-mono`) are defined in `app/globals.css` via `@theme inline`. Dark mode is handled with a `@media (prefers-color-scheme: dark)` block on `:root` CSS vars.
+- All routes live under `frontend/app/`. Root layout (`app/layout.tsx`) loads Geist fonts via `next/font/google` and wraps everything in `<body className="min-h-full flex flex-col">`.
+- Theme tokens (`--background`, `--foreground`, `--font-sans`, `--font-mono`) are in `app/globals.css` via `@theme inline`. Dark mode uses `@media (prefers-color-scheme: dark)` on `:root` CSS vars.
 - TypeScript path alias: `@/*` → `./` (frontend root), configured in `tsconfig.json`.
-- `app/page.tsx` is the current placeholder home page — this is where the CollateralX UI should be built.
+- `app/page.tsx` is the placeholder home page — the CollateralX UI is built here.
 
 ---
 
-## Contracts (`contracts/`)
+## Algorand Contracts (`algorand/`)
 
-### Stack
-- **AlgoKit** workspace (min version `v1.12.1`)
-- Smart contract language: **Algorand TypeScript (PuyaTs)** by default; Algorand Python (PuyaPy) only if explicitly requested
-- Compiled to TEAL bytecode by the Puya compiler — these are AVM-constrained language subsets, NOT full TypeScript/Python
-- Smart contract sub-projects are created with `algokit init` inside `contracts/` and land in `contracts/projects/`
+### Stack & pre-requisites
+- **AlgoKit CLI** ≥ 2.5 · **Node.js** ≥ 22 · **Docker** (for LocalNet) · **Puya compiler** ≥ 4.4.4
+- Contract language: **Algorand TypeScript (PuyaTs)** — default; Python (PuyaPy) only if explicitly requested
+- PuyaTs is an AVM-constrained TypeScript subset compiled to TEAL. It is **not** full TypeScript — no external library imports in contract code
+- Key packages: `@algorandfoundation/algorand-typescript`, `@algorandfoundation/algokit-utils`, `puya-ts`
 
 ### Commands
 ```bash
-cd contracts
-algokit init          # scaffold a new smart contract project
-algokit generate devcontainer   # generate devcontainer config for Codespaces
+# Run from: algorand/contracts/projects/contracts/
+npm run check-types                        # TypeScript type check (no emit)
+
+# Run from: algorand/  (workspace root)
+algokit project bootstrap all             # Install npm deps for all sub-projects
+algokit localnet start                    # Start local Algorand network (requires Docker)
+algokit project run build                 # Compile all contracts → artifacts/
+algokit project run build -- hello_world  # Compile a single contract
+algokit project deploy localnet           # Deploy to LocalNet
+algokit project deploy localnet -- hello_world  # Deploy a single contract
+algokit generate env-file -a target_network localnet  # Create .env.localnet
+algokit generate smart-contract           # Scaffold a new contract
 ```
 
-Individual smart contract projects will have their own `README.md` inside `contracts/projects/<project-name>/` with build/test/deploy commands.
+### Contract structure
+- Each contract lives in its own subfolder: `smart_contracts/{contract_name}/contract.algo.ts`
+- Deployment logic lives in `smart_contracts/{contract_name}/deploy-config.ts`
+- `index.ts` auto-imports all `deploy-config.ts` files — no manual wiring needed unless you want selective deploys
+- Build output: `smart_contracts/artifacts/` — compiled TEAL + ABI specs
+- Generated TypeScript client: `smart_contracts/artifacts/{contract_name}/{ContractName}Client.ts`
+- Deployment uses `AlgorandClient.fromEnvironment()` + typed factory pattern from the generated client
 
 ### Mandatory contract development rules
-- **Never** use PyTEAL, Beaker (both legacy/superseded), or raw TEAL
-- **Never** import external/third-party libraries into contract code
-- Before writing any contract code, follow the workflow in `AGENTS.md`: search docs via the `kappa` MCP → retrieve canonical examples via `vibekit-mcp` GitHub tools → load the relevant skill from `.claude/skills/`
+- **Never** use PyTEAL, Beaker (legacy/superseded), or raw TEAL
+- **Never** import external/third-party libraries inside contract source files
+- Before writing contract code, follow the workflow in `AGENTS.md`: search docs via `kappa` MCP → get canonical examples via `vibekit-mcp` GitHub tools → load the relevant skill from `.claude/skills/`
 
 ### MCP servers (configured in `.mcp.json`)
-| Server | Tool prefix | Purpose |
-|--------|-------------|---------|
-| `kappa` | `kappa_search_algorand_knowledge_sources` | Official Algorand docs search |
+| Server | Key tools | Purpose |
+|--------|-----------|---------|
+| `kappa` | `kappa_search_algorand_knowledge_sources` | Official Algorand docs |
 | `vibekit-mcp` | `github_search_code`, `github_get_file_contents` | Canonical examples from `algorandfoundation/*` repos |
 
-### Canonical example repos (via vibekit-mcp)
+**Priority example repos** (search via `vibekit-mcp`):
 1. `algorandfoundation/devportal-code-examples` — beginner patterns (`projects/typescript-examples/contracts/`)
-2. `algorandfoundation/puya-ts` — advanced TypeScript (`examples/hello-world/`, `examples/auction/`, `examples/voting/`)
+2. `algorandfoundation/puya-ts` — advanced TS (`examples/hello-world/`, `examples/auction/`, `examples/voting/`)
 3. `algorandfoundation/puya` — advanced Python examples
 
 ---
 
-## Wireframe (`algo_stablecoin_protocol_wireframe.html`)
+## Wireframe (`docs/algo_stablecoin_protocol_wireframe.html`)
 
-Single-file HTML reference design — no build step, open directly in a browser. Covers 8 screens navigated via `switchPage(id)`:
+Single-file HTML reference design — open directly in browser, no build step. Authoritative UX spec for the frontend. 8 screens navigated via `switchPage(id)`:
 
-| Screen ID      | Purpose                                      |
-|----------------|----------------------------------------------|
-| `landing`      | Protocol overview + connect wallet CTA        |
-| `dashboard`    | Protocol stats, active vaults summary         |
-| `vaults`       | User's vault list                             |
-| `vault-detail` | Per-vault manage UI (deposit/mint/repay/withdraw tabs, live ratio preview) |
-| `create`       | Create new vault flow                         |
-| `liquidate`    | Browse and trigger liquidation opportunities  |
-| `analytics`    | Protocol-wide analytics                       |
-| `admin`        | Admin / ops panel                             |
+| Screen ID      | Purpose |
+|----------------|---------|
+| `landing`      | Protocol overview + connect wallet CTA |
+| `dashboard`    | Protocol stats, active vaults summary |
+| `vaults`       | User's vault list |
+| `vault-detail` | Per-vault manage UI (deposit / mint / repay / withdraw tabs, live ratio preview) |
+| `create`       | Create new vault flow |
+| `liquidate`    | Browse and trigger liquidation opportunities |
+| `analytics`    | Protocol-wide analytics |
+| `admin`        | Admin / ops panel |
 
-The wireframe uses a CSS-variable design system (`--color-text-*`, `--color-background-*`, `--color-border-*`, `--border-radius-*`). Inline comments contain domain logic details. Use this file as the authoritative UX spec when building the frontend.
+Uses a CSS-variable design system (`--color-text-*`, `--color-background-*`, `--color-border-*`, `--border-radius-*`). Inline comments contain domain logic details.
 
 ---
 
