@@ -4,6 +4,7 @@
 # Keep project source directories
 !algorand/
 !frontend/
+!services/
 
 # Keep root-level project files
 !CLAUDE.md
@@ -20,5 +21,7 @@
 docs/
 !frontend/docs/
 !frontend/docs/**
+!services/docs/
+!services/docs/**
 !algorand/contracts/projects/contracts/docs/
 !algorand/contracts/projects/contracts/docs/**

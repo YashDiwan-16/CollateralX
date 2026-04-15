@@ -1,0 +1,28 @@
+{
+  "name": "@collateralx/services",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:keeper": "tsx src/cli.ts keeper:once",
+    "dev:api": "tsx src/cli.ts read-api",
+    "keeper:once": "tsx src/cli.ts keeper:once",
+    "keeper:loop": "tsx src/cli.ts keeper:loop",
+    "oracle:update": "tsx src/cli.ts oracle:update",
+    "read-api": "tsx src/cli.ts read-api",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@algorandfoundation/algokit-utils": "^9.0.0",
+    "algosdk": "^3.5.2",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.27",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.4"
+  }
+}
