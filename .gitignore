@@ -18,3 +18,5 @@
 .cursorrules
 .mcp.json
 docs/
+!algorand/contracts/projects/contracts/docs/
+!algorand/contracts/projects/contracts/docs/**
