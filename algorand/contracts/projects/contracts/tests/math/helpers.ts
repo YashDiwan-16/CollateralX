@@ -38,14 +38,14 @@ export const PRICE_1USD: OraclePrice = {
 }
 
 export const DEFAULT_PARAMS: ProtocolParams = {
-  minCollateralRatioBps: DEFAULT_MIN_COLLATERAL_RATIO_BPS,
-  liquidationRatioBps: DEFAULT_LIQUIDATION_RATIO_BPS,
-  liquidationPenaltyBps: DEFAULT_LIQUIDATION_PENALTY_BPS,
-  liquidationBonusBps: DEFAULT_LIQUIDATION_BONUS_BPS,
-  oracleFreshnessWindowSeconds: DEFAULT_ORACLE_FRESHNESS_WINDOW_SECONDS,
-  vaultMintCapMicroStable: DEFAULT_VAULT_MINT_CAP_MICRO_STABLE,
-  protocolDebtCeilingMicroStable: DEFAULT_PROTOCOL_DEBT_CEILING_MICRO_STABLE,
-  minDebtFloorMicroStable: DEFAULT_MIN_DEBT_FLOOR_MICRO_STABLE,
+  minCollateralRatioBps: bps(DEFAULT_MIN_COLLATERAL_RATIO_BPS),
+  liquidationRatioBps: bps(DEFAULT_LIQUIDATION_RATIO_BPS),
+  liquidationPenaltyBps: bps(DEFAULT_LIQUIDATION_PENALTY_BPS),
+  liquidationBonusBps: bps(DEFAULT_LIQUIDATION_BONUS_BPS),
+  oracleFreshnessWindowSeconds: seconds(DEFAULT_ORACLE_FRESHNESS_WINDOW_SECONDS),
+  vaultMintCapMicroStable: microStable(DEFAULT_VAULT_MINT_CAP_MICRO_STABLE),
+  protocolDebtCeilingMicroStable: microStable(DEFAULT_PROTOCOL_DEBT_CEILING_MICRO_STABLE),
+  minDebtFloorMicroStable: microStable(DEFAULT_MIN_DEBT_FLOOR_MICRO_STABLE),
   mintPaused: false,
   emergencyPaused: false,
 }

@@ -1,0 +1,661 @@
+#pragma version 11
+#pragma typetrack false
+
+// @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
+main:
+    intcblock 0 8 1 32
+    bytecblock "init" "mgr" "ceil" "asa" "supply" "pflg" "adm"
+    txn ApplicationID
+    bnz main_after_if_else@2
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:46
+    // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
+    bytec_0 // "init"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:47
+    // protocolManagerAppId = GlobalState<uint64>({ key: 'mgr', initialValue: Uint64(0) })
+    bytec_1 // "mgr"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:48
+    // stableAssetId = GlobalState<uint64>({ key: 'asa', initialValue: Uint64(0) })
+    bytec_3 // "asa"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:49
+    // issuedSupplyMicroStable = GlobalState<uint64>({ key: 'supply', initialValue: Uint64(0) })
+    bytec 4 // "supply"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:50
+    // supplyCeilingMicroStable = GlobalState<uint64>({ key: 'ceil', initialValue: Uint64(0) })
+    bytec_2 // "ceil"
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:51
+    // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
+    bytec 5 // "pflg"
+    intc_0 // 0
+    app_global_put
+
+main_after_if_else@2:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:44
+    // export class CollateralXStablecoinController extends Contract {
+    txn OnCompletion
+    !
+    assert // OnCompletion must be NoOp
+    txn ApplicationID
+    bz main_create_NoOp@12
+    pushbytess 0xf7b01412 0xef9f9274 0x56694ceb 0xf7cd8980 0x10f76476 0x4d06c049 // method "initializeStablecoinController(uint64,uint64,uint64)void", method "readStablecoinControlState()(address,uint64,uint64,uint64,uint64,uint64,uint64)", method "adminSetStablecoinConfig(uint64,uint64,uint64)void", method "adminSetPauseFlags(uint64)void", method "mintForVault(uint64,address,uint64)void", method "burnForVault(uint64,uint64)void"
+    txna ApplicationArgs 0
+    match initializeStablecoinController readStablecoinControlState adminSetStablecoinConfig adminSetPauseFlags mintForVault burnForVault
+    err
+
+main_create_NoOp@12:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:44
+    // export class CollateralXStablecoinController extends Contract {
+    pushbytes 0xd324bea4 // method "createApplication(address)void"
+    txna ApplicationArgs 0
+    match createApplication
+    err
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.createApplication[routing]() -> void:
+createApplication:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:53
+    // @abimethod({ onCreate: 'require' })
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_3 // 32
+    ==
+    assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:55
+    // assert(admin !== Global.zeroAddress, 'admin required')
+    dup
+    global ZeroAddress
+    !=
+    assert // admin required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:45
+    // admin = GlobalState<Account>({ key: 'adm' })
+    bytec 6 // "adm"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:56
+    // this.admin.value = admin
+    dig 1
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:57
+    // emit('StablecoinAdminCreated', admin)
+    pushbytes 0x2ac1f974 // method "StablecoinAdminCreated(address)"
+    swap
+    concat
+    log
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:53
+    // @abimethod({ onCreate: 'require' })
+    intc_2 // 1
+    return
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.initializeStablecoinController[routing]() -> void:
+initializeStablecoinController:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:61-65
+    // public initializeStablecoinController(
+    //   protocolManagerAppId: uint64,
+    //   stableAssetId: uint64,
+    //   supplyCeilingMicroStable: uint64
+    // ): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    txna ApplicationArgs 2
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    txna ApplicationArgs 3
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:66
+    // this.assertAdmin()
+    callsub assertAdmin
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:67
+    // assert(this.initialized.value === Uint64(0), 'already initialized')
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:46
+    // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
+    bytec_0 // "init"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:67
+    // assert(this.initialized.value === Uint64(0), 'already initialized')
+    app_global_get_ex
+    assert // check GlobalState exists
+    !
+    assert // already initialized
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:160
+    // assert(protocolManagerAppId > Uint64(0), 'manager app required')
+    dig 2
+    assert // manager app required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:161
+    // assert(supplyCeilingMicroStable > Uint64(0), 'ceiling required')
+    dup
+    assert // ceiling required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:47
+    // protocolManagerAppId = GlobalState<uint64>({ key: 'mgr', initialValue: Uint64(0) })
+    bytec_1 // "mgr"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:69
+    // this.protocolManagerAppId.value = protocolManagerAppId
+    dig 3
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:48
+    // stableAssetId = GlobalState<uint64>({ key: 'asa', initialValue: Uint64(0) })
+    bytec_3 // "asa"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:70
+    // this.stableAssetId.value = stableAssetId
+    dig 2
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:50
+    // supplyCeilingMicroStable = GlobalState<uint64>({ key: 'ceil', initialValue: Uint64(0) })
+    bytec_2 // "ceil"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:71
+    // this.supplyCeilingMicroStable.value = supplyCeilingMicroStable
+    dig 1
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:46
+    // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
+    bytec_0 // "init"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:72
+    // this.initialized.value = Uint64(1)
+    intc_2 // 1
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:74
+    // admin: Txn.sender,
+    txn Sender
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:73-78
+    // emit<StablecoinControllerInitializedEvent>({
+    //   admin: Txn.sender,
+    //   protocolManagerAppId,
+    //   stableAssetId,
+    //   supplyCeilingMicroStable,
+    // })
+    uncover 3
+    itob
+    concat
+    uncover 2
+    itob
+    concat
+    swap
+    itob
+    concat
+    pushbytes 0xc76770d3 // method "StablecoinControllerInitializedEvent(address,uint64,uint64,uint64)"
+    swap
+    concat
+    log
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:61-65
+    // public initializeStablecoinController(
+    //   protocolManagerAppId: uint64,
+    //   stableAssetId: uint64,
+    //   supplyCeilingMicroStable: uint64
+    // ): void {
+    intc_2 // 1
+    return
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.readStablecoinControlState[routing]() -> void:
+readStablecoinControlState:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:85
+    // admin: this.admin.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:45
+    // admin = GlobalState<Account>({ key: 'adm' })
+    bytec 6 // "adm"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:85
+    // admin: this.admin.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:86
+    // initialized: this.initialized.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:46
+    // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
+    bytec_0 // "init"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:86
+    // initialized: this.initialized.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:87
+    // protocolManagerAppId: this.protocolManagerAppId.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:47
+    // protocolManagerAppId = GlobalState<uint64>({ key: 'mgr', initialValue: Uint64(0) })
+    bytec_1 // "mgr"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:87
+    // protocolManagerAppId: this.protocolManagerAppId.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:88
+    // stableAssetId: this.stableAssetId.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:48
+    // stableAssetId = GlobalState<uint64>({ key: 'asa', initialValue: Uint64(0) })
+    bytec_3 // "asa"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:88
+    // stableAssetId: this.stableAssetId.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:89
+    // issuedSupplyMicroStable: this.issuedSupplyMicroStable.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:49
+    // issuedSupplyMicroStable = GlobalState<uint64>({ key: 'supply', initialValue: Uint64(0) })
+    bytec 4 // "supply"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:89
+    // issuedSupplyMicroStable: this.issuedSupplyMicroStable.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:90
+    // supplyCeilingMicroStable: this.supplyCeilingMicroStable.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:50
+    // supplyCeilingMicroStable = GlobalState<uint64>({ key: 'ceil', initialValue: Uint64(0) })
+    bytec_2 // "ceil"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:90
+    // supplyCeilingMicroStable: this.supplyCeilingMicroStable.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:91
+    // pauseFlags: this.pauseFlags.value,
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:51
+    // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
+    bytec 5 // "pflg"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:91
+    // pauseFlags: this.pauseFlags.value,
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:84-92
+    // return {
+    //   admin: this.admin.value,
+    //   initialized: this.initialized.value,
+    //   protocolManagerAppId: this.protocolManagerAppId.value,
+    //   stableAssetId: this.stableAssetId.value,
+    //   issuedSupplyMicroStable: this.issuedSupplyMicroStable.value,
+    //   supplyCeilingMicroStable: this.supplyCeilingMicroStable.value,
+    //   pauseFlags: this.pauseFlags.value,
+    // }
+    uncover 5
+    itob
+    uncover 6
+    swap
+    concat
+    uncover 5
+    itob
+    concat
+    uncover 4
+    itob
+    concat
+    uncover 3
+    itob
+    concat
+    uncover 2
+    itob
+    concat
+    swap
+    itob
+    concat
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:82-83
+    // @readonly
+    // public readStablecoinControlState(): StablecoinControlState {
+    pushbytes 0x151f7c75
+    swap
+    concat
+    log
+    intc_2 // 1
+    return
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.adminSetStablecoinConfig[routing]() -> void:
+adminSetStablecoinConfig:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:96-100
+    // public adminSetStablecoinConfig(
+    //   protocolManagerAppId: uint64,
+    //   stableAssetId: uint64,
+    //   supplyCeilingMicroStable: uint64
+    // ): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    dup
+    btoi
+    txna ApplicationArgs 2
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    dup
+    btoi
+    txna ApplicationArgs 3
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    dup
+    btoi
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:101
+    // this.assertReady()
+    callsub assertReady
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:102
+    // this.assertAdmin()
+    callsub assertAdmin
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:160
+    // assert(protocolManagerAppId > Uint64(0), 'manager app required')
+    dig 4
+    assert // manager app required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:161
+    // assert(supplyCeilingMicroStable > Uint64(0), 'ceiling required')
+    dup
+    assert // ceiling required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:104
+    // assert(this.issuedSupplyMicroStable.value <= supplyCeilingMicroStable, 'ceiling below supply')
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:49
+    // issuedSupplyMicroStable = GlobalState<uint64>({ key: 'supply', initialValue: Uint64(0) })
+    bytec 4 // "supply"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:104
+    // assert(this.issuedSupplyMicroStable.value <= supplyCeilingMicroStable, 'ceiling below supply')
+    app_global_get_ex
+    assert // check GlobalState exists
+    dig 1
+    <=
+    assert // ceiling below supply
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:47
+    // protocolManagerAppId = GlobalState<uint64>({ key: 'mgr', initialValue: Uint64(0) })
+    bytec_1 // "mgr"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:105
+    // this.protocolManagerAppId.value = protocolManagerAppId
+    uncover 5
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:48
+    // stableAssetId = GlobalState<uint64>({ key: 'asa', initialValue: Uint64(0) })
+    bytec_3 // "asa"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:106
+    // this.stableAssetId.value = stableAssetId
+    uncover 3
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:50
+    // supplyCeilingMicroStable = GlobalState<uint64>({ key: 'ceil', initialValue: Uint64(0) })
+    bytec_2 // "ceil"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:107
+    // this.supplyCeilingMicroStable.value = supplyCeilingMicroStable
+    swap
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:108
+    // emit('StablecoinConfigUpdated', Txn.sender, protocolManagerAppId, stableAssetId, supplyCeilingMicroStable)
+    txn Sender
+    uncover 3
+    concat
+    uncover 2
+    concat
+    swap
+    concat
+    pushbytes 0x063ec276 // method "StablecoinConfigUpdated(address,uint64,uint64,uint64)"
+    swap
+    concat
+    log
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:96-100
+    // public adminSetStablecoinConfig(
+    //   protocolManagerAppId: uint64,
+    //   stableAssetId: uint64,
+    //   supplyCeilingMicroStable: uint64
+    // ): void {
+    intc_2 // 1
+    return
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.adminSetPauseFlags[routing]() -> void:
+adminSetPauseFlags:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:112
+    // public adminSetPauseFlags(pauseFlags: uint64): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    dup
+    btoi
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:113
+    // this.assertReady()
+    callsub assertReady
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:114
+    // this.assertAdmin()
+    callsub assertAdmin
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:51
+    // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
+    bytec 5 // "pflg"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:115
+    // this.pauseFlags.value = pauseFlags
+    swap
+    app_global_put
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:116
+    // emit('StablecoinPauseFlagsUpdated', Txn.sender, pauseFlags)
+    txn Sender
+    swap
+    concat
+    pushbytes 0x004bf936 // method "StablecoinPauseFlagsUpdated(address,uint64)"
+    swap
+    concat
+    log
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:112
+    // public adminSetPauseFlags(pauseFlags: uint64): void {
+    intc_2 // 1
+    return
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.mintForVault[routing]() -> void:
+mintForVault:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:120
+    // public mintForVault(vaultId: uint64, receiver: Account, amountMicroStable: uint64): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    txna ApplicationArgs 2
+    dup
+    len
+    intc_3 // 32
+    ==
+    assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
+    txna ApplicationArgs 3
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:121
+    // this.assertReady()
+    callsub assertReady
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:122
+    // this.assertManagerCaller()
+    callsub assertManagerCaller
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:123
+    // this.assertNotPaused(PAUSE_MINT)
+    intc_2 // 1
+    callsub assertNotPaused
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:124
+    // assert(receiver !== Global.zeroAddress, 'receiver required')
+    global ZeroAddress
+    uncover 2
+    !=
+    assert // receiver required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:125
+    // assert(vaultId > Uint64(0), 'vault id required')
+    swap
+    assert // vault id required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:126
+    // assert(amountMicroStable > Uint64(0), 'zero mint')
+    dup
+    assert // zero mint
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:127
+    // assert(this.issuedSupplyMicroStable.value + amountMicroStable <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:49
+    // issuedSupplyMicroStable = GlobalState<uint64>({ key: 'supply', initialValue: Uint64(0) })
+    bytec 4 // "supply"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:127
+    // assert(this.issuedSupplyMicroStable.value + amountMicroStable <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')
+    app_global_get_ex
+    assert // check GlobalState exists
+    +
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:50
+    // supplyCeilingMicroStable = GlobalState<uint64>({ key: 'ceil', initialValue: Uint64(0) })
+    bytec_2 // "ceil"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:127
+    // assert(this.issuedSupplyMicroStable.value + amountMicroStable <= this.supplyCeilingMicroStable.value, 'ceiling exceeded')
+    app_global_get_ex
+    assert // check GlobalState exists
+    <=
+    assert // ceiling exceeded
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:128
+    // err('stablecoin mint not implemented')
+    err // stablecoin mint not implemented
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.burnForVault[routing]() -> void:
+burnForVault:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:132
+    // public burnForVault(vaultId: uint64, amountMicroStable: uint64): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    txna ApplicationArgs 2
+    dup
+    len
+    intc_1 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:133
+    // this.assertReady()
+    callsub assertReady
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:134
+    // this.assertManagerCaller()
+    callsub assertManagerCaller
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:135
+    // this.assertNotPaused(PAUSE_BURN)
+    pushint 2 // 2
+    callsub assertNotPaused
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:136
+    // assert(vaultId > Uint64(0), 'vault id required')
+    swap
+    assert // vault id required
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:137
+    // assert(amountMicroStable > Uint64(0), 'zero burn')
+    assert // zero burn
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:138
+    // err('stablecoin burn not implemented')
+    err // stablecoin burn not implemented
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertReady() -> void:
+assertReady:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:142
+    // assert(this.initialized.value === Uint64(1), 'stablecoin controller not initialized')
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:46
+    // initialized = GlobalState<uint64>({ key: 'init', initialValue: Uint64(0) })
+    bytec_0 // "init"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:142
+    // assert(this.initialized.value === Uint64(1), 'stablecoin controller not initialized')
+    app_global_get_ex
+    assert // check GlobalState exists
+    intc_2 // 1
+    ==
+    assert // stablecoin controller not initialized
+    retsub
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertAdmin() -> void:
+assertAdmin:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:146
+    // assert(Txn.sender === this.admin.value, 'admin only')
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:45
+    // admin = GlobalState<Account>({ key: 'adm' })
+    bytec 6 // "adm"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:146
+    // assert(Txn.sender === this.admin.value, 'admin only')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    assert // admin only
+    retsub
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertManagerCaller() -> void:
+assertManagerCaller:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:150
+    // const managerApp = Application(this.protocolManagerAppId.value)
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:47
+    // protocolManagerAppId = GlobalState<uint64>({ key: 'mgr', initialValue: Uint64(0) })
+    bytec_1 // "mgr"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:150
+    // const managerApp = Application(this.protocolManagerAppId.value)
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:151
+    // assert(Txn.sender === managerApp.address, 'manager app only')
+    txn Sender
+    swap
+    app_params_get AppAddress
+    assert // application exists
+    ==
+    assert // manager app only
+    retsub
+
+
+// smart_contracts/collateralx_stablecoin/contract.algo.ts::CollateralXStablecoinController.assertNotPaused(flag: uint64) -> void:
+assertNotPaused:
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:154
+    // private assertNotPaused(flag: uint64): void {
+    proto 1 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:155
+    // const active: uint64 = this.pauseFlags.value & flag
+    intc_0 // 0
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:51
+    // pauseFlags = GlobalState<uint64>({ key: 'pflg', initialValue: Uint64(0) })
+    bytec 5 // "pflg"
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:155
+    // const active: uint64 = this.pauseFlags.value & flag
+    app_global_get_ex
+    assert // check GlobalState exists
+    frame_dig -1
+    &
+    // smart_contracts/collateralx_stablecoin/contract.algo.ts:156
+    // assert(active === Uint64(0), 'stablecoin paused')
+    !
+    assert // stablecoin paused
+    retsub

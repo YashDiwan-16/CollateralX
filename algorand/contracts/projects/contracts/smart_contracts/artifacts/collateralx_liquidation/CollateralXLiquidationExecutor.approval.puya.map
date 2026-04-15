@@ -1,0 +1,2415 @@
+{
+  "version": 3,
+  "sources": [
+    "../../collateralx_liquidation/contract.algo.ts"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAyCgB;AAAwD;AAAtE;AACuB;AAAuD;AAA9E;AAEa;AAAwD;AAArE;AALF;;AAAA;AAAA;AAAA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;AAAA;AAAA;;;;;;AAAA;;;AAAA;;;;AAAA;AAOG;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEQ;AAAU;;AAAV;AAAP;AARM;;AASN;;AAAA;AACA;;;;;;AAAA;AAAA;AAAA;AAJD;AAAA;AAQD;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACE;;;AACO;AAfK;AAeL;AAAA;AAAA;AAAP;AACA;;AAAA;AAfqB;AAgBrB;;AAAA;AAfO;AAgBP;;AAAA;AAlBY;AAmBoB;AAAhC;AACmD;;AAAT;;AAAA;AAAA;AAAA;AAAA;AAA1C;;;;;;AAAA;AAAA;AAAA;AAPF;AAAA;AAcW;AA5BH;;AA4BG;AAAA;AACM;AA5BH;AA4BG;AAAA;AACS;AA5BH;AA4BG;AAAA;AACd;AA5BH;AA4BG;AAAA;AACI;AA5BH;AA4BG;AAAA;AALP;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAFT;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAYA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACE;;;AACA;;;AACA;;AAAA;AAtCqB;AAuCrB;;AAAA;AAtCO;AAuCP;;AAAA;AACiC;;AAAjC;;AAAA;AAAA;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AANF;AAAA;AAUA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AACE;;;AACA;;;AA7CW;AA8CX;AAAA;AACqC;;AAArC;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AAJF;AAAA;AAQA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;;AAAA;AAAA;AACE;;;AAiBuB;AArEZ;AAqEY;AAAA;AAhBF;AAgBE;AAChB;AAAP;AAII;AA3EG;AA2EH;AAAA;AAAsB;;AAAtB;AAAJ;;;AACS;;AAAe;AA5EjB;AA4EiB;AAAA;AAAf;AAAP;AApBF;;AAAA;AACO;AAAA;;AAAP;AACA;AAIO;AAhEK;AAgEL;AAAA;AAAkC;AAAlC;AAAP;;AAIO;;AAAe;AArEhB;;AAqEgB;AAAA;AAAf;AAAP;",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "@algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram",
+      "params": {},
+      "block": "main",
+      "stack_in": [],
+      "op": "intcblock 0 1 8 32"
+    },
+    "7": {
+      "op": "bytecblock \"init\" \"keeper\" \"mgr\" \"pflg\" \"adm\""
+    },
+    "34": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "reinterpret_bool%0#0"
+      ],
+      "stack_out": [
+        "reinterpret_bool%0#0"
+      ]
+    },
+    "36": {
+      "op": "bnz main_after_if_else@2",
+      "stack_out": []
+    },
+    "39": {
+      "op": "bytec_0 // \"init\"",
+      "defined_out": [
+        "\"init\""
+      ],
+      "stack_out": [
+        "\"init\""
+      ]
+    },
+    "40": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "\"init\"",
+        "0"
+      ],
+      "stack_out": [
+        "\"init\"",
+        "0"
+      ]
+    },
+    "41": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "42": {
+      "op": "bytec_2 // \"mgr\"",
+      "defined_out": [
+        "\"mgr\""
+      ],
+      "stack_out": [
+        "\"mgr\""
+      ]
+    },
+    "43": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"mgr\"",
+        "0"
+      ]
+    },
+    "44": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "45": {
+      "op": "bytec_3 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\""
+      ],
+      "stack_out": [
+        "\"pflg\""
+      ]
+    },
+    "46": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"pflg\"",
+        "0"
+      ]
+    },
+    "47": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "48": {
+      "block": "main_after_if_else@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "50": {
+      "op": "!",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "51": {
+      "error": "OnCompletion must be NoOp",
+      "op": "assert // OnCompletion must be NoOp",
+      "stack_out": []
+    },
+    "52": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "54": {
+      "op": "bz main_create_NoOp@11",
+      "stack_out": []
+    },
+    "57": {
+      "op": "pushbytess 0x8a95f62b 0x7c29406a 0xecec61e4 0xf7cd8980 0x82d6e2fc // method \"initializeLiquidationExecutor(uint64,address)void\", method \"readLiquidationExecutorState()(address,uint64,uint64,address,uint64)\", method \"adminSetLiquidationConfig(uint64,address)void\", method \"adminSetPauseFlags(uint64)void\", method \"executeLiquidation(uint64,axfer)void\"",
+      "defined_out": [
+        "Method(adminSetLiquidationConfig(uint64,address)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(executeLiquidation(uint64,axfer)void)",
+        "Method(initializeLiquidationExecutor(uint64,address)void)",
+        "Method(readLiquidationExecutorState()(address,uint64,uint64,address,uint64))"
+      ],
+      "stack_out": [
+        "Method(initializeLiquidationExecutor(uint64,address)void)",
+        "Method(readLiquidationExecutorState()(address,uint64,uint64,address,uint64))",
+        "Method(adminSetLiquidationConfig(uint64,address)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(executeLiquidation(uint64,axfer)void)"
+      ]
+    },
+    "84": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(adminSetLiquidationConfig(uint64,address)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(executeLiquidation(uint64,axfer)void)",
+        "Method(initializeLiquidationExecutor(uint64,address)void)",
+        "Method(readLiquidationExecutorState()(address,uint64,uint64,address,uint64))",
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "Method(initializeLiquidationExecutor(uint64,address)void)",
+        "Method(readLiquidationExecutorState()(address,uint64,uint64,address,uint64))",
+        "Method(adminSetLiquidationConfig(uint64,address)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(executeLiquidation(uint64,axfer)void)",
+        "tmp%4#0"
+      ]
+    },
+    "87": {
+      "op": "match initializeLiquidationExecutor readLiquidationExecutorState adminSetLiquidationConfig adminSetPauseFlags executeLiquidation",
+      "stack_out": []
+    },
+    "99": {
+      "op": "err"
+    },
+    "100": {
+      "block": "main_create_NoOp@11",
+      "stack_in": [],
+      "op": "pushbytes 0xd324bea4 // method \"createApplication(address)void\"",
+      "defined_out": [
+        "Method(createApplication(address)void)"
+      ],
+      "stack_out": [
+        "Method(createApplication(address)void)"
+      ]
+    },
+    "106": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(createApplication(address)void)",
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "Method(createApplication(address)void)",
+        "tmp%5#0"
+      ]
+    },
+    "109": {
+      "op": "match createApplication",
+      "stack_out": []
+    },
+    "113": {
+      "op": "err"
+    },
+    "114": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.createApplication[routing]",
+      "params": {},
+      "block": "createApplication",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "117": {
+      "op": "dup",
+      "defined_out": [
+        "admin#0",
+        "admin#0 (copy)"
+      ],
+      "stack_out": [
+        "admin#0",
+        "admin#0 (copy)"
+      ]
+    },
+    "118": {
+      "op": "len",
+      "defined_out": [
+        "admin#0",
+        "len%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "len%0#0"
+      ]
+    },
+    "119": {
+      "op": "intc_3 // 32",
+      "defined_out": [
+        "32",
+        "admin#0",
+        "len%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "len%0#0",
+        "32"
+      ]
+    },
+    "120": {
+      "op": "==",
+      "defined_out": [
+        "admin#0",
+        "eq%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "eq%0#0"
+      ]
+    },
+    "121": {
+      "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "122": {
+      "op": "dup"
+    },
+    "123": {
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "admin#0",
+        "admin#0 (copy)",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "admin#0",
+        "admin#0 (copy)",
+        "tmp%0#1"
+      ]
+    },
+    "125": {
+      "op": "!=",
+      "defined_out": [
+        "admin#0",
+        "tmp%1#1"
+      ],
+      "stack_out": [
+        "admin#0",
+        "tmp%1#1"
+      ]
+    },
+    "126": {
+      "error": "admin required",
+      "op": "assert // admin required",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "127": {
+      "op": "bytec 4 // \"adm\"",
+      "defined_out": [
+        "\"adm\"",
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "\"adm\""
+      ]
+    },
+    "129": {
+      "op": "dig 1",
+      "stack_out": [
+        "admin#0",
+        "\"adm\"",
+        "admin#0 (copy)"
+      ]
+    },
+    "131": {
+      "op": "app_global_put",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "132": {
+      "op": "pushbytes 0xdaf83ffa // method \"LiquidationAdminCreated(address)\"",
+      "defined_out": [
+        "Method(LiquidationAdminCreated(address))",
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "Method(LiquidationAdminCreated(address))"
+      ]
+    },
+    "138": {
+      "op": "swap",
+      "stack_out": [
+        "Method(LiquidationAdminCreated(address))",
+        "admin#0"
+      ]
+    },
+    "139": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "140": {
+      "op": "log",
+      "stack_out": []
+    },
+    "141": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "142": {
+      "op": "return",
+      "stack_out": []
+    },
+    "143": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.initializeLiquidationExecutor[routing]",
+      "params": {},
+      "block": "initializeLiquidationExecutor",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "146": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "147": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "148": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "149": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "150": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "151": {
+      "op": "btoi",
+      "defined_out": [
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0"
+      ]
+    },
+    "152": {
+      "op": "txna ApplicationArgs 2",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "155": {
+      "op": "dup",
+      "defined_out": [
+        "keeper#0",
+        "keeper#0 (copy)",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "keeper#0 (copy)"
+      ]
+    },
+    "156": {
+      "op": "len",
+      "defined_out": [
+        "keeper#0",
+        "len%1#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "len%1#0"
+      ]
+    },
+    "157": {
+      "op": "intc_3 // 32",
+      "defined_out": [
+        "32",
+        "keeper#0",
+        "len%1#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "len%1#0",
+        "32"
+      ]
+    },
+    "158": {
+      "op": "==",
+      "defined_out": [
+        "eq%1#0",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "eq%1#0"
+      ]
+    },
+    "159": {
+      "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "160": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "163": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "0"
+      ]
+    },
+    "164": {
+      "op": "bytec_0 // \"init\"",
+      "defined_out": [
+        "\"init\"",
+        "0",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "0",
+        "\"init\""
+      ]
+    },
+    "165": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "keeper#0",
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "166": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "167": {
+      "op": "!",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "tmp%0#1"
+      ]
+    },
+    "168": {
+      "error": "already initialized",
+      "op": "assert // already initialized",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "169": {
+      "op": "dig 1",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "protocolManagerAppId#0 (copy)"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "protocolManagerAppId#0 (copy)"
+      ]
+    },
+    "171": {
+      "error": "manager app required",
+      "op": "assert // manager app required",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "172": {
+      "op": "bytec_2 // \"mgr\"",
+      "defined_out": [
+        "\"mgr\"",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"mgr\""
+      ]
+    },
+    "173": {
+      "op": "dig 2",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"mgr\"",
+        "protocolManagerAppId#0 (copy)"
+      ]
+    },
+    "175": {
+      "op": "app_global_put",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "176": {
+      "op": "bytec_1 // \"keeper\"",
+      "defined_out": [
+        "\"keeper\"",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"keeper\""
+      ]
+    },
+    "177": {
+      "op": "dig 1",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"keeper\"",
+        "keeper#0 (copy)"
+      ]
+    },
+    "179": {
+      "op": "app_global_put",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "180": {
+      "op": "bytec_0 // \"init\"",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"init\""
+      ]
+    },
+    "181": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "\"init\"",
+        "1",
+        "keeper#0",
+        "protocolManagerAppId#0"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"init\"",
+        "1"
+      ]
+    },
+    "182": {
+      "op": "app_global_put",
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "183": {
+      "op": "txn Sender",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "tmp%2#1"
+      ],
+      "stack_out": [
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "tmp%2#1"
+      ]
+    },
+    "185": {
+      "op": "uncover 2",
+      "stack_out": [
+        "keeper#0",
+        "tmp%2#1",
+        "protocolManagerAppId#0"
+      ]
+    },
+    "187": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "keeper#0",
+        "tmp%2#1"
+      ],
+      "stack_out": [
+        "keeper#0",
+        "tmp%2#1",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "188": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "keeper#0"
+      ],
+      "stack_out": [
+        "keeper#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "189": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%1#0",
+        "keeper#0"
+      ]
+    },
+    "190": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0"
+      ]
+    },
+    "191": {
+      "op": "pushbytes 0x02aacafe // method \"LiquidationExecutorInitializedEvent(address,uint64,address)\"",
+      "defined_out": [
+        "Method(LiquidationExecutorInitializedEvent(address,uint64,address))",
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0",
+        "Method(LiquidationExecutorInitializedEvent(address,uint64,address))"
+      ]
+    },
+    "197": {
+      "op": "swap",
+      "stack_out": [
+        "Method(LiquidationExecutorInitializedEvent(address,uint64,address))",
+        "aggregate%head%2#0"
+      ]
+    },
+    "198": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "199": {
+      "op": "log",
+      "stack_out": []
+    },
+    "200": {
+      "op": "intc_1 // 1",
+      "stack_out": [
+        "1"
+      ]
+    },
+    "201": {
+      "op": "return",
+      "stack_out": []
+    },
+    "202": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.readLiquidationExecutorState[routing]",
+      "params": {},
+      "block": "readLiquidationExecutorState",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "203": {
+      "op": "bytec 4 // \"adm\"",
+      "defined_out": [
+        "\"adm\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"adm\""
+      ]
+    },
+    "205": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "206": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "207": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "0"
+      ]
+    },
+    "208": {
+      "op": "bytec_0 // \"init\"",
+      "defined_out": [
+        "\"init\"",
+        "0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "0",
+        "\"init\""
+      ]
+    },
+    "209": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "210": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "211": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "0"
+      ]
+    },
+    "212": {
+      "op": "bytec_2 // \"mgr\"",
+      "defined_out": [
+        "\"mgr\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "0",
+        "\"mgr\""
+      ]
+    },
+    "213": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "214": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ]
+    },
+    "215": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "0"
+      ]
+    },
+    "216": {
+      "op": "bytec_1 // \"keeper\"",
+      "defined_out": [
+        "\"keeper\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "0",
+        "\"keeper\""
+      ]
+    },
+    "217": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%3#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_exists%3#0"
+      ]
+    },
+    "218": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ]
+    },
+    "219": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "0"
+      ]
+    },
+    "220": {
+      "op": "bytec_3 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "0",
+        "\"pflg\""
+      ]
+    },
+    "221": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%4#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "maybe_exists%4#0"
+      ]
+    },
+    "222": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ]
+    },
+    "223": {
+      "op": "uncover 3",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "225": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "maybe_value%0#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "226": {
+      "op": "uncover 4",
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%val_as_bytes%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "228": {
+      "op": "swap",
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "maybe_value%0#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "229": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "230": {
+      "op": "uncover 3",
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "maybe_value%2#0"
+      ]
+    },
+    "232": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "233": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%2#0"
+      ]
+    },
+    "234": {
+      "op": "uncover 2",
+      "stack_out": [
+        "maybe_value%4#0",
+        "aggregate%head%2#0",
+        "maybe_value%3#0"
+      ]
+    },
+    "236": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "237": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%3#0",
+        "maybe_value%4#0"
+      ]
+    },
+    "238": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "aggregate%val_as_bytes%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%3#0",
+        "aggregate%val_as_bytes%2#0"
+      ]
+    },
+    "239": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%4#0"
+      ],
+      "stack_out": [
+        "aggregate%head%4#0"
+      ]
+    },
+    "240": {
+      "op": "pushbytes 0x151f7c75",
+      "defined_out": [
+        "0x151f7c75",
+        "aggregate%head%4#0"
+      ],
+      "stack_out": [
+        "aggregate%head%4#0",
+        "0x151f7c75"
+      ]
+    },
+    "246": {
+      "op": "swap",
+      "stack_out": [
+        "0x151f7c75",
+        "aggregate%head%4#0"
+      ]
+    },
+    "247": {
+      "op": "concat",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "248": {
+      "op": "log",
+      "stack_out": []
+    },
+    "249": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "250": {
+      "op": "return",
+      "stack_out": []
+    },
+    "251": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.adminSetLiquidationConfig[routing]",
+      "params": {},
+      "block": "adminSetLiquidationConfig",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "254": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "255": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "256": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "257": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "258": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "259": {
+      "op": "dup",
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "260": {
+      "op": "btoi",
+      "defined_out": [
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0"
+      ]
+    },
+    "261": {
+      "op": "txna ApplicationArgs 2",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "264": {
+      "op": "dup",
+      "defined_out": [
+        "keeper#0",
+        "keeper#0 (copy)",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "keeper#0 (copy)"
+      ]
+    },
+    "265": {
+      "op": "len",
+      "defined_out": [
+        "keeper#0",
+        "len%1#0",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "len%1#0"
+      ]
+    },
+    "266": {
+      "op": "intc_3 // 32",
+      "defined_out": [
+        "32",
+        "keeper#0",
+        "len%1#0",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "len%1#0",
+        "32"
+      ]
+    },
+    "267": {
+      "op": "==",
+      "defined_out": [
+        "eq%1#0",
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "eq%1#0"
+      ]
+    },
+    "268": {
+      "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "269": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady",
+      "op": "callsub assertReady"
+    },
+    "272": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "275": {
+      "op": "dig 1",
+      "defined_out": [
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "protocolManagerAppId#0 (copy)",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "protocolManagerAppId#0 (copy)"
+      ]
+    },
+    "277": {
+      "error": "manager app required",
+      "op": "assert // manager app required",
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0"
+      ]
+    },
+    "278": {
+      "op": "bytec_2 // \"mgr\"",
+      "defined_out": [
+        "\"mgr\"",
+        "keeper#0",
+        "protocolManagerAppId#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "protocolManagerAppId#0",
+        "keeper#0",
+        "\"mgr\""
+      ]
+    },
+    "279": {
+      "op": "uncover 2",
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0",
+        "\"mgr\"",
+        "protocolManagerAppId#0"
+      ]
+    },
+    "281": {
+      "op": "app_global_put",
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0"
+      ]
+    },
+    "282": {
+      "op": "bytec_1 // \"keeper\"",
+      "defined_out": [
+        "\"keeper\"",
+        "keeper#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0",
+        "\"keeper\""
+      ]
+    },
+    "283": {
+      "op": "dig 1",
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0",
+        "\"keeper\"",
+        "keeper#0 (copy)"
+      ]
+    },
+    "285": {
+      "op": "app_global_put",
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0"
+      ]
+    },
+    "286": {
+      "op": "txn Sender",
+      "defined_out": [
+        "keeper#0",
+        "tmp%0#0",
+        "tmp%1#1"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "keeper#0",
+        "tmp%1#1"
+      ]
+    },
+    "288": {
+      "op": "uncover 2",
+      "stack_out": [
+        "keeper#0",
+        "tmp%1#1",
+        "tmp%0#0"
+      ]
+    },
+    "290": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "keeper#0"
+      ],
+      "stack_out": [
+        "keeper#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "291": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%1#0",
+        "keeper#0"
+      ]
+    },
+    "292": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0"
+      ]
+    },
+    "293": {
+      "op": "pushbytes 0x6aa78033 // method \"LiquidationConfigUpdated(address,uint64,address)\"",
+      "defined_out": [
+        "Method(LiquidationConfigUpdated(address,uint64,address))",
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0",
+        "Method(LiquidationConfigUpdated(address,uint64,address))"
+      ]
+    },
+    "299": {
+      "op": "swap",
+      "stack_out": [
+        "Method(LiquidationConfigUpdated(address,uint64,address))",
+        "aggregate%head%2#0"
+      ]
+    },
+    "300": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "301": {
+      "op": "log",
+      "stack_out": []
+    },
+    "302": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "303": {
+      "op": "return",
+      "stack_out": []
+    },
+    "304": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.adminSetPauseFlags[routing]",
+      "params": {},
+      "block": "adminSetPauseFlags",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "307": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "308": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "309": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "310": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "311": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "312": {
+      "op": "dup",
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "313": {
+      "op": "btoi",
+      "defined_out": [
+        "pauseFlags#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "pauseFlags#0"
+      ]
+    },
+    "314": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady",
+      "op": "callsub assertReady"
+    },
+    "317": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "320": {
+      "op": "bytec_3 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "pauseFlags#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "pauseFlags#0",
+        "\"pflg\""
+      ]
+    },
+    "321": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%0#0",
+        "\"pflg\"",
+        "pauseFlags#0"
+      ]
+    },
+    "322": {
+      "op": "app_global_put",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "323": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#1"
+      ]
+    },
+    "325": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%0#1",
+        "tmp%0#0"
+      ]
+    },
+    "326": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0"
+      ]
+    },
+    "327": {
+      "op": "pushbytes 0x3a507a30 // method \"LiquidationPauseFlagsUpdated(address,uint64)\"",
+      "defined_out": [
+        "Method(LiquidationPauseFlagsUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "Method(LiquidationPauseFlagsUpdated(address,uint64))"
+      ]
+    },
+    "333": {
+      "op": "swap",
+      "stack_out": [
+        "Method(LiquidationPauseFlagsUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ]
+    },
+    "334": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "335": {
+      "op": "log",
+      "stack_out": []
+    },
+    "336": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "337": {
+      "op": "return",
+      "stack_out": []
+    },
+    "338": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.executeLiquidation[routing]",
+      "params": {},
+      "block": "executeLiquidation",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "341": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "342": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "343": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "344": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "345": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "346": {
+      "op": "btoi",
+      "defined_out": [
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0"
+      ]
+    },
+    "347": {
+      "op": "txn GroupIndex",
+      "defined_out": [
+        "tmp%2#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "tmp%2#0"
+      ]
+    },
+    "349": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "tmp%2#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "tmp%2#0",
+        "1"
+      ]
+    },
+    "350": {
+      "op": "-",
+      "defined_out": [
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "351": {
+      "op": "dup",
+      "defined_out": [
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "repayment#0"
+      ]
+    },
+    "352": {
+      "op": "gtxns TypeEnum",
+      "defined_out": [
+        "gtxn_type%0#0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "gtxn_type%0#0"
+      ]
+    },
+    "354": {
+      "op": "pushint 4 // axfer",
+      "defined_out": [
+        "axfer",
+        "gtxn_type%0#0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "gtxn_type%0#0",
+        "axfer"
+      ]
+    },
+    "356": {
+      "op": "==",
+      "defined_out": [
+        "gtxn_type_matches%0#0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "gtxn_type_matches%0#0"
+      ]
+    },
+    "357": {
+      "error": "transaction type is axfer",
+      "op": "assert // transaction type is axfer",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "358": {
+      "callsub": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady",
+      "op": "callsub assertReady"
+    },
+    "361": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "0"
+      ]
+    },
+    "362": {
+      "op": "bytec_3 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "0",
+        "\"pflg\""
+      ]
+    },
+    "363": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "364": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "365": {
+      "op": "intc_1 // 1",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#0",
+        "1"
+      ]
+    },
+    "366": {
+      "op": "&",
+      "defined_out": [
+        "active#0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "active#0"
+      ]
+    },
+    "367": {
+      "op": "!",
+      "defined_out": [
+        "repayment#0",
+        "tmp%1#2",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%1#2"
+      ]
+    },
+    "368": {
+      "error": "liquidation paused",
+      "op": "assert // liquidation paused",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "369": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "0"
+      ]
+    },
+    "370": {
+      "op": "bytec_1 // \"keeper\"",
+      "defined_out": [
+        "\"keeper\"",
+        "0",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "0",
+        "\"keeper\""
+      ]
+    },
+    "371": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#1",
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#1",
+        "maybe_exists%0#0"
+      ]
+    },
+    "372": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#1"
+      ]
+    },
+    "373": {
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "maybe_value%0#1",
+        "repayment#0",
+        "tmp%0#2",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "maybe_value%0#1",
+        "tmp%0#2"
+      ]
+    },
+    "375": {
+      "op": "!=",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%1#2"
+      ]
+    },
+    "376": {
+      "op": "bz executeLiquidation_after_if_else@5",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "379": {
+      "op": "txn Sender",
+      "defined_out": [
+        "repayment#0",
+        "tmp%2#2",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%2#2"
+      ]
+    },
+    "381": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%2#2",
+        "0"
+      ]
+    },
+    "382": {
+      "op": "bytec_1 // \"keeper\"",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%2#2",
+        "0",
+        "\"keeper\""
+      ]
+    },
+    "383": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0",
+        "repayment#0",
+        "tmp%2#2",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%2#2",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "384": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%2#2",
+        "maybe_value%1#0"
+      ]
+    },
+    "385": {
+      "op": "==",
+      "defined_out": [
+        "repayment#0",
+        "tmp%3#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%3#0"
+      ]
+    },
+    "386": {
+      "error": "keeper only",
+      "op": "assert // keeper only",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "387": {
+      "block": "executeLiquidation_after_if_else@5",
+      "stack_in": [
+        "vaultId#0",
+        "repayment#0"
+      ],
+      "op": "dig 1",
+      "defined_out": [
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "vaultId#0"
+      ]
+    },
+    "389": {
+      "error": "vault id required",
+      "op": "assert // vault id required",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "390": {
+      "op": "dup",
+      "defined_out": [
+        "repayment#0",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "repayment#0"
+      ]
+    },
+    "391": {
+      "op": "gtxns AssetAmount",
+      "defined_out": [
+        "repayment#0",
+        "tmp%1#1",
+        "vaultId#0"
+      ],
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0",
+        "tmp%1#1"
+      ]
+    },
+    "393": {
+      "error": "zero repayment",
+      "op": "assert // zero repayment",
+      "stack_out": [
+        "vaultId#0",
+        "repayment#0"
+      ]
+    },
+    "394": {
+      "error": "liquidation execution not implemented",
+      "op": "err // liquidation execution not implemented"
+    },
+    "395": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertReady",
+      "params": {},
+      "block": "assertReady",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "396": {
+      "op": "bytec_0 // \"init\"",
+      "defined_out": [
+        "\"init\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"init\""
+      ]
+    },
+    "397": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "398": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "399": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "1"
+      ]
+    },
+    "400": {
+      "op": "==",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "401": {
+      "error": "liquidation executor not initialized",
+      "op": "assert // liquidation executor not initialized",
+      "stack_out": []
+    },
+    "402": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "403": {
+      "subroutine": "smart_contracts/collateralx_liquidation/contract.algo.ts::CollateralXLiquidationExecutor.assertAdmin",
+      "params": {},
+      "block": "assertAdmin",
+      "stack_in": [],
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "405": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "406": {
+      "op": "bytec 4 // \"adm\"",
+      "defined_out": [
+        "\"adm\"",
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "\"adm\""
+      ]
+    },
+    "408": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "409": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "410": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "411": {
+      "error": "admin only",
+      "op": "assert // admin only",
+      "stack_out": []
+    },
+    "412": {
+      "retsub": true,
+      "op": "retsub"
+    }
+  }
+}

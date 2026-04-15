@@ -1,0 +1,3490 @@
+{
+  "version": 3,
+  "sources": [
+    "../../collateralx_oracle/contract.algo.ts"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAiDgB;AAAwD;AAAtE;AACuB;AAAsD;AAA7E;AACY;AAAuD;AAAnE;AAEgB;AAAwD;AAAxE;AACa;;AAAwD;AAArE;AAPF;;AAAA;AAAA;AAAA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;;;AAAA;AAAA;;;;;;AAAA;;;AAAA;;;;AAAA;AASG;;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAEQ;AAAU;;AAAV;AAAP;AAVM;;AAWN;;AAAA;AACA;;;;;;AAAA;AAAA;AAAA;AAJD;AAAA;AAQD;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAME;;;AACO;AAtBK;AAsBL;AAAA;AAAA;AAAP;AACA;;AAAA;;AAAA;;AAAA;;AAAA;;;AAtBqB;AAuBrB;;AAAA;AAtBU;AAuBV;;AAAA;AArBc;AAsBd;;AAAA;AAvBO;;AAwBP;AAAA;AA3BY;AA4BoB;AAAhC;AACsC;;AAAT;;AAAA;AAAA;AAAA;AAAA;AAAA;AAA7B;;;;;;AAAA;AAAA;AAAA;AAdF;AAAA;AAoBE;;;AACqB;AAArB;;;AAEwB;AArCH;AAqCG;AAAA;AACX;AArCH;AAqCG;AAAA;AACH;AArCH;;AAqCG;AAAA;AACO;AArCH;AAqCG;AAAA;AACH;AArCH;;AAqCG;AAAA;AALP;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;;AAAA;;AAAA;AAAA;AAAA;;;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAJT;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAcA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AACE;;;AACA;;;AACqB;AAArB;;;AACqD;AA/CvC;AA+CuC;AAAA;AAArD;;AAAA;;AAAA;;AAAA;;AAAA;;;AAlDqB;AAmDrB;;AAAA;AAlDU;AAmDV;;AAAA;AAlDO;;AAmDP;AAAA;AACkC;;AAAT;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAzB;;;;;;AAAA;AAAA;AAAA;AARF;AAAA;AAYA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AACE;;;AACA;;;AACA;AAAA;AA1Dc;AA2Dd;AAAA;AAC4B;;AAA5B;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AALF;AAAA;AASA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AACE;;;AACA;;;AAjEW;;AAkEX;AAAA;AACgC;;AAAhC;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AAJF;AAAA;AAQA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AACE;;;AACqB;AAArB;;;AACO;AAAP;AACA;AAIO;AApFK;AAoFL;AAAA;AAAkC;AAAlC;AAAP;;AAIO;;AAAe;AAzFhB;;AAyFgB;AAAA;AAAf;AAAP;;AAGF;;;AACyB;AAvFZ;;AAuFY;AAAA;AAAA;;AAAA;AAChB;AAAP;;AAGF;;;AAME;;AAAA;AACA;;AAAA;AACA;;AAAA;AACO;;AAAA;AAAP;AAAA;AACwB;;AAAjB;AAAP;",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "@algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram",
+      "params": {},
+      "block": "main",
+      "stack_in": [],
+      "op": "intcblock 0 1 8 2"
+    },
+    "7": {
+      "op": "bytecblock \"maxa\" \"init\" \"px\" \"upd\" \"pflg\" \"src\" \"adm\""
+    },
+    "39": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "reinterpret_bool%0#0"
+      ],
+      "stack_out": [
+        "reinterpret_bool%0#0"
+      ]
+    },
+    "41": {
+      "op": "bnz main_after_if_else@2",
+      "stack_out": []
+    },
+    "44": {
+      "op": "bytec_1 // \"init\"",
+      "defined_out": [
+        "\"init\""
+      ],
+      "stack_out": [
+        "\"init\""
+      ]
+    },
+    "45": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "\"init\"",
+        "0"
+      ],
+      "stack_out": [
+        "\"init\"",
+        "0"
+      ]
+    },
+    "46": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "47": {
+      "op": "bytec_2 // \"px\"",
+      "defined_out": [
+        "\"px\""
+      ],
+      "stack_out": [
+        "\"px\""
+      ]
+    },
+    "48": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"px\"",
+        "0"
+      ]
+    },
+    "49": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "50": {
+      "op": "bytec_3 // \"upd\"",
+      "defined_out": [
+        "\"upd\""
+      ],
+      "stack_out": [
+        "\"upd\""
+      ]
+    },
+    "51": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"upd\"",
+        "0"
+      ]
+    },
+    "52": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "53": {
+      "op": "bytec_0 // \"maxa\"",
+      "defined_out": [
+        "\"maxa\""
+      ],
+      "stack_out": [
+        "\"maxa\""
+      ]
+    },
+    "54": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"maxa\"",
+        "0"
+      ]
+    },
+    "55": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "56": {
+      "op": "bytec 4 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\""
+      ],
+      "stack_out": [
+        "\"pflg\""
+      ]
+    },
+    "58": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "\"pflg\"",
+        "0"
+      ]
+    },
+    "59": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "60": {
+      "block": "main_after_if_else@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "62": {
+      "op": "!",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "63": {
+      "error": "OnCompletion must be NoOp",
+      "op": "assert // OnCompletion must be NoOp",
+      "stack_out": []
+    },
+    "64": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "66": {
+      "op": "bz main_create_NoOp@12",
+      "stack_out": []
+    },
+    "69": {
+      "op": "pushbytess 0xda040744 0x0b7f7fc9 0xbc84a794 0xc2ac8d90 0xf7cd8980 0x61b254af // method \"initializeOracle(uint64,uint64,uint64,byte[])void\", method \"readOraclePrice()(uint64,uint64,byte[],uint64,uint64)\", method \"adminUpdatePrice(uint64,uint64,byte[])void\", method \"adminSetOracleConfig(uint64)void\", method \"adminSetPauseFlags(uint64)void\", method \"verifyExternalPriceUpdate(byte[])void\"",
+      "defined_out": [
+        "Method(adminSetOracleConfig(uint64)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(adminUpdatePrice(uint64,uint64,byte[])void)",
+        "Method(initializeOracle(uint64,uint64,uint64,byte[])void)",
+        "Method(readOraclePrice()(uint64,uint64,byte[],uint64,uint64))",
+        "Method(verifyExternalPriceUpdate(byte[])void)"
+      ],
+      "stack_out": [
+        "Method(initializeOracle(uint64,uint64,uint64,byte[])void)",
+        "Method(readOraclePrice()(uint64,uint64,byte[],uint64,uint64))",
+        "Method(adminUpdatePrice(uint64,uint64,byte[])void)",
+        "Method(adminSetOracleConfig(uint64)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(verifyExternalPriceUpdate(byte[])void)"
+      ]
+    },
+    "101": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(adminSetOracleConfig(uint64)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(adminUpdatePrice(uint64,uint64,byte[])void)",
+        "Method(initializeOracle(uint64,uint64,uint64,byte[])void)",
+        "Method(readOraclePrice()(uint64,uint64,byte[],uint64,uint64))",
+        "Method(verifyExternalPriceUpdate(byte[])void)",
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "Method(initializeOracle(uint64,uint64,uint64,byte[])void)",
+        "Method(readOraclePrice()(uint64,uint64,byte[],uint64,uint64))",
+        "Method(adminUpdatePrice(uint64,uint64,byte[])void)",
+        "Method(adminSetOracleConfig(uint64)void)",
+        "Method(adminSetPauseFlags(uint64)void)",
+        "Method(verifyExternalPriceUpdate(byte[])void)",
+        "tmp%4#0"
+      ]
+    },
+    "104": {
+      "op": "match initializeOracle readOraclePrice adminUpdatePrice adminSetOracleConfig adminSetPauseFlags verifyExternalPriceUpdate",
+      "stack_out": []
+    },
+    "118": {
+      "op": "err"
+    },
+    "119": {
+      "block": "main_create_NoOp@12",
+      "stack_in": [],
+      "op": "pushbytes 0xd324bea4 // method \"createApplication(address)void\"",
+      "defined_out": [
+        "Method(createApplication(address)void)"
+      ],
+      "stack_out": [
+        "Method(createApplication(address)void)"
+      ]
+    },
+    "125": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(createApplication(address)void)",
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "Method(createApplication(address)void)",
+        "tmp%5#0"
+      ]
+    },
+    "128": {
+      "op": "match createApplication",
+      "stack_out": []
+    },
+    "132": {
+      "op": "err"
+    },
+    "133": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.createApplication[routing]",
+      "params": {},
+      "block": "createApplication",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "136": {
+      "op": "dup",
+      "defined_out": [
+        "admin#0",
+        "admin#0 (copy)"
+      ],
+      "stack_out": [
+        "admin#0",
+        "admin#0 (copy)"
+      ]
+    },
+    "137": {
+      "op": "len",
+      "defined_out": [
+        "admin#0",
+        "len%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "len%0#0"
+      ]
+    },
+    "138": {
+      "op": "pushint 32 // 32",
+      "defined_out": [
+        "32",
+        "admin#0",
+        "len%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "len%0#0",
+        "32"
+      ]
+    },
+    "140": {
+      "op": "==",
+      "defined_out": [
+        "admin#0",
+        "eq%0#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "eq%0#0"
+      ]
+    },
+    "141": {
+      "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "142": {
+      "op": "dup"
+    },
+    "143": {
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "admin#0",
+        "admin#0 (copy)",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "admin#0",
+        "admin#0 (copy)",
+        "tmp%0#1"
+      ]
+    },
+    "145": {
+      "op": "!=",
+      "defined_out": [
+        "admin#0",
+        "tmp%1#1"
+      ],
+      "stack_out": [
+        "admin#0",
+        "tmp%1#1"
+      ]
+    },
+    "146": {
+      "error": "admin required",
+      "op": "assert // admin required",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "147": {
+      "op": "bytec 6 // \"adm\"",
+      "defined_out": [
+        "\"adm\"",
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "\"adm\""
+      ]
+    },
+    "149": {
+      "op": "dig 1",
+      "stack_out": [
+        "admin#0",
+        "\"adm\"",
+        "admin#0 (copy)"
+      ]
+    },
+    "151": {
+      "op": "app_global_put",
+      "stack_out": [
+        "admin#0"
+      ]
+    },
+    "152": {
+      "op": "pushbytes 0x832cb628 // method \"OracleAdminCreated(address)\"",
+      "defined_out": [
+        "Method(OracleAdminCreated(address))",
+        "admin#0"
+      ],
+      "stack_out": [
+        "admin#0",
+        "Method(OracleAdminCreated(address))"
+      ]
+    },
+    "158": {
+      "op": "swap",
+      "stack_out": [
+        "Method(OracleAdminCreated(address))",
+        "admin#0"
+      ]
+    },
+    "159": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "160": {
+      "op": "log",
+      "stack_out": []
+    },
+    "161": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "162": {
+      "op": "return",
+      "stack_out": []
+    },
+    "163": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.initializeOracle[routing]",
+      "params": {},
+      "block": "initializeOracle",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "166": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "167": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "168": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "169": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "170": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "171": {
+      "op": "btoi",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0"
+      ]
+    },
+    "172": {
+      "op": "txna ApplicationArgs 2",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ]
+    },
+    "175": {
+      "op": "dup",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "tmp%2#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "tmp%2#0 (copy)"
+      ]
+    },
+    "176": {
+      "op": "len",
+      "defined_out": [
+        "len%1#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "len%1#0"
+      ]
+    },
+    "177": {
+      "op": "intc_2 // 8",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "len%1#0",
+        "8"
+      ]
+    },
+    "178": {
+      "op": "==",
+      "defined_out": [
+        "eq%1#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "eq%1#0"
+      ]
+    },
+    "179": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ]
+    },
+    "180": {
+      "op": "btoi",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ]
+    },
+    "181": {
+      "op": "txna ApplicationArgs 3",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0"
+      ]
+    },
+    "184": {
+      "op": "dup",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)"
+      ]
+    },
+    "185": {
+      "op": "len",
+      "defined_out": [
+        "len%2#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "len%2#0"
+      ]
+    },
+    "186": {
+      "op": "intc_2 // 8",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "len%2#0",
+        "8"
+      ]
+    },
+    "187": {
+      "op": "==",
+      "defined_out": [
+        "eq%2#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "eq%2#0"
+      ]
+    },
+    "188": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0"
+      ]
+    },
+    "189": {
+      "op": "btoi",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0"
+      ]
+    },
+    "190": {
+      "op": "txna ApplicationArgs 4",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0"
+      ]
+    },
+    "193": {
+      "op": "dup",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "tmp%6#0 (copy)",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "tmp%6#0 (copy)"
+      ]
+    },
+    "194": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "tmp%6#0 (copy)",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "tmp%6#0 (copy)",
+        "0"
+      ]
+    },
+    "195": {
+      "error": "invalid array length header",
+      "op": "extract_uint16 // on error: invalid array length header",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "196": {
+      "op": "intc_3 // 2",
+      "defined_out": [
+        "2",
+        "aggregate%array_length%0#0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "aggregate%array_length%0#0",
+        "2"
+      ]
+    },
+    "197": {
+      "op": "+",
+      "defined_out": [
+        "add%0#0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "add%0#0"
+      ]
+    },
+    "198": {
+      "op": "dig 1",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "add%0#0",
+        "tmp%6#0 (copy)"
+      ]
+    },
+    "200": {
+      "op": "len",
+      "defined_out": [
+        "add%0#0",
+        "len%3#0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "add%0#0",
+        "len%3#0"
+      ]
+    },
+    "201": {
+      "op": "==",
+      "defined_out": [
+        "eq%3#0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%6#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0",
+        "eq%3#0"
+      ]
+    },
+    "202": {
+      "error": "invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "op": "assert // invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "tmp%6#0"
+      ]
+    },
+    "203": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0"
+      ]
+    },
+    "206": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "209": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "0"
+      ]
+    },
+    "210": {
+      "op": "bytec_1 // \"init\"",
+      "defined_out": [
+        "\"init\"",
+        "0",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "0",
+        "\"init\""
+      ]
+    },
+    "211": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "212": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "213": {
+      "op": "!",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "tmp%0#1",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "tmp%0#1"
+      ]
+    },
+    "214": {
+      "error": "already initialized",
+      "op": "assert // already initialized",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0"
+      ]
+    },
+    "215": {
+      "op": "dig 3",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ]
+    },
+    "217": {
+      "op": "dig 3",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "updatedAt#0",
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)"
+      ]
+    },
+    "219": {
+      "op": "dig 3",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "maxAgeSeconds#0 (copy)",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "updatedAt#0",
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)",
+        "maxAgeSeconds#0 (copy)"
+      ]
+    },
+    "221": {
+      "op": "dig 3",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "maxAgeSeconds#0 (copy)",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "source#0 (copy)",
+        "updatedAt#0",
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)",
+        "maxAgeSeconds#0 (copy)",
+        "source#0 (copy)"
+      ]
+    },
+    "223": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.validateSample",
+      "op": "callsub validateSample",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0"
+      ]
+    },
+    "226": {
+      "op": "bytec_2 // \"px\"",
+      "defined_out": [
+        "\"px\"",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "\"px\""
+      ]
+    },
+    "227": {
+      "op": "dig 4",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "\"px\"",
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ]
+    },
+    "229": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0"
+      ]
+    },
+    "230": {
+      "op": "bytec_3 // \"upd\"",
+      "defined_out": [
+        "\"upd\"",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "\"upd\""
+      ]
+    },
+    "231": {
+      "op": "dig 3",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "\"upd\"",
+        "updatedAt#0 (copy)"
+      ]
+    },
+    "233": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0"
+      ]
+    },
+    "234": {
+      "op": "bytec_0 // \"maxa\"",
+      "defined_out": [
+        "\"maxa\"",
+        "maxAgeSeconds#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "maxAgeSeconds#0",
+        "source#0",
+        "\"maxa\""
+      ]
+    },
+    "235": {
+      "op": "uncover 2",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"maxa\"",
+        "maxAgeSeconds#0"
+      ]
+    },
+    "237": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "238": {
+      "op": "bytec 5 // \"src\"",
+      "defined_out": [
+        "\"src\"",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"src\""
+      ]
+    },
+    "240": {
+      "op": "swap",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "\"src\"",
+        "source#0"
+      ]
+    },
+    "241": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ]
+    },
+    "242": {
+      "op": "bytec_1 // \"init\"",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "\"init\""
+      ]
+    },
+    "243": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "\"init\"",
+        "1",
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "\"init\"",
+        "1"
+      ]
+    },
+    "244": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ]
+    },
+    "245": {
+      "op": "txn Sender",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%1#1",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%1#1"
+      ]
+    },
+    "247": {
+      "op": "uncover 2",
+      "stack_out": [
+        "updatedAt#0",
+        "tmp%1#1",
+        "pricePerAlgoMicroUsd#0"
+      ]
+    },
+    "249": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "tmp%1#1",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "updatedAt#0",
+        "tmp%1#1",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "250": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "updatedAt#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "251": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%1#0",
+        "updatedAt#0"
+      ]
+    },
+    "252": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "253": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0"
+      ]
+    },
+    "254": {
+      "op": "pushbytes 0x0acfa87c // method \"OracleInitializedEvent(address,uint64,uint64)\"",
+      "defined_out": [
+        "Method(OracleInitializedEvent(address,uint64,uint64))",
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0",
+        "Method(OracleInitializedEvent(address,uint64,uint64))"
+      ]
+    },
+    "260": {
+      "op": "swap",
+      "stack_out": [
+        "Method(OracleInitializedEvent(address,uint64,uint64))",
+        "aggregate%head%2#0"
+      ]
+    },
+    "261": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "262": {
+      "op": "log",
+      "stack_out": []
+    },
+    "263": {
+      "op": "intc_1 // 1",
+      "stack_out": [
+        "1"
+      ]
+    },
+    "264": {
+      "op": "return",
+      "stack_out": []
+    },
+    "265": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.readOraclePrice[routing]",
+      "params": {},
+      "block": "readOraclePrice",
+      "stack_in": [],
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "op": "callsub assertReady"
+    },
+    "268": {
+      "op": "intc_3 // 2",
+      "defined_out": [
+        "2"
+      ],
+      "stack_out": [
+        "2"
+      ]
+    },
+    "269": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertNotPaused",
+      "op": "callsub assertNotPaused",
+      "stack_out": []
+    },
+    "272": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "273": {
+      "op": "bytec_2 // \"px\"",
+      "defined_out": [
+        "\"px\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"px\""
+      ]
+    },
+    "274": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "275": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "276": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "0"
+      ]
+    },
+    "277": {
+      "op": "bytec_3 // \"upd\"",
+      "defined_out": [
+        "\"upd\"",
+        "0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "0",
+        "\"upd\""
+      ]
+    },
+    "278": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "279": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "280": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "0"
+      ]
+    },
+    "281": {
+      "op": "bytec 5 // \"src\"",
+      "defined_out": [
+        "\"src\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "0",
+        "\"src\""
+      ]
+    },
+    "283": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "284": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ]
+    },
+    "285": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "0"
+      ]
+    },
+    "286": {
+      "op": "bytec_0 // \"maxa\"",
+      "defined_out": [
+        "\"maxa\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "0",
+        "\"maxa\""
+      ]
+    },
+    "287": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%3#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_exists%3#0"
+      ]
+    },
+    "288": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ]
+    },
+    "289": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "0"
+      ]
+    },
+    "290": {
+      "op": "bytec 4 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "0",
+        "\"pflg\""
+      ]
+    },
+    "292": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%4#0",
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "maybe_exists%4#0"
+      ]
+    },
+    "293": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ]
+    },
+    "294": {
+      "op": "uncover 4",
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "296": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "297": {
+      "op": "uncover 4",
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%val_as_bytes%0#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "299": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "aggregate%val_as_bytes%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%val_as_bytes%0#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "300": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "301": {
+      "op": "dig 3",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "maybe_value%2#0",
+        "maybe_value%2#0 (copy)",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "maybe_value%2#0 (copy)"
+      ]
+    },
+    "303": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%length%0#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%length%0#0"
+      ]
+    },
+    "304": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%0#0",
+        "aggregate%head%1#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%as_bytes%0#0"
+      ]
+    },
+    "305": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%length_uint16%0#0",
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%length_uint16%0#0"
+      ]
+    },
+    "308": {
+      "op": "uncover 4",
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%length_uint16%0#0",
+        "maybe_value%2#0"
+      ]
+    },
+    "310": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%head%1#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "311": {
+      "op": "swap",
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "312": {
+      "op": "pushbytes 0x0022",
+      "defined_out": [
+        "0x0022",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "0x0022"
+      ]
+    },
+    "316": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "maybe_value%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0"
+      ]
+    },
+    "317": {
+      "op": "uncover 3",
+      "stack_out": [
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "maybe_value%3#0"
+      ]
+    },
+    "319": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0"
+      ]
+    },
+    "320": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "321": {
+      "op": "uncover 2",
+      "stack_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "maybe_value%4#0"
+      ]
+    },
+    "323": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%val_as_bytes%3#0"
+      ],
+      "stack_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%val_as_bytes%3#0"
+      ]
+    },
+    "324": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0"
+      ],
+      "stack_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0"
+      ]
+    },
+    "325": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%4#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "326": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%concat%0#0"
+      ],
+      "stack_out": [
+        "aggregate%concat%0#0"
+      ]
+    },
+    "327": {
+      "op": "pushbytes 0x151f7c75",
+      "defined_out": [
+        "0x151f7c75",
+        "aggregate%concat%0#0"
+      ],
+      "stack_out": [
+        "aggregate%concat%0#0",
+        "0x151f7c75"
+      ]
+    },
+    "333": {
+      "op": "swap",
+      "stack_out": [
+        "0x151f7c75",
+        "aggregate%concat%0#0"
+      ]
+    },
+    "334": {
+      "op": "concat",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "335": {
+      "op": "log",
+      "stack_out": []
+    },
+    "336": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "337": {
+      "op": "return",
+      "stack_out": []
+    },
+    "338": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.adminUpdatePrice[routing]",
+      "params": {},
+      "block": "adminUpdatePrice",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "341": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "342": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "343": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "344": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "345": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "346": {
+      "op": "btoi",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0"
+      ]
+    },
+    "347": {
+      "op": "txna ApplicationArgs 2",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ]
+    },
+    "350": {
+      "op": "dup",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "tmp%2#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "tmp%2#0 (copy)"
+      ]
+    },
+    "351": {
+      "op": "len",
+      "defined_out": [
+        "len%1#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "len%1#0"
+      ]
+    },
+    "352": {
+      "op": "intc_2 // 8",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "len%1#0",
+        "8"
+      ]
+    },
+    "353": {
+      "op": "==",
+      "defined_out": [
+        "eq%1#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0",
+        "eq%1#0"
+      ]
+    },
+    "354": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%2#0"
+      ]
+    },
+    "355": {
+      "op": "btoi",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ]
+    },
+    "356": {
+      "op": "txna ApplicationArgs 3",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0"
+      ]
+    },
+    "359": {
+      "op": "dup",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)"
+      ]
+    },
+    "360": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "tmp%4#0 (copy)",
+        "0"
+      ]
+    },
+    "361": {
+      "error": "invalid array length header",
+      "op": "extract_uint16 // on error: invalid array length header",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "362": {
+      "op": "intc_3 // 2",
+      "defined_out": [
+        "2",
+        "aggregate%array_length%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "aggregate%array_length%0#0",
+        "2"
+      ]
+    },
+    "363": {
+      "op": "+",
+      "defined_out": [
+        "add%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "add%0#0"
+      ]
+    },
+    "364": {
+      "op": "dig 1",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "add%0#0",
+        "tmp%4#0 (copy)"
+      ]
+    },
+    "366": {
+      "op": "len",
+      "defined_out": [
+        "add%0#0",
+        "len%2#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "add%0#0",
+        "len%2#0"
+      ]
+    },
+    "367": {
+      "op": "==",
+      "defined_out": [
+        "eq%2#0",
+        "pricePerAlgoMicroUsd#0",
+        "tmp%4#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0",
+        "eq%2#0"
+      ]
+    },
+    "368": {
+      "error": "invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "op": "assert // invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%4#0"
+      ]
+    },
+    "369": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "372": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "op": "callsub assertReady"
+    },
+    "375": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "378": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "1"
+      ]
+    },
+    "379": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertNotPaused",
+      "op": "callsub assertNotPaused",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "382": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "0"
+      ]
+    },
+    "383": {
+      "op": "bytec_0 // \"maxa\"",
+      "defined_out": [
+        "\"maxa\"",
+        "0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "0",
+        "\"maxa\""
+      ]
+    },
+    "384": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "385": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "386": {
+      "op": "dig 3",
+      "defined_out": [
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ]
+    },
+    "388": {
+      "op": "dig 3",
+      "defined_out": [
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "updatedAt#0",
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)"
+      ]
+    },
+    "390": {
+      "op": "uncover 2",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)",
+        "maybe_value%0#0"
+      ]
+    },
+    "392": {
+      "op": "dig 3",
+      "defined_out": [
+        "maybe_value%0#0",
+        "pricePerAlgoMicroUsd#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "source#0",
+        "source#0 (copy)",
+        "updatedAt#0",
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "pricePerAlgoMicroUsd#0 (copy)",
+        "updatedAt#0 (copy)",
+        "maybe_value%0#0",
+        "source#0 (copy)"
+      ]
+    },
+    "394": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.validateSample",
+      "op": "callsub validateSample",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "397": {
+      "op": "bytec_2 // \"px\"",
+      "defined_out": [
+        "\"px\"",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"px\""
+      ]
+    },
+    "398": {
+      "op": "dig 3",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"px\"",
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ]
+    },
+    "400": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "401": {
+      "op": "bytec_3 // \"upd\"",
+      "defined_out": [
+        "\"upd\"",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"upd\""
+      ]
+    },
+    "402": {
+      "op": "dig 2",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"upd\"",
+        "updatedAt#0 (copy)"
+      ]
+    },
+    "404": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0"
+      ]
+    },
+    "405": {
+      "op": "bytec 5 // \"src\"",
+      "defined_out": [
+        "\"src\"",
+        "pricePerAlgoMicroUsd#0",
+        "source#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "source#0",
+        "\"src\""
+      ]
+    },
+    "407": {
+      "op": "swap",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "\"src\"",
+        "source#0"
+      ]
+    },
+    "408": {
+      "op": "app_global_put",
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0"
+      ]
+    },
+    "409": {
+      "op": "txn Sender",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0",
+        "tmp%0#1",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0",
+        "updatedAt#0",
+        "tmp%0#1"
+      ]
+    },
+    "411": {
+      "op": "uncover 2",
+      "stack_out": [
+        "updatedAt#0",
+        "tmp%0#1",
+        "pricePerAlgoMicroUsd#0"
+      ]
+    },
+    "413": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "tmp%0#1",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "updatedAt#0",
+        "tmp%0#1",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "414": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "updatedAt#0"
+      ],
+      "stack_out": [
+        "updatedAt#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "415": {
+      "op": "swap",
+      "stack_out": [
+        "aggregate%head%1#0",
+        "updatedAt#0"
+      ]
+    },
+    "416": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "417": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0"
+      ]
+    },
+    "418": {
+      "op": "pushbytes 0x302807fa // method \"OracleUpdatedEvent(address,uint64,uint64)\"",
+      "defined_out": [
+        "Method(OracleUpdatedEvent(address,uint64,uint64))",
+        "aggregate%head%2#0"
+      ],
+      "stack_out": [
+        "aggregate%head%2#0",
+        "Method(OracleUpdatedEvent(address,uint64,uint64))"
+      ]
+    },
+    "424": {
+      "op": "swap",
+      "stack_out": [
+        "Method(OracleUpdatedEvent(address,uint64,uint64))",
+        "aggregate%head%2#0"
+      ]
+    },
+    "425": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "426": {
+      "op": "log",
+      "stack_out": []
+    },
+    "427": {
+      "op": "intc_1 // 1",
+      "stack_out": [
+        "1"
+      ]
+    },
+    "428": {
+      "op": "return",
+      "stack_out": []
+    },
+    "429": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.adminSetOracleConfig[routing]",
+      "params": {},
+      "block": "adminSetOracleConfig",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "432": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "433": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "434": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "435": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "436": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "437": {
+      "op": "dup",
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "438": {
+      "op": "btoi",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maxAgeSeconds#0"
+      ]
+    },
+    "439": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "op": "callsub assertReady"
+    },
+    "442": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "445": {
+      "op": "dup",
+      "defined_out": [
+        "maxAgeSeconds#0",
+        "maxAgeSeconds#0 (copy)",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maxAgeSeconds#0",
+        "maxAgeSeconds#0 (copy)"
+      ]
+    },
+    "446": {
+      "error": "max age required",
+      "op": "assert // max age required",
+      "stack_out": [
+        "tmp%0#0",
+        "maxAgeSeconds#0"
+      ]
+    },
+    "447": {
+      "op": "bytec_0 // \"maxa\"",
+      "defined_out": [
+        "\"maxa\"",
+        "maxAgeSeconds#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maxAgeSeconds#0",
+        "\"maxa\""
+      ]
+    },
+    "448": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%0#0",
+        "\"maxa\"",
+        "maxAgeSeconds#0"
+      ]
+    },
+    "449": {
+      "op": "app_global_put",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "450": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%1#1"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%1#1"
+      ]
+    },
+    "452": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%1#1",
+        "tmp%0#0"
+      ]
+    },
+    "453": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0"
+      ]
+    },
+    "454": {
+      "op": "pushbytes 0xffce3d38 // method \"OracleConfigUpdated(address,uint64)\"",
+      "defined_out": [
+        "Method(OracleConfigUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "Method(OracleConfigUpdated(address,uint64))"
+      ]
+    },
+    "460": {
+      "op": "swap",
+      "stack_out": [
+        "Method(OracleConfigUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ]
+    },
+    "461": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "462": {
+      "op": "log",
+      "stack_out": []
+    },
+    "463": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "464": {
+      "op": "return",
+      "stack_out": []
+    },
+    "465": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.adminSetPauseFlags[routing]",
+      "params": {},
+      "block": "adminSetPauseFlags",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "468": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "469": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "470": {
+      "op": "intc_2 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "471": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "472": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "473": {
+      "op": "dup",
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "474": {
+      "op": "btoi",
+      "defined_out": [
+        "pauseFlags#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "pauseFlags#0"
+      ]
+    },
+    "475": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "op": "callsub assertReady"
+    },
+    "478": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertAdmin",
+      "op": "callsub assertAdmin"
+    },
+    "481": {
+      "op": "bytec 4 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "pauseFlags#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "pauseFlags#0",
+        "\"pflg\""
+      ]
+    },
+    "483": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%0#0",
+        "\"pflg\"",
+        "pauseFlags#0"
+      ]
+    },
+    "484": {
+      "op": "app_global_put",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "485": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#1"
+      ]
+    },
+    "487": {
+      "op": "swap",
+      "stack_out": [
+        "tmp%0#1",
+        "tmp%0#0"
+      ]
+    },
+    "488": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0"
+      ]
+    },
+    "489": {
+      "op": "pushbytes 0x506af936 // method \"OraclePauseFlagsUpdated(address,uint64)\"",
+      "defined_out": [
+        "Method(OraclePauseFlagsUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ],
+      "stack_out": [
+        "aggregate%head%1#0",
+        "Method(OraclePauseFlagsUpdated(address,uint64))"
+      ]
+    },
+    "495": {
+      "op": "swap",
+      "stack_out": [
+        "Method(OraclePauseFlagsUpdated(address,uint64))",
+        "aggregate%head%1#0"
+      ]
+    },
+    "496": {
+      "op": "concat",
+      "defined_out": [
+        "event%0#0"
+      ],
+      "stack_out": [
+        "event%0#0"
+      ]
+    },
+    "497": {
+      "op": "log",
+      "stack_out": []
+    },
+    "498": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "499": {
+      "op": "return",
+      "stack_out": []
+    },
+    "500": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.verifyExternalPriceUpdate[routing]",
+      "params": {},
+      "block": "verifyExternalPriceUpdate",
+      "stack_in": [],
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "503": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "504": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)",
+        "0"
+      ]
+    },
+    "505": {
+      "error": "invalid array length header",
+      "op": "extract_uint16 // on error: invalid array length header",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "506": {
+      "op": "intc_3 // 2",
+      "defined_out": [
+        "2",
+        "aggregate%array_length%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "aggregate%array_length%0#0",
+        "2"
+      ]
+    },
+    "507": {
+      "op": "+",
+      "defined_out": [
+        "add%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "add%0#0"
+      ]
+    },
+    "508": {
+      "op": "dig 1",
+      "stack_out": [
+        "tmp%0#0",
+        "add%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "510": {
+      "op": "len",
+      "defined_out": [
+        "add%0#0",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "add%0#0",
+        "len%0#0"
+      ]
+    },
+    "511": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "512": {
+      "error": "invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "op": "assert // invalid number of bytes for arc4.dynamic_array<arc4.uint8>",
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "513": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "proof#0"
+      ],
+      "stack_out": [
+        "proof#0"
+      ]
+    },
+    "516": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "op": "callsub assertReady"
+    },
+    "519": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "proof#0"
+      ],
+      "stack_out": [
+        "proof#0",
+        "1"
+      ]
+    },
+    "520": {
+      "callsub": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertNotPaused",
+      "op": "callsub assertNotPaused",
+      "stack_out": [
+        "proof#0"
+      ]
+    },
+    "523": {
+      "op": "len",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "524": {
+      "error": "proof required",
+      "op": "assert // proof required",
+      "stack_out": []
+    },
+    "525": {
+      "error": "oracle proof verification not implemented",
+      "op": "err // oracle proof verification not implemented"
+    },
+    "526": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertReady",
+      "params": {},
+      "block": "assertReady",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "527": {
+      "op": "bytec_1 // \"init\"",
+      "defined_out": [
+        "\"init\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"init\""
+      ]
+    },
+    "528": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "529": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "530": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "1"
+      ]
+    },
+    "531": {
+      "op": "==",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "532": {
+      "error": "oracle not initialized",
+      "op": "assert // oracle not initialized",
+      "stack_out": []
+    },
+    "533": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "534": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertAdmin",
+      "params": {},
+      "block": "assertAdmin",
+      "stack_in": [],
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "536": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "537": {
+      "op": "bytec 6 // \"adm\"",
+      "defined_out": [
+        "\"adm\"",
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "\"adm\""
+      ]
+    },
+    "539": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "540": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "541": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "542": {
+      "error": "admin only",
+      "op": "assert // admin only",
+      "stack_out": []
+    },
+    "543": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "544": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.assertNotPaused",
+      "params": {
+        "flag#0": "uint64"
+      },
+      "block": "assertNotPaused",
+      "stack_in": [],
+      "op": "proto 1 0"
+    },
+    "547": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "548": {
+      "op": "bytec 4 // \"pflg\"",
+      "defined_out": [
+        "\"pflg\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"pflg\""
+      ]
+    },
+    "550": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "551": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "552": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "flag#0 (copy)",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "flag#0 (copy)"
+      ]
+    },
+    "554": {
+      "op": "&",
+      "defined_out": [
+        "active#0"
+      ],
+      "stack_out": [
+        "active#0"
+      ]
+    },
+    "555": {
+      "op": "!",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "556": {
+      "error": "oracle paused",
+      "op": "assert // oracle paused",
+      "stack_out": []
+    },
+    "557": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "558": {
+      "subroutine": "smart_contracts/collateralx_oracle/contract.algo.ts::CollateralXOracleAdapter.validateSample",
+      "params": {
+        "pricePerAlgoMicroUsd#0": "uint64",
+        "updatedAt#0": "uint64",
+        "maxAgeSeconds#0": "uint64",
+        "source#0": "bytes"
+      },
+      "block": "validateSample",
+      "stack_in": [],
+      "op": "proto 4 0"
+    },
+    "561": {
+      "op": "frame_dig -4",
+      "defined_out": [
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ],
+      "stack_out": [
+        "pricePerAlgoMicroUsd#0 (copy)"
+      ]
+    },
+    "563": {
+      "error": "price required",
+      "op": "assert // price required",
+      "stack_out": []
+    },
+    "564": {
+      "op": "frame_dig -3",
+      "defined_out": [
+        "updatedAt#0 (copy)"
+      ],
+      "stack_out": [
+        "updatedAt#0 (copy)"
+      ]
+    },
+    "566": {
+      "error": "timestamp required",
+      "op": "assert // timestamp required",
+      "stack_out": []
+    },
+    "567": {
+      "op": "frame_dig -2",
+      "defined_out": [
+        "maxAgeSeconds#0 (copy)"
+      ],
+      "stack_out": [
+        "maxAgeSeconds#0 (copy)"
+      ]
+    },
+    "569": {
+      "error": "max age required",
+      "op": "assert // max age required",
+      "stack_out": []
+    },
+    "570": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "source#0 (copy)"
+      ],
+      "stack_out": [
+        "source#0 (copy)"
+      ]
+    },
+    "572": {
+      "op": "len",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "573": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%3#0",
+        "tmp%3#0 (copy)"
+      ],
+      "stack_out": [
+        "tmp%3#0",
+        "tmp%3#0 (copy)"
+      ]
+    },
+    "574": {
+      "error": "source required",
+      "op": "assert // source required",
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "575": {
+      "op": "pushint 64 // 64",
+      "defined_out": [
+        "64",
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0",
+        "64"
+      ]
+    },
+    "577": {
+      "op": "<=",
+      "defined_out": [
+        "tmp%6#0"
+      ],
+      "stack_out": [
+        "tmp%6#0"
+      ]
+    },
+    "578": {
+      "error": "source too long",
+      "op": "assert // source too long",
+      "stack_out": []
+    },
+    "579": {
+      "retsub": true,
+      "op": "retsub"
+    }
+  }
+}
