@@ -17,7 +17,10 @@ import { hasRequiredChainConfig } from "@/lib/contracts/config"
 import { ownerVaultBox, vaultBox, vaultLifecycleBoxes } from "@/lib/contracts/boxes"
 import { CollateralXProtocolManagerFactory } from "@/lib/contracts/generated/CollateralXProtocolManagerClient"
 import { CollateralXOracleAdapterFactory } from "@/lib/contracts/generated/CollateralXOracleAdapterClient"
-import { CollateralXStablecoinControllerFactory } from "@/lib/contracts/generated/CollateralXStablecoinControllerClient"
+import {
+  CollateralXStablecoinControllerClient,
+  CollateralXStablecoinControllerFactory,
+} from "@/lib/contracts/generated/CollateralXStablecoinControllerClient"
 
 interface RepositoryContext {
   config: ProtocolConfig
@@ -88,6 +91,84 @@ function txIdFromResult(result: unknown) {
     shaped.transactions?.[0]?.txID?.() ??
     "submitted"
   )
+}
+
+async function buildDepositCollateralParams(args: {
+  algorand: AlgorandClient
+  protocol: ReturnType<typeof getClients>["protocol"]
+  sender: algosdk.Address
+  vaultId: bigint
+  amountMicroAlgo: bigint
+}) {
+  const payment = await args.algorand.createTransaction.payment({
+    sender: args.sender,
+    receiver: args.protocol.appAddress,
+    amount: microAlgo(args.amountMicroAlgo),
+  })
+
+  return {
+    sender: args.sender,
+    args: { vaultId: args.vaultId, payment },
+    boxReferences: [vaultBox(args.protocol.appId, args.vaultId)],
+  }
+}
+
+async function buildRepayParams(args: {
+  algorand: AlgorandClient
+  protocol: ReturnType<typeof getClients>["protocol"]
+  stablecoin: CollateralXStablecoinControllerClient
+  sender: algosdk.Address
+  stableAssetId: bigint
+  vaultId: bigint
+  amountMicroStable: bigint
+}) {
+  const repayment = await args.algorand.createTransaction.assetTransfer({
+    sender: args.sender,
+    receiver: args.stablecoin.appAddress,
+    assetId: args.stableAssetId,
+    amount: args.amountMicroStable,
+  })
+
+  return {
+    sender: args.sender,
+    args: { vaultId: args.vaultId, repayment },
+    appReferences: [BigInt(args.stablecoin.appId)],
+    assetReferences: [args.stableAssetId],
+    boxReferences: [vaultBox(args.protocol.appId, args.vaultId)],
+    extraFee: microAlgo(1_000),
+  }
+}
+
+async function buildLiquidationParams(args: {
+  algorand: AlgorandClient
+  protocol: ReturnType<typeof getClients>["protocol"]
+  stablecoin: CollateralXStablecoinControllerClient
+  sender: algosdk.Address
+  senderAddressText: string
+  stableAssetId: bigint
+  vault: ProtocolSnapshot["vaults"][number]
+  oracleAppId: bigint
+  stablecoinAppId: bigint
+}) {
+  const repayment = await args.algorand.createTransaction.assetTransfer({
+    sender: args.sender,
+    receiver: args.stablecoin.appAddress,
+    assetId: args.stableAssetId,
+    amount: args.vault.debtMicroStable,
+  })
+
+  return {
+    sender: args.sender,
+    args: { repayment, vaultId: args.vault.id },
+    appReferences: [args.oracleAppId, args.stablecoinAppId],
+    assetReferences: [args.stableAssetId],
+    accountReferences: [args.senderAddressText, args.vault.owner],
+    boxReferences: [
+      vaultBox(args.protocol.appId, args.vault.id),
+      ownerVaultBox(args.protocol.appId, args.vault.owner, args.vault.id),
+    ],
+    extraFee: microAlgo(20_000),
+  }
 }
 
 export async function loadProtocolSnapshot(ctx: RepositoryContext): Promise<ProtocolSnapshot> {
@@ -239,19 +320,25 @@ export async function depositCollateralOnChain(
 ): Promise<ProtocolActionResult> {
   const walletAddress = requireWallet(ctx)
   const { algorand, protocol } = getClients(ctx)
-  const payment = await algorand.createTransaction.payment({
+  // Transaction args are mutated with a group ID during simulation, so rebuild
+  // them for the real submission instead of reusing the simulated object.
+  const simulateParams = await buildDepositCollateralParams({
+    algorand,
+    protocol,
     sender: walletAddress,
-    receiver: protocol.appAddress,
-    amount: microAlgo(amountMicroAlgo),
+    vaultId,
+    amountMicroAlgo,
   })
-  const params = {
-    sender: walletAddress,
-    args: { vaultId, payment },
-    boxReferences: [vaultBox(protocol.appId, vaultId)],
-  }
+  await protocol.newGroup().depositCollateral(simulateParams).simulate({ skipSignatures: true })
 
-  await protocol.newGroup().depositCollateral(params).simulate({ skipSignatures: true })
-  const result = await protocol.send.depositCollateral(params)
+  const sendParams = await buildDepositCollateralParams({
+    algorand,
+    protocol,
+    sender: walletAddress,
+    vaultId,
+    amountMicroAlgo,
+  })
+  const result = await protocol.send.depositCollateral(sendParams)
 
   return { txId: txIdFromResult(result), vaultId, simulated: true, message: "Collateral deposited" }
 }
@@ -295,23 +382,27 @@ export async function repayStablecoinOnChain(
     throw new Error("Stablecoin app id is required for repayment")
   }
   const stableState = await stablecoin.readStablecoinControlState()
-  const repayment = await algorand.createTransaction.assetTransfer({
+  const simulateParams = await buildRepayParams({
+    algorand,
+    protocol,
+    stablecoin,
     sender: walletAddress,
-    receiver: stablecoin.appAddress,
-    assetId: stableState.stableAssetId,
-    amount: amountMicroStable,
+    stableAssetId: stableState.stableAssetId,
+    vaultId,
+    amountMicroStable,
   })
-  const params = {
-    sender: walletAddress,
-    args: { vaultId, repayment },
-    appReferences: [ctx.config.stablecoinAppId],
-    assetReferences: [stableState.stableAssetId],
-    boxReferences: [vaultBox(protocol.appId, vaultId)],
-    extraFee: microAlgo(1_000),
-  }
+  await protocol.newGroup().repay(simulateParams).simulate({ skipSignatures: true })
 
-  await protocol.newGroup().repay(params).simulate({ skipSignatures: true })
-  const result = await protocol.send.repay(params)
+  const sendParams = await buildRepayParams({
+    algorand,
+    protocol,
+    stablecoin,
+    sender: walletAddress,
+    stableAssetId: stableState.stableAssetId,
+    vaultId,
+    amountMicroStable,
+  })
+  const result = await protocol.send.repay(sendParams)
 
   return { txId: txIdFromResult(result), vaultId, simulated: true, message: "Debt repaid" }
 }
@@ -355,24 +446,31 @@ export async function liquidateVaultOnChain(
 
   const stableState = await stablecoin.readStablecoinControlState()
   const walletAddressText = walletAddress.toString()
-  const repayment = await algorand.createTransaction.assetTransfer({
+  const simulateParams = await buildLiquidationParams({
+    algorand,
+    protocol,
+    stablecoin,
     sender: walletAddress,
-    receiver: stablecoin.appAddress,
-    assetId: stableState.stableAssetId,
-    amount: vault.debtMicroStable,
+    senderAddressText: walletAddressText,
+    stableAssetId: stableState.stableAssetId,
+    vault,
+    oracleAppId: ctx.config.oracleAppId,
+    stablecoinAppId: ctx.config.stablecoinAppId,
   })
-  const params = {
-    sender: walletAddress,
-    args: { repayment, vaultId },
-    appReferences: [ctx.config.oracleAppId, ctx.config.stablecoinAppId],
-    assetReferences: [stableState.stableAssetId],
-    accountReferences: [walletAddressText, vault.owner],
-    boxReferences: [vaultBox(protocol.appId, vaultId), ownerVaultBox(protocol.appId, vault.owner, vaultId)],
-    extraFee: microAlgo(20_000),
-  }
+  await protocol.newGroup().liquidate(simulateParams).simulate({ skipSignatures: true })
 
-  await protocol.newGroup().liquidate(params).simulate({ skipSignatures: true })
-  const result = await protocol.send.liquidate(params)
+  const sendParams = await buildLiquidationParams({
+    algorand,
+    protocol,
+    stablecoin,
+    sender: walletAddress,
+    senderAddressText: walletAddressText,
+    stableAssetId: stableState.stableAssetId,
+    vault,
+    oracleAppId: ctx.config.oracleAppId,
+    stablecoinAppId: ctx.config.stablecoinAppId,
+  })
+  const result = await protocol.send.liquidate(sendParams)
 
   return { txId: txIdFromResult(result), vaultId, simulated: true, message: "Vault liquidated" }
 }
