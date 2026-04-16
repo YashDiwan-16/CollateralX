@@ -104,7 +104,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServiceConfig 
       retry: retryPolicyFromEnv(env, "ORACLE", { attempts: 3, baseDelayMs: 500, maxDelayMs: 5_000 }),
     },
     readApi: {
-      port: parseInteger(env.READ_API_PORT, 8787),
+      port: parseInteger(env.READ_API_PORT ?? env.PORT, 8787),
       refreshIntervalMs: parseInteger(env.READ_REFRESH_INTERVAL_MS, 10_000),
     },
     logLevel: parseLogLevel(env.LOG_LEVEL),

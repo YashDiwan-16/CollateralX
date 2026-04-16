@@ -97,6 +97,9 @@ The read API serves:
 - `GET /v1/liquidations/history`
 - `GET /v1/oracle/history`
 
+For deployment platforms that inject a dynamic web port, the read API also
+honors the standard `PORT` environment variable when `READ_API_PORT` is unset.
+
 ## Oracle Updates
 
 Static source:
