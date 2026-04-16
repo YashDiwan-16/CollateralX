@@ -1,7 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import { Navbar } from "@/components/layout/navbar"
 import { Sidebar } from "@/components/layout/sidebar"
 import { buttonVariants } from "@/components/ui/button"
+import { useProtocol } from "@/providers/protocol-provider"
+import { formatBps, formatStable, formatUsd } from "@/lib/protocol/math"
 import { cn } from "@/lib/utils"
 
 const features = [
@@ -17,14 +21,29 @@ const howItWorks = [
   { step: "3", title: "Stay safe", desc: "Monitor your ratio. Repay or add collateral to avoid liquidation" },
 ]
 
-const protocolStats = [
-  { label: "Total Value Locked", value: "$4.2M" },
-  { label: "algoUSD Minted", value: "$1.8M" },
-  { label: "Active Vaults", value: "318" },
-  { label: "System Collateral Ratio", value: "231%" },
-]
-
 export default function LandingPage() {
+  const { snapshot, loading, error } = useProtocol()
+  const hasLiveOverviewData = snapshot.mode === "chain"
+  const protocolStats = hasLiveOverviewData
+    ? [
+        { label: "Total Value Locked", value: formatUsd(snapshot.dashboard.tvlMicroUsd) },
+        { label: "algoUSD Minted", value: formatStable(snapshot.dashboard.totalMintedMicroStable) },
+        { label: "Active Vaults", value: snapshot.dashboard.vaultCount.toLocaleString("en-US") },
+        { label: "System Collateral Ratio", value: formatBps(snapshot.dashboard.systemCollateralRatioBps) },
+      ]
+    : [
+        { label: "Total Value Locked", value: "Unavailable" },
+        { label: "algoUSD Minted", value: "Unavailable" },
+        { label: "Active Vaults", value: "Unavailable" },
+        { label: "System Collateral Ratio", value: "Unavailable" },
+      ]
+
+  const statusLabel = hasLiveOverviewData
+    ? `${snapshot.network.toUpperCase()} live · Oracle ${snapshot.oracle.isFresh ? "active" : "stale"}`
+    : loading
+      ? "Loading live protocol data"
+      : "Live protocol data unavailable"
+
   return (
     <div className="flex flex-col h-full">
       <Navbar />
@@ -34,9 +53,21 @@ export default function LandingPage() {
           <div className="max-w-2xl mx-auto px-6 py-12 text-center">
             {/* Hero */}
             <div className="mb-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Mainnet live · Oracle active
+              <div
+                className={cn(
+                  "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mb-5",
+                  hasLiveOverviewData
+                    ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
+                    : "bg-amber-500/10 border border-amber-500/20 text-amber-300"
+                )}
+              >
+                <span
+                  className={cn(
+                    "w-1.5 h-1.5 rounded-full",
+                    hasLiveOverviewData ? "bg-emerald-400 animate-pulse" : "bg-amber-300"
+                  )}
+                />
+                {statusLabel}
               </div>
               <h1 className="text-3xl font-semibold tracking-tight mb-3">
                 Mint stablecoins against<br />ALGO collateral
@@ -64,6 +95,14 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+
+            {!hasLiveOverviewData && (
+              <div className="mb-10 rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-left text-xs text-amber-300">
+                {error
+                  ? `Overview data is unavailable right now: ${error}`
+                  : "This overview page only shows live protocol data. Configure chain access or wait for the latest chain snapshot to load."}
+              </div>
+            )}
 
             {/* Features */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
