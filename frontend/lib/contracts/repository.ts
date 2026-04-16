@@ -47,7 +47,10 @@ function getClients(ctx: RepositoryContext) {
   if (!ctx.config.protocolAppId) throw new Error("Protocol app id is not configured")
 
   const algorand = makeAlgorand(ctx.config, ctx.activeAddress, ctx.transactionSigner)
-  const defaultSenderAddress = toAddress(ctx.activeAddress) ?? algosdk.Address.fromString(DEMO_OWNER_ADDRESS)
+  const defaultSenderAddress =
+    toAddress(ctx.activeAddress) ??
+    toAddress(ctx.config.keeperAddress) ??
+    algosdk.Address.fromString(DEMO_OWNER_ADDRESS)
   const protocol = new CollateralXProtocolManagerFactory({ algorand, defaultSender: defaultSenderAddress }).getAppClientById({
     appId: ctx.config.protocolAppId,
     defaultSender: defaultSenderAddress,
@@ -110,6 +113,7 @@ export async function loadProtocolSnapshot(ctx: RepositoryContext): Promise<Prot
 async function loadChainSnapshot(ctx: RepositoryContext): Promise<ProtocolSnapshot> {
   const { protocol, oracle, stablecoin, defaultSender } = getClients(ctx)
   if (!oracle || !stablecoin) throw new Error("Oracle and stablecoin app ids are required")
+  const snapshotOwner = ctx.activeAddress ?? DEMO_OWNER_ADDRESS
 
   const [status, params, oracleSample, stablecoinState] = await Promise.all([
     protocol.readProtocolStatus(),
@@ -160,7 +164,7 @@ async function loadChainSnapshot(ctx: RepositoryContext): Promise<ProtocolSnapsh
 
   return buildSnapshotFromVaults({
     vaults,
-    owner: defaultSender,
+    owner: snapshotOwner,
     mode: "chain",
     network: ctx.config.network,
     params: protocolParams,
@@ -201,7 +205,8 @@ export async function createVaultOnChain(
   const { protocol } = getClients(ctx)
   const status = await protocol.readProtocolStatus()
   const vaultId = status.nextVaultId
-  const boxReferences = vaultLifecycleBoxes(protocol.appId, ctx.activeAddress!, vaultId)
+  const walletAddressText = walletAddress.toString()
+  const boxReferences = vaultLifecycleBoxes(protocol.appId, walletAddressText, vaultId)
 
   await protocol.newGroup().createVault({ sender: walletAddress, args: [], boxReferences }).simulate({
     skipSignatures: true,
@@ -262,12 +267,13 @@ export async function mintStablecoinOnChain(
     throw new Error("Oracle and stablecoin app ids are required for minting")
   }
   const stableState = await stablecoin.readStablecoinControlState()
+  const walletAddressText = walletAddress.toString()
   const params = {
     sender: walletAddress,
     args: { vaultId, amountMicroStable },
     appReferences: [ctx.config.oracleAppId, ctx.config.stablecoinAppId],
     assetReferences: [stableState.stableAssetId],
-    accountReferences: [ctx.activeAddress!, stablecoin.appAddress.toString()],
+    accountReferences: [walletAddressText, stablecoin.appAddress.toString()],
     boxReferences: [vaultBox(protocol.appId, vaultId)],
     extraFee: microAlgo(2_000),
   }
@@ -318,12 +324,13 @@ export async function withdrawCollateralOnChain(
   const walletAddress = requireWallet(ctx)
   const { protocol } = getClients(ctx)
   if (!ctx.config.oracleAppId) throw new Error("Oracle app id is required for withdrawal checks")
+  const walletAddressText = walletAddress.toString()
   const params = {
     sender: walletAddress,
     args: { vaultId, amountMicroAlgo },
     appReferences: [ctx.config.oracleAppId],
-    accountReferences: [ctx.activeAddress!],
-    boxReferences: vaultLifecycleBoxes(protocol.appId, ctx.activeAddress!, vaultId),
+    accountReferences: [walletAddressText],
+    boxReferences: vaultLifecycleBoxes(protocol.appId, walletAddressText, vaultId),
     extraFee: microAlgo(1_000),
   }
 
@@ -347,6 +354,7 @@ export async function liquidateVaultOnChain(
   if (!vault) throw new Error("Vault not found")
 
   const stableState = await stablecoin.readStablecoinControlState()
+  const walletAddressText = walletAddress.toString()
   const repayment = await algorand.createTransaction.assetTransfer({
     sender: walletAddress,
     receiver: stablecoin.appAddress,
@@ -358,7 +366,7 @@ export async function liquidateVaultOnChain(
     args: { repayment, vaultId },
     appReferences: [ctx.config.oracleAppId, ctx.config.stablecoinAppId],
     assetReferences: [stableState.stableAssetId],
-    accountReferences: [ctx.activeAddress!, vault.owner],
+    accountReferences: [walletAddressText, vault.owner],
     boxReferences: [vaultBox(protocol.appId, vaultId), ownerVaultBox(protocol.appId, vault.owner, vaultId)],
     extraFee: microAlgo(20_000),
   }
