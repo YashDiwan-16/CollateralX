@@ -38,6 +38,11 @@ function makeAlgorand(config: ProtocolConfig, activeAddress?: string | null, sig
     indexer: new algosdk.Indexer(config.indexerToken, config.indexerServer, config.indexerPort),
   })
 
+  // Browser wallet approvals on testnet/mainnet often take longer than the
+  // 10-round default validity window. A slightly wider window avoids benign
+  // "txn dead" failures during multi-step flows like create -> deposit.
+  algorand.setDefaultValidityWindow(config.network === "localnet" ? 1_000 : 50)
+
   const address = toAddress(activeAddress)
   if (address && signer) {
     algorand.setSigner(address, signer)
