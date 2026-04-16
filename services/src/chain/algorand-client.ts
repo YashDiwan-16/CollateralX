@@ -47,8 +47,11 @@ export class AlgorandProtocolClient implements ChainReader, LiquidationExecutor,
 
   constructor(private readonly config: ChainConfig) {
     this.algorand = AlgorandClient.fromClients({
-      algod: new algosdk.Algodv2(config.algodToken, config.algodServer, config.algodPort),
-      indexer: new algosdk.Indexer(config.indexerToken, config.indexerServer, config.indexerPort),
+      // algosdk's Node HTTP client handles omitted HTTPS ports inconsistently
+      // across algod/indexer constructors. Normalize to the empty string so the
+      // SDK keeps the server URL's default port instead of mis-negotiating TLS.
+      algod: new algosdk.Algodv2(config.algodToken, config.algodServer, config.algodPort ?? ""),
+      indexer: new algosdk.Indexer(config.indexerToken, config.indexerServer, config.indexerPort ?? ""),
     })
     this.keeperSigner = signerFromMnemonic(config.keeperMnemonic)
     this.oracleSigner = signerFromMnemonic(config.oracleUpdaterMnemonic)
