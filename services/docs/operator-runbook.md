@@ -43,6 +43,21 @@ Use the resulting app ids and operator account values to populate
 contract package's LocalNet deploy env if you want repeatable `algokit project deploy localnet`
 runs.
 
+For TestNet, create a local `.env.testnet` in the contracts package with at
+least `DEPLOYER_MNEMONIC`. If `KEEPER_MNEMONIC` or `ORACLE_UPDATER_MNEMONIC`
+are omitted, the bootstrap helper safely falls back to the deployer account for
+those roles:
+
+```bash
+cd ../algorand/contracts/projects/contracts
+DOTENV_CONFIG_PATH=.env.testnet pnpm bootstrap:testnet
+```
+
+After deployment, copy the returned app ids plus the chosen operator address
+into [`services/.env`](/Users/yashdiwan/Desktop/CollateralX/services/.env) and
+[`frontend/.env`](/Users/yashdiwan/Desktop/CollateralX/frontend/.env), and set
+their network/endpoints to TestNet.
+
 ## Keeper Safety Defaults
 
 The keeper is safe by default:

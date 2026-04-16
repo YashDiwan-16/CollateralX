@@ -8,6 +8,7 @@
     "deploy": "ts-node-dev --transpile-only --watch .env -r dotenv/config smart_contracts/index.ts",
     "deploy:ci": "ts-node --transpile-only -r dotenv/config smart_contracts/index.ts",
     "bootstrap:localnet": "ts-node-dev --transpile-only --exit-child src/bootstrap-localnet.ts",
+    "bootstrap:testnet": "ts-node-dev --transpile-only --exit-child -r dotenv/config src/bootstrap-testnet.ts",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
