@@ -67,6 +67,10 @@ export function collateralValueMicroStable(collateralMicroAlgo: bigint, pricePer
   return (collateralMicroAlgo * pricePerAlgoMicroUsd) / MICRO_ALGO
 }
 
+export function spendableBalanceMicroAlgo(balanceMicroAlgo: bigint, minBalanceMicroAlgo: bigint) {
+  return balanceMicroAlgo > minBalanceMicroAlgo ? balanceMicroAlgo - minBalanceMicroAlgo : 0n
+}
+
 export function collateralRatioBps(
   collateralMicroAlgo: bigint,
   debtMicroStable: bigint,

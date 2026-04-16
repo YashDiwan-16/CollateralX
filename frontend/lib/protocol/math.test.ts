@@ -8,6 +8,7 @@ import {
   maxMintableMicroStable,
   maxWithdrawableMicroAlgo,
   microToDecimal,
+  spendableBalanceMicroAlgo,
 } from "@/lib/protocol/math"
 import { MICRO_ALGO, MICRO_STABLE } from "@/lib/protocol/constants"
 
@@ -54,5 +55,10 @@ describe("protocol math helpers", () => {
 
   it("formats unix timestamps deterministically for server and browser renders", () => {
     expect(formatUnixTimestampUtc(1_776_275_742n)).toBe("2026-04-15 17:55:42 UTC")
+  })
+
+  it("derives spendable balance above Algorand minimum balance requirements", () => {
+    expect(spendableBalanceMicroAlgo(41_440_000n, 1_990_500n)).toBe(39_449_500n)
+    expect(spendableBalanceMicroAlgo(1_440_000n, 1_990_500n)).toBe(0n)
   })
 })

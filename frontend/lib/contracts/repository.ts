@@ -6,7 +6,7 @@ import {
   createMockSnapshot,
   defaultProtocolParams,
 } from "@/lib/protocol/mock-data"
-import { enrichVault } from "@/lib/protocol/math"
+import { enrichVault, microToDecimal, spendableBalanceMicroAlgo } from "@/lib/protocol/math"
 import type {
   CreateVaultInput,
   ProtocolActionResult,
@@ -26,6 +26,15 @@ interface RepositoryContext {
   config: ProtocolConfig
   activeAddress?: string | null
   transactionSigner?: algosdk.TransactionSigner | null
+}
+
+const BASE_ACTION_FEE_BUFFER_MICROALGO = 5_000n
+const CREATE_WITH_MINT_FEE_BUFFER_MICROALGO = 10_000n
+
+type AccountFundingState = {
+  balanceMicroAlgo: bigint
+  minBalanceMicroAlgo: bigint
+  spendableMicroAlgo: bigint
 }
 
 function toAddress(value?: string | null) {
@@ -95,6 +104,46 @@ function txIdFromResult(result: unknown) {
     shaped.transaction?.txID?.() ??
     shaped.transactions?.[0]?.txID?.() ??
     "submitted"
+  )
+}
+
+function numberishToBigInt(value: number | bigint | undefined) {
+  return value === undefined ? 0n : BigInt(value)
+}
+
+async function readAccountFundingState(algorand: AlgorandClient, address: algosdk.Address): Promise<AccountFundingState> {
+  const accountInfo = (await algorand.client.algod.accountInformation(address.toString()).do()) as {
+    amount?: number | bigint
+    "min-balance"?: number | bigint
+    minBalance?: number | bigint
+  }
+  const balanceMicroAlgo = numberishToBigInt(accountInfo.amount)
+  const minBalanceMicroAlgo = numberishToBigInt(accountInfo.minBalance ?? accountInfo["min-balance"])
+  return {
+    balanceMicroAlgo,
+    minBalanceMicroAlgo,
+    spendableMicroAlgo: spendableBalanceMicroAlgo(balanceMicroAlgo, minBalanceMicroAlgo),
+  }
+}
+
+function algoText(value: bigint) {
+  return `${microToDecimal(value, 6, 6)} ALGO`
+}
+
+async function assertSpendableBalance(args: {
+  algorand: AlgorandClient
+  sender: algosdk.Address
+  requiredMicroAlgo: bigint
+  actionLabel: string
+}) {
+  const funding = await readAccountFundingState(args.algorand, args.sender)
+  if (funding.spendableMicroAlgo >= args.requiredMicroAlgo) return
+
+  throw new Error(
+    `${args.actionLabel} needs ${algoText(args.requiredMicroAlgo)} spendable, but this wallet only has ` +
+      `${algoText(funding.spendableMicroAlgo)} available above the Algorand minimum balance. ` +
+      `Current balance: ${algoText(funding.balanceMicroAlgo)}. Minimum balance: ${algoText(funding.minBalanceMicroAlgo)}. ` +
+      `Deposit less ALGO or top up the wallet first.`
   )
 }
 
@@ -288,11 +337,23 @@ export async function createVaultOnChain(
   input: CreateVaultInput = {}
 ): Promise<ProtocolActionResult> {
   const walletAddress = requireWallet(ctx)
-  const { protocol } = getClients(ctx)
+  const { algorand, protocol } = getClients(ctx)
   const status = await protocol.readProtocolStatus()
   const vaultId = status.nextVaultId
   const walletAddressText = walletAddress.toString()
   const boxReferences = vaultLifecycleBoxes(protocol.appId, walletAddressText, vaultId)
+  const requiredSpendableMicroAlgo =
+    (input.initialCollateralMicroAlgo ?? 0n) +
+    BASE_ACTION_FEE_BUFFER_MICROALGO +
+    ((input.initialCollateralMicroAlgo ?? 0n) > 0n ? BASE_ACTION_FEE_BUFFER_MICROALGO : 0n) +
+    ((input.initialMintMicroStable ?? 0n) > 0n ? CREATE_WITH_MINT_FEE_BUFFER_MICROALGO : 0n)
+
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: requiredSpendableMicroAlgo,
+    actionLabel: "This create-vault flow",
+  })
 
   await protocol.newGroup().createVault({ sender: walletAddress, args: [], boxReferences }).simulate({
     skipSignatures: true,
@@ -325,6 +386,12 @@ export async function depositCollateralOnChain(
 ): Promise<ProtocolActionResult> {
   const walletAddress = requireWallet(ctx)
   const { algorand, protocol } = getClients(ctx)
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: amountMicroAlgo + BASE_ACTION_FEE_BUFFER_MICROALGO,
+    actionLabel: "This collateral deposit",
+  })
   // Transaction args are mutated with a group ID during simulation, so rebuild
   // them for the real submission instead of reusing the simulated object.
   const simulateParams = await buildDepositCollateralParams({
@@ -354,10 +421,16 @@ export async function mintStablecoinOnChain(
   amountMicroStable: bigint
 ): Promise<ProtocolActionResult> {
   const walletAddress = requireWallet(ctx)
-  const { protocol, oracle, stablecoin } = getClients(ctx)
+  const { algorand, protocol, oracle, stablecoin } = getClients(ctx)
   if (!ctx.config.oracleAppId || !ctx.config.stablecoinAppId || !oracle || !stablecoin) {
     throw new Error("Oracle and stablecoin app ids are required for minting")
   }
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: CREATE_WITH_MINT_FEE_BUFFER_MICROALGO,
+    actionLabel: "This mint",
+  })
   const stableState = await stablecoin.readStablecoinControlState()
   const walletAddressText = walletAddress.toString()
   const params = {
@@ -386,6 +459,12 @@ export async function repayStablecoinOnChain(
   if (!ctx.config.stablecoinAppId || !stablecoin) {
     throw new Error("Stablecoin app id is required for repayment")
   }
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: CREATE_WITH_MINT_FEE_BUFFER_MICROALGO,
+    actionLabel: "This repayment",
+  })
   const stableState = await stablecoin.readStablecoinControlState()
   const simulateParams = await buildRepayParams({
     algorand,
@@ -418,8 +497,14 @@ export async function withdrawCollateralOnChain(
   amountMicroAlgo: bigint
 ): Promise<ProtocolActionResult> {
   const walletAddress = requireWallet(ctx)
-  const { protocol } = getClients(ctx)
+  const { algorand, protocol } = getClients(ctx)
   if (!ctx.config.oracleAppId) throw new Error("Oracle app id is required for withdrawal checks")
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: CREATE_WITH_MINT_FEE_BUFFER_MICROALGO,
+    actionLabel: "This collateral withdrawal",
+  })
   const walletAddressText = walletAddress.toString()
   const params = {
     sender: walletAddress,
@@ -446,6 +531,12 @@ export async function liquidateVaultOnChain(
   if (!ctx.config.oracleAppId || !ctx.config.stablecoinAppId || !stablecoin) {
     throw new Error("Oracle and stablecoin app ids are required for liquidation")
   }
+  await assertSpendableBalance({
+    algorand,
+    sender: walletAddress,
+    requiredMicroAlgo: 25_000n,
+    actionLabel: "This liquidation",
+  })
   const vault = snapshot.vaults.find((candidate) => candidate.id === vaultId)
   if (!vault) throw new Error("Vault not found")
 
