@@ -19,6 +19,7 @@
 .cursorrules
 .mcp.json
 CLAUDE.md
+AGENTS.md
 docs/
 !frontend/docs/
 !frontend/docs/**
