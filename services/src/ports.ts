@@ -4,6 +4,7 @@ export interface ChainReader {
   loadProtocolState(): Promise<ProtocolState>
   loadIndexedEvents?(): Promise<IndexedEvent[]>
   getCurrentRound?(): Promise<bigint>
+  getCurrentTimestamp?(): Promise<bigint>
 }
 
 export interface LiquidationExecutor {

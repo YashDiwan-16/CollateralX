@@ -1,15 +1,17 @@
 import algosdk from "algosdk"
+import { createRequire } from "node:module"
 import { AlgorandClient, microAlgo } from "@algorandfoundation/algokit-utils"
 import type { ChainConfig } from "../config"
 import type { ChainReader, LiquidationExecutor, OracleUpdateInput, OracleUpdater } from "../ports"
 import type { ProtocolState, VaultRecord, LiquidationCandidate, TxSubmission, IndexedEvent } from "../domain/types"
 import { ownerVaultBox, vaultBox } from "./boxes"
 import { decodeKnownEventLog } from "./events"
-import { CollateralXProtocolManagerFactory } from "../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_protocol/CollateralXProtocolManagerClient"
-import { CollateralXOracleAdapterFactory } from "../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_oracle/CollateralXOracleAdapterClient"
-import { CollateralXStablecoinControllerFactory } from "../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_stablecoin/CollateralXStablecoinControllerClient"
 
 const ZERO_ADDRESS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5HFKQ"
+const require = createRequire(import.meta.url)
+const { CollateralXProtocolManagerFactory } = require("../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_protocol/CollateralXProtocolManagerClient")
+const { CollateralXOracleAdapterFactory } = require("../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_oracle/CollateralXOracleAdapterClient")
+const { CollateralXStablecoinControllerFactory } = require("../../../algorand/contracts/projects/contracts/smart_contracts/artifacts/collateralx_stablecoin/CollateralXStablecoinControllerClient")
 
 function bytesToUtf8(value: Uint8Array | string) {
   if (typeof value === "string") return value
@@ -20,9 +22,13 @@ function signerFromMnemonic(mnemonic?: string) {
   if (!mnemonic) return undefined
   const account = algosdk.mnemonicToSecretKey(mnemonic)
   return {
-    address: account.addr.toString(),
+    address: account.addr,
     signer: algosdk.makeBasicAccountTransactionSigner(account),
   }
+}
+
+function addressFromString(value?: string) {
+  return value ? algosdk.Address.fromString(value) : undefined
 }
 
 function txIdFromResult(result: unknown) {
@@ -142,6 +148,22 @@ export class AlgorandProtocolClient implements ChainReader, LiquidationExecutor,
     return BigInt(status.lastRound)
   }
 
+  async getCurrentTimestamp() {
+    const status = await this.algorand.client.algod.status().do()
+    const lastRound = Number(status.lastRound)
+    const block = await this.algorand.client.algod.block(lastRound).do() as {
+      block?: {
+        ts?: number | bigint
+        timestamp?: number | bigint
+        header?: { ts?: number | bigint; timestamp?: number | bigint }
+      }
+    }
+    const timestampValue =
+      block.block?.ts ?? block.block?.timestamp ?? block.block?.header?.ts ?? block.block?.header?.timestamp
+    if (timestampValue === undefined) throw new Error("latest block timestamp unavailable")
+    return BigInt(timestampValue)
+  }
+
   async loadIndexedEvents(): Promise<IndexedEvent[]> {
     const appIds = [this.config.protocolAppId, this.config.oracleAppId].filter((id): id is bigint => id !== undefined)
     const results = await Promise.all(appIds.map((appId) => this.loadApplicationEvents(appId)))
@@ -149,7 +171,7 @@ export class AlgorandProtocolClient implements ChainReader, LiquidationExecutor,
   }
 
   async submitLiquidation(candidate: LiquidationCandidate): Promise<TxSubmission> {
-    const sender = this.keeperSigner?.address ?? this.config.keeperAccountAddress
+    const sender = this.keeperSigner?.address ?? addressFromString(this.config.keeperAccountAddress)
     if (!sender) throw new Error("Keeper account is not configured")
     const { protocol, stablecoin } = this.getClients(sender)
     if (!this.config.oracleAppId || !this.config.stablecoinAppId) {
@@ -183,7 +205,7 @@ export class AlgorandProtocolClient implements ChainReader, LiquidationExecutor,
   }
 
   async submitOracleUpdate(input: OracleUpdateInput): Promise<TxSubmission> {
-    const sender = this.oracleSigner?.address ?? this.config.oracleUpdaterAddress
+    const sender = this.oracleSigner?.address ?? addressFromString(this.config.oracleUpdaterAddress)
     if (!sender) throw new Error("Oracle updater account is not configured")
     const { oracle } = this.getClients(sender)
     const params = {
@@ -203,11 +225,15 @@ export class AlgorandProtocolClient implements ChainReader, LiquidationExecutor,
     return { txId: txIdFromResult(result), simulated: this.config.simulateBeforeSubmit }
   }
 
-  private getClients(defaultSender?: string) {
+  private getClients(defaultSender?: string | algosdk.Address) {
     if (!this.config.protocolAppId || !this.config.oracleAppId || !this.config.stablecoinAppId) {
       throw new Error("Protocol, oracle, and stablecoin app ids are required")
     }
-    const sender = defaultSender ?? this.config.keeperAccountAddress ?? this.config.oracleUpdaterAddress ?? ZERO_ADDRESS
+    const sender =
+      defaultSender ??
+      addressFromString(this.config.keeperAccountAddress) ??
+      addressFromString(this.config.oracleUpdaterAddress) ??
+      algosdk.Address.fromString(ZERO_ADDRESS)
 
     const protocol = new CollateralXProtocolManagerFactory({ algorand: this.algorand, defaultSender: sender }).getAppClientById({
       appId: this.config.protocolAppId,

@@ -24,6 +24,10 @@ export class MockChainClient implements ChainReader, LiquidationExecutor, Oracle
     return this.state.oracle.updatedRound + 1n
   }
 
+  async getCurrentTimestamp() {
+    return BigInt(Math.floor(Date.now() / 1000))
+  }
+
   async submitLiquidation(candidate: LiquidationCandidate): Promise<TxSubmission> {
     if (this.failLiquidations > 0) {
       this.failLiquidations -= 1

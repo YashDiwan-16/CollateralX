@@ -28,6 +28,21 @@ STABLECOIN_APP_ID=<stablecoin-controller-app-id>
 LIQUIDATION_APP_ID=<liquidation-executor-app-id>
 ```
 
+For LocalNet, the contract package now includes a bootstrap helper that deploys
+all protocol apps, creates the stablecoin ASA reserve, initializes cross-app
+config, and creates dedicated `KEEPER` / `ORACLE_UPDATER` accounts:
+
+```bash
+cd ../algorand/contracts/projects/contracts
+pnpm bootstrap:localnet
+```
+
+Use the resulting app ids and operator account values to populate
+[`services/.env`](/Users/yashdiwan/Desktop/CollateralX/services/.env),
+[`frontend/.env`](/Users/yashdiwan/Desktop/CollateralX/frontend/.env), and the
+contract package's LocalNet deploy env if you want repeatable `algokit project deploy localnet`
+runs.
+
 ## Keeper Safety Defaults
 
 The keeper is safe by default:

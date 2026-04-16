@@ -27,8 +27,12 @@ export class OracleUpdaterService {
   async runOnce(nowSeconds = BigInt(Math.floor(Date.now() / 1000))): Promise<OracleUpdateResult> {
     const state = await this.chain.loadProtocolState()
     const sourceSample = await this.source.readPrice(state.oracle)
+    const chainNow = await this.chain.getCurrentTimestamp?.() ?? nowSeconds
     const updatedRound = sourceSample.updatedRound ?? await this.chain.getCurrentRound?.() ?? state.oracle.updatedRound + 1n
-    const updatedAt = sourceSample.updatedAt ?? nowSeconds
+    if (sourceSample.updatedAt !== undefined && sourceSample.updatedAt > chainNow) {
+      throw new Error("oracle source timestamp is ahead of current chain time")
+    }
+    const updatedAt = sourceSample.updatedAt ?? chainNow
     const source = sourceSample.source.slice(0, 64)
     const pricePerAlgoMicroUsd = sourceSample.pricePerAlgoMicroUsd
 

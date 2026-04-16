@@ -25,14 +25,19 @@ interface RepositoryContext {
   transactionSigner?: algosdk.TransactionSigner | null
 }
 
+function toAddress(value?: string | null) {
+  return value ? algosdk.Address.fromString(value) : undefined
+}
+
 function makeAlgorand(config: ProtocolConfig, activeAddress?: string | null, signer?: algosdk.TransactionSigner | null) {
   const algorand = AlgorandClient.fromClients({
     algod: new algosdk.Algodv2(config.algodToken, config.algodServer, config.algodPort),
     indexer: new algosdk.Indexer(config.indexerToken, config.indexerServer, config.indexerPort),
   })
 
-  if (activeAddress && signer) {
-    algorand.setSigner(activeAddress, signer)
+  const address = toAddress(activeAddress)
+  if (address && signer) {
+    algorand.setSigner(address, signer)
   }
 
   return algorand
@@ -42,25 +47,25 @@ function getClients(ctx: RepositoryContext) {
   if (!ctx.config.protocolAppId) throw new Error("Protocol app id is not configured")
 
   const algorand = makeAlgorand(ctx.config, ctx.activeAddress, ctx.transactionSigner)
-  const defaultSender = ctx.activeAddress ?? DEMO_OWNER_ADDRESS
-  const protocol = new CollateralXProtocolManagerFactory({ algorand, defaultSender }).getAppClientById({
+  const defaultSenderAddress = toAddress(ctx.activeAddress) ?? algosdk.Address.fromString(DEMO_OWNER_ADDRESS)
+  const protocol = new CollateralXProtocolManagerFactory({ algorand, defaultSender: defaultSenderAddress }).getAppClientById({
     appId: ctx.config.protocolAppId,
-    defaultSender,
+    defaultSender: defaultSenderAddress,
   })
   const oracle =
     ctx.config.oracleAppId &&
-    new CollateralXOracleAdapterFactory({ algorand, defaultSender }).getAppClientById({
+    new CollateralXOracleAdapterFactory({ algorand, defaultSender: defaultSenderAddress }).getAppClientById({
       appId: ctx.config.oracleAppId,
-      defaultSender,
+      defaultSender: defaultSenderAddress,
     })
   const stablecoin =
     ctx.config.stablecoinAppId &&
-    new CollateralXStablecoinControllerFactory({ algorand, defaultSender }).getAppClientById({
+    new CollateralXStablecoinControllerFactory({ algorand, defaultSender: defaultSenderAddress }).getAppClientById({
       appId: ctx.config.stablecoinAppId,
-      defaultSender,
+      defaultSender: defaultSenderAddress,
     })
 
-  return { algorand, protocol, oracle, stablecoin, defaultSender }
+  return { algorand, protocol, oracle, stablecoin, defaultSender: defaultSenderAddress.toString() }
 }
 
 function bytesToUtf8(value: Uint8Array | string) {
@@ -181,27 +186,28 @@ async function loadChainSnapshot(ctx: RepositoryContext): Promise<ProtocolSnapsh
   })
 }
 
-async function requireWallet(ctx: RepositoryContext) {
+function requireWallet(ctx: RepositoryContext) {
   if (!ctx.activeAddress || !ctx.transactionSigner) {
     throw new Error("Connect a wallet before submitting transactions")
   }
+  return algosdk.Address.fromString(ctx.activeAddress)
 }
 
 export async function createVaultOnChain(
   ctx: RepositoryContext,
   input: CreateVaultInput = {}
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { protocol } = getClients(ctx)
   const status = await protocol.readProtocolStatus()
   const vaultId = status.nextVaultId
   const boxReferences = vaultLifecycleBoxes(protocol.appId, ctx.activeAddress!, vaultId)
 
-  await protocol.newGroup().createVault({ sender: ctx.activeAddress!, args: [], boxReferences }).simulate({
+  await protocol.newGroup().createVault({ sender: walletAddress, args: [], boxReferences }).simulate({
     skipSignatures: true,
   })
   const result = await protocol.send.createVault({
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: [],
     boxReferences,
   })
@@ -226,15 +232,15 @@ export async function depositCollateralOnChain(
   vaultId: bigint,
   amountMicroAlgo: bigint
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { algorand, protocol } = getClients(ctx)
   const payment = await algorand.createTransaction.payment({
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     receiver: protocol.appAddress,
     amount: microAlgo(amountMicroAlgo),
   })
   const params = {
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: { vaultId, payment },
     boxReferences: [vaultBox(protocol.appId, vaultId)],
   }
@@ -250,14 +256,14 @@ export async function mintStablecoinOnChain(
   vaultId: bigint,
   amountMicroStable: bigint
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { protocol, oracle, stablecoin } = getClients(ctx)
   if (!ctx.config.oracleAppId || !ctx.config.stablecoinAppId || !oracle || !stablecoin) {
     throw new Error("Oracle and stablecoin app ids are required for minting")
   }
   const stableState = await stablecoin.readStablecoinControlState()
   const params = {
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: { vaultId, amountMicroStable },
     appReferences: [ctx.config.oracleAppId, ctx.config.stablecoinAppId],
     assetReferences: [stableState.stableAssetId],
@@ -277,20 +283,20 @@ export async function repayStablecoinOnChain(
   vaultId: bigint,
   amountMicroStable: bigint
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { algorand, protocol, stablecoin } = getClients(ctx)
   if (!ctx.config.stablecoinAppId || !stablecoin) {
     throw new Error("Stablecoin app id is required for repayment")
   }
   const stableState = await stablecoin.readStablecoinControlState()
   const repayment = await algorand.createTransaction.assetTransfer({
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     receiver: stablecoin.appAddress,
     assetId: stableState.stableAssetId,
     amount: amountMicroStable,
   })
   const params = {
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: { vaultId, repayment },
     appReferences: [ctx.config.stablecoinAppId],
     assetReferences: [stableState.stableAssetId],
@@ -309,11 +315,11 @@ export async function withdrawCollateralOnChain(
   vaultId: bigint,
   amountMicroAlgo: bigint
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { protocol } = getClients(ctx)
   if (!ctx.config.oracleAppId) throw new Error("Oracle app id is required for withdrawal checks")
   const params = {
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: { vaultId, amountMicroAlgo },
     appReferences: [ctx.config.oracleAppId],
     accountReferences: [ctx.activeAddress!],
@@ -332,7 +338,7 @@ export async function liquidateVaultOnChain(
   snapshot: ProtocolSnapshot,
   vaultId: bigint
 ): Promise<ProtocolActionResult> {
-  await requireWallet(ctx)
+  const walletAddress = requireWallet(ctx)
   const { algorand, protocol, stablecoin } = getClients(ctx)
   if (!ctx.config.oracleAppId || !ctx.config.stablecoinAppId || !stablecoin) {
     throw new Error("Oracle and stablecoin app ids are required for liquidation")
@@ -342,13 +348,13 @@ export async function liquidateVaultOnChain(
 
   const stableState = await stablecoin.readStablecoinControlState()
   const repayment = await algorand.createTransaction.assetTransfer({
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     receiver: stablecoin.appAddress,
     assetId: stableState.stableAssetId,
     amount: vault.debtMicroStable,
   })
   const params = {
-    sender: ctx.activeAddress!,
+    sender: walletAddress,
     args: { repayment, vaultId },
     appReferences: [ctx.config.oracleAppId, ctx.config.stablecoinAppId],
     assetReferences: [stableState.stableAssetId],
