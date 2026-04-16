@@ -18,7 +18,7 @@
 .cursor/
 .cursorrules
 .mcp.json
-.CLAUDE.md
+CLAUDE.md
 docs/
 !frontend/docs/
 !frontend/docs/**
